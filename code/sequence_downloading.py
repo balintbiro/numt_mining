@@ -5,6 +5,9 @@ import urllib.request
 
 #create repository for every organisms
 def mkdir(organism_name):
-    parent_dir='../results/'
+    parent_dir='../data/'
     path=os.path.join(parent_dir+organism_name)
     os.mkdir(path)
+    
+organisms=pd.Series(['Oryctolagus_cuniculus'])
+organisms.apply(mkdir)
