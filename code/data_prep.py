@@ -1,5 +1,7 @@
 #importing the required modules
 import os
+import gzip
+import shutil
 import pandas as pd
 import urllib.request   
 
@@ -16,7 +18,7 @@ organisms=pd.Series(['Oryctolagus_cuniculus'])
 organisms.apply(mkdir)
 
 #function for getting the latest genome version and required sequences
-def get_sequences(organism_name):
+def get_data(organism_name):
     #get the latest genome version
     output_dir=os.path.join(f'../data/{organism_name}/')
     filename='CHECKSUMS'
@@ -33,5 +35,7 @@ def get_sequences(organism_name):
     genome_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{genome_name}'
     genome_filepath=output_dir+genome_name
     urllib.request.urlretrieve(genome_url, genome_filepath)
+    with gzip.open(genome_filepath, 'rb')as infile, open(f'../data/{organism_name}/{genome_name[:-3]}', 'wb')as outfile:
+        shutil.copyfileobj(infile, outfile)
     
-organisms.apply(get_sequences)
+organisms.apply(get_data)
