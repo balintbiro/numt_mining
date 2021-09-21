@@ -30,12 +30,8 @@ def get_sequences(organism_name):
         mask=content.apply(lambda line: organism_name in line)
         genome_version=list(content[mask].apply(lambda line: line.split(organism_name+'.')[1].split('.dna')[0]))[0]
     genome_name=f'{organism_name}.{genome_version}.dna.toplevel.fa.gz'
-    mt_name=f'{organism_name}.{genome_version}.dna.chromosome.MT.fa'
     genome_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{genome_name}'
-    mt_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{mt_name}'
     genome_filepath=output_dir+genome_name
-    mt_filepath=output_dir+mt_name
-    #urllib.request.urlretrieve(genome_url, genome_filepath)
-    urllib.request.urlretrieve(mt_url, mt_filepath)
+    urllib.request.urlretrieve(genome_url, genome_filepath)
     
 organisms.apply(get_sequences)
