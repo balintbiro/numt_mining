@@ -26,16 +26,20 @@ def get_data(organism_name):
     checksums_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
     urllib.request.urlretrieve(checksums_url, output_filepath)
     genome_version=''
-    #get the sequences based on the previously acquired genome version
+    #get the genome version
     with open(f'../data/{organism_name}/CHECKSUMS')as infile:
         content=pd.Series(infile.readlines())
         mask=content.apply(lambda line: organism_name in line)
         genome_version=list(content[mask].apply(lambda line: line.split(organism_name+'.')[1].split('.dna')[0]))[0]
+    #download genome sequence based on the previously defined genome version
     genome_name=f'{organism_name}.{genome_version}.dna.toplevel.fa.gz'
     genome_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{genome_name}'
     genome_filepath=output_dir+genome_name
     urllib.request.urlretrieve(genome_url, genome_filepath)
+    #decompress gunzipped genome sequence
     with gzip.open(genome_filepath, 'rb')as infile, open(f'../data/{organism_name}/{genome_name[:-3]}', 'wb')as outfile:
         shutil.copyfileobj(infile, outfile)
-    
+    #remove the gunzipped genome
+    os.remove(genome_filepath) 
+
 organisms.apply(get_data)
