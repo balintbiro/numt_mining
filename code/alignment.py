@@ -19,6 +19,10 @@ def create_r_mt(organism_name):
         r_mt_seq=mt_seq[::-1]
         outfile.write(header)
         outfile.write(r_mt_seq)
+        
+#function for creating LASTAL database for each organisms and align reversed mt dna with nuclear genome
+def align_r_mt(organism_name):
+    
 
 organisms=pd.Series(['Oryctolagus_cuniculus'])
 

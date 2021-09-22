@@ -35,10 +35,10 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
     #download genome sequence based on the previously defined genome version
     if genome=='nuclear':
         filename=f'{organism_name}.{genome_version}.dna.toplevel.fa.gz'
-        filename_short=f'{organism_name}.genome.fa'
+        filename_short='genome.fa'
     elif genome=='mitochondrial':
         filename=f'{organism_name}.{genome_version}.dna.chromosome.MT.fa.gz'
-        filename_short=f'{organism_name}.mt.fa'
+        filename_short='mt.fa'
     url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
     filepath=output_dir+filename
     try:
