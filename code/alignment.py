@@ -47,16 +47,17 @@ def signifcant_alignments(organism_name):
         content[mask].apply(lambda line: e_values.append(float(line.rsplit()[3].split('=')[1])))
     e_values.sort()
     e_threshold=e_values[0]
-    with open(home_dir+'d_mt_alignment.fa')as infile, open(home_dir+'signifcant_alignments.fa','w')as outfile:
+    with open(home_dir+'d_mt_alignment.fa')as infile, open(f'../results/{organism_name}_signifcant_alignments.fa','w')as outfile:
         content=infile.readlines()
         for index, line in enumerate(content):
-            e_value=float(line.rsplit()[3].split('=')[1])
-            g_sequence = content[index + 1]
-            mt_sequence = content[index + 2]
-            if e_value < e_threshold:
-                outfile.write(line)
-                outfile.write(g_sequence)
-                outfile.write(mt_sequence)
-                outfile.write('\n')
+            if 'score' in line:
+                e_value=float(line.rsplit()[3].split('=')[1])
+                g_sequence = content[index + 1]
+                mt_sequence = content[index + 2]
+                if e_value < e_threshold:
+                    outfile.write(line)
+                    outfile.write(g_sequence)
+                    outfile.write(mt_sequence)
+                    outfile.write('\n')
                 
 organisms.apply(signifcant_alignments)
