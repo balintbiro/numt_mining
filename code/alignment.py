@@ -27,7 +27,7 @@ organisms.apply(create_r_mt)
 
 #function for creating LASTAL database for each organisms and align reversed mt dna with nuclear genome
 def align_r_mt(organism_name):
-    call('cd ../data/"${organism_name}"')#change the working directory
+    os.chdir(f'../data/{organism_name}')#change the working directory
     call('lastdb db genome.fa', shell=True)#building database
     call('lastal db r_mt.fa > r_mt_alignment.fa')#align the genome and reversed mt dna into a file called r_mt_alignment.fa
     
