@@ -59,4 +59,4 @@ def signifcant_alignments(organism_name):
                 outfile.write(mt_sequence)
                 outfile.write('\n')
                 
-organism.apply(signifcant_alignments)
+organisms.apply(signifcant_alignments)
