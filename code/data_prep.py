@@ -21,9 +21,9 @@ organisms.apply(mkdir)
 def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
     global problems
     #get the latest genome version
-    output_dir=os.path.join(f'../data/{organism_name}/')
+    output_dir=f'../data/{organism_name}/'
     filename='CHECKSUMS'
-    output_filepath=output_dir+filename
+    output_filepath=os.path.join(output_dir+filename)
     checksums_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
     urllib.request.urlretrieve(checksums_url, output_filepath)
     genome_version=''
