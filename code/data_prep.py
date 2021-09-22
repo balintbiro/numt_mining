@@ -35,14 +35,16 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
     #download genome sequence based on the previously defined genome version
     if genome=='nuclear':
         filename=f'{organism_name}.{genome_version}.dna.toplevel.fa.gz'
+        filename_short=f'{organism_name}.genome.fa'
     elif genome=='mitochondrial':
         filename=f'{organism_name}.{genome_version}.dna.chromosome.MT.fa.gz'
+        filename_short=f'{organism_name}.mt.fa'
     url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
     filepath=output_dir+filename
     try:
         urllib.request.urlretrieve(url, filepath)
         #decompress gunzipped genome sequence
-        with gzip.open(filepath, 'rb')as infile, open(f'../data/{organism_name}/{filename[:-3]}', 'wb')as outfile:
+        with gzip.open(filepath, 'rb')as infile, open(f'../data/{organism_name}/{filename_short}', 'wb')as outfile:
             shutil.copyfileobj(infile, outfile)
         #remove the gunzipped genome
         os.remove(filepath)
