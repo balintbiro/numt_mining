@@ -70,12 +70,12 @@ def handling_exceptions(problems, genome):
 
 #global variable for nuclear problems      
 problems=[]
-organisms.apply(get_mt,args=('nuclear',))
+organisms.apply(get_genome,args=('nuclear',))
 problems=pd.Series(problems)
 problems.apply(handling_exceptions, args=('nuclear',))
 
 #global variable for mitochondrial problems      
 problems=[]
-organisms.apply(get_mt,args=('mitochondrial',))
+organisms.apply(get_genome,args=('mitochondrial',))
 problems=pd.Series(problems)
 problems.apply(handling_exceptions, args=('mitochondrial',))
