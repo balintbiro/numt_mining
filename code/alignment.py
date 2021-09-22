@@ -35,7 +35,7 @@ def align_sequences(organism_name):
     call('lastal db r_mt.fa > r_mt_alignment.fa', shell=True)#align the genome and reversed mt dna into a file called r_mt_alignment.fa
     call('lastal -r1 -q1 -a7 -b1 db d_mt.fa > d_mt_alignment.fa', shell=True)#align the genome and double mt dna into a file called d_mt_alignment.fa
     
-organisms.apply(align_r_mt)
+organisms.apply(align_sequences)
 
 #function for getting the e-value threshold and mask the significant alignments based on that value
 def signifcant_alignments(organism_name):
