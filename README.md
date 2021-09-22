@@ -2,7 +2,12 @@
 
 Pipeline for mining mitochondrial sequences in the nuclear genome. Multiple sequence alignments are done with LASTAL. The LINUX commands for LASTAL are embedded into Python scripts. Nuclear and mitochondrial genomes are acquired from Ensembl genome browser (http://ftp.ensembl.org/pub/release-104/fasta/).
 
-Used Python (3.7.10) modules are the followings (version number is provided if available):
+Used softwares are the followings (version number is provided if available):
+
+- LASTAL
+- Python
+
+Used Python modules are the followings (version number is provided if available):
 
 - os
 - gzip
