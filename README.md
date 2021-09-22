@@ -8,4 +8,5 @@ Used Python modules are the followings (version number is provided if available)
 - gzip
 - shutil
 - pandas (1.2.4)
+- subprocess
 - urllib.request (3.7)
