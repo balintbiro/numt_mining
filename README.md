@@ -4,8 +4,8 @@ Pipeline for mining mitochondrial sequences in the nuclear genome. Multiple sequ
 
 Used softwares are the followings (version number is provided if available):
 
-- LASTAL
-- Python
+- LASTAL (1219)
+- Python (3.7.10)
 
 Used Python modules are the followings (version number is provided if available):
 
