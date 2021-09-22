@@ -36,6 +36,9 @@ def get_data(organism_name):
     genome_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{genome_name}'
     genome_filepath=output_dir+genome_name
     urllib.request.urlretrieve(genome_url, genome_filepath)
+    #download mt sequence based on the previously defined genome version
+    mt_name=f'{organism_name}.{genome_version}.dna.chromosome.fa.gz'
+    mt_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{mt_name}'
     #decompress gunzipped genome sequence
     with gzip.open(genome_filepath, 'rb')as infile, open(f'../data/{organism_name}/{genome_name[:-3]}', 'wb')as outfile:
         shutil.copyfileobj(infile, outfile)
