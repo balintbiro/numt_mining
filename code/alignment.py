@@ -29,6 +29,6 @@ organisms.apply(create_r_mt)
 def align_r_mt(organism_name):
     os.chdir(f'../data/{organism_name}')#change the working directory
     call('lastdb db genome.fa', shell=True)#building database
-    call('lastal db r_mt.fa > r_mt_alignment.fa')#align the genome and reversed mt dna into a file called r_mt_alignment.fa
+    call('lastal db r_mt.fa > r_mt_alignment.fa', shell=True)#align the genome and reversed mt dna into a file called r_mt_alignment.fa
     
 organisms.apply(align_r_mt)
