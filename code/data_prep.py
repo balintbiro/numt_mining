@@ -18,93 +18,64 @@ organisms=pd.Series(['Oryctolagus_cuniculus'])
 organisms.apply(mkdir)
 
 #function for getting genome sequence
-def get_genome(organism_name):
-    global problematic_genomes
+def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
+    global problems
+    #get the latest genome version
+    output_dir=os.path.join(f'../data/{organism_name}/')
+    filename='CHECKSUMS'
+    output_filepath=output_dir+filename
+    checksums_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
+    urllib.request.urlretrieve(checksums_url, output_filepath)
+    genome_version=''
+    #get the latest genome version
+    with open(f'../data/{organism_name}/CHECKSUMS')as infile:
+        content=pd.Series(infile.readlines())
+        mask=content.apply(lambda line: organism_name in line)
+        genome_version=list(content[mask].apply(lambda line: line.split(organism_name+'.')[1].split('.dna')[0]))[0]
+    #download genome sequence based on the previously defined genome version
+    if genome=='nuclear':
+        filename=f'{organism_name}.{genome_version}.dna.toplevel.fa.gz'
+    elif genome=='mitochondrial':
+        filename=f'{organism_name}.{genome_version}.dna.chromosome.MT.fa.gz'
+    url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
+    filepath=output_dir+filename
     try:
-        #get the latest genome version
-        output_dir=os.path.join(f'../data/{organism_name}/')
-        filename='CHECKSUMS'
-        output_filepath=output_dir+filename
-        checksums_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
-        urllib.request.urlretrieve(checksums_url, output_filepath)
-        genome_version=''
-        #get the genome version
-        with open(f'../data/{organism_name}/CHECKSUMS')as infile:
-            content=pd.Series(infile.readlines())
-            mask=content.apply(lambda line: organism_name in line)
-            genome_version=list(content[mask].apply(lambda line: line.split(organism_name+'.')[1].split('.dna')[0]))[0]
-        #download genome sequence based on the previously defined genome version
-        genome_name=f'{organism_name}.{genome_version}.dna.toplevel.fa.gz'
-        genome_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{genome_name}'
-        genome_filepath=output_dir+genome_name
-        urllib.request.urlretrieve(genome_url, genome_filepath)
+        urllib.request.urlretrieve(url, filepath)
         #decompress gunzipped genome sequence
-        with gzip.open(genome_filepath, 'rb')as infile, open(f'../data/{organism_name}/{genome_name[:-3]}', 'wb')as outfile:
+        with gzip.open(filepath, 'rb')as infile, open(f'../data/{organism_name}/{filename[:-3]}', 'wb')as outfile:
             shutil.copyfileobj(infile, outfile)
         #remove the gunzipped genome
-        os.remove(genome_filepath)
+        os.remove(filepath)
     except:
-        problematic_genomes.append(organism_name)
-    
-#function for getting mt sequence
-def get_mt(organism_name):
-    global problematic_mts
-    try:
-        #get the latest genome version
-        output_dir=os.path.join(f'../data/{organism_name}/')
-        filename='CHECKSUMS'
-        output_filepath=output_dir+filename
-        checksums_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
-        urllib.request.urlretrieve(checksums_url, output_filepath)
-        genome_version=''
-        #get the genome version
-        with open(f'../data/{organism_name}/CHECKSUMS')as infile:
-            content=pd.Series(infile.readlines())
-            mask=content.apply(lambda line: organism_name in line)
-            genome_version=list(content[mask].apply(lambda line: line.split(organism_name+'.')[1].split('.dna')[0]))[0]
-        #download mt sequence based on the previously defined genome version
-        mt_name=f'{organism_name}.{genome_version}.dna.chromosome.MT.fa.gz'
-        mt_url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{mt_name}'
-        mt_filepath=output_dir+mt_name
-        urllib.request.urlretrieve(mt_url, mt_filepath)
-        #decompress gunzipped mt sequence
-        with gzip.open(mt_filepath, 'rb')as infile, open(f'../data/{organism_name}/{mt_name[:-3]}', 'wb')as outfile:
-            shutil.copyfileobj(infile, outfile) 
-        #remove the gunzipped mt
-        os.remove(mt_filepath)
-    except:
-        problematic_mts.append(organism_name)
+        problems.append(organism_name)
 
-#global variable for problematic genomes      
-problematic_genomes=[]
-organisms.apply(get_genome)
-#handling problematic genomes
-if len(problematic_genomes)!=0:
-    problematic_genomes=pd.Series(problematic_genomes)
-    report_dir='../results/problem_reports/'
-    if os.path.exists(report_dir):
-        with open(os.path.join(report_dir)+'problematic_genomes.txt','w')as output:
-            problemtic_genomes.apply(lambda organism_name: output.write(organism_name+'\n'))
+#function for writing problematic organisms
+def handling_exceptions(problems, genome):
+    if len(problems)==0:
+        pass
     else:
-        os.mkdir(report_dir)
-        with open(os.path.join(report_dir)+'problematic_genomes.txt','w')as output:
-            problemtic_genomes.apply(lambda organism_name: output.write(organism_name+'\n'))
-else:
-    pass
-            
-#global variable for problematic mts      
-problematic_mts=[]
-organisms.apply(get_mt)
-#handling problemtic mts
-if len(problematic_mts)!=0:
-    problematic_mts=pd.Series(problematic_mts)
-    report_dir='../results/problem_reports/'
-    if os.path.exists(report_dir):
-        with open(os.path.join(report_dir)+'problematic_mts.txt','w')as output:
-            problemtic_mts.apply(lambda organism_name: output.write(organism_name+'\n'))
-    else:
-        os.mkdir(report_dir)
-        with open(os.path.join(report_dir)+'problematic_mts.txt','w')as output:
-            problemtic_mts.apply(lambda organism_name: output.write(organism_name+'\n'))
-else:
-    pass
+        report_dir='../results/problem_reports/'
+        filename=''
+        if genome=='nuclear':
+            filename='problematic_genomes.txt'
+        elif genome=='mitochondrial':
+            filename='problematic_mts.txt'
+        if os.path.exists(report_dir):
+            with open(os.path.join(report_dir)+filename,'w')as output:
+                problems.apply(lambda organism_name: output.write(organism_name+'\n'))
+        else:
+            os.mkdir(report_dir)
+            with open(os.path.join(report_dir)+filename,'w')as output:
+                problems.apply(lambda organism_name: output.write(organism_name+'\n'))
+
+#global variable for nuclear problems      
+problems=[]
+organisms.apply(get_mt,args=('nuclear',))
+problems=pd.Series(problems)
+problems.apply(handling_exceptions, args=('nuclear',))
+
+#global variable for mitochondrial problems      
+problems=[]
+organisms.apply(get_mt,args=('mitochondrial',))
+problems=pd.Series(problems)
+problems.apply(handling_exceptions, args=('mitochondrial',))
