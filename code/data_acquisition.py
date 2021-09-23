@@ -13,8 +13,10 @@ def mkdir(organism_name):
         pass
     else:
         os.mkdir(path)
-    
-organisms=pd.Series(['Oryctolagus_cuniculus'])
+
+#get the organism names
+with open('../data/organism_names.txt')as infile:
+    organisms=pd.Series(infile.readlines()[0].split(','))
 organisms.apply(mkdir)
 
 #function for getting genome sequence
