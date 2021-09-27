@@ -3,6 +3,10 @@ import os
 import pandas as pd
 from subprocess import call
 
+#get the organism names
+with open('../data/organism_names.txt')as infile:
+    organisms=pd.Series(infile.readlines()[0].split(','))
+
 #function for writing reversed and double mt sequence
 def mt_versions(organism_name):
     organism_dir=os.path.join(f'../data/{organism_name}/')
@@ -22,10 +26,6 @@ def mt_versions(organism_name):
         d_mt_seq=2*mt_seq
         d_outfile.write(header)
         d_outfile.write(d_mt_seq)
-
-#get the organism names
-with open('../data/organism_names.txt')as infile:
-    organisms=pd.Series(infile.readlines()[0].split(','))
 
 
 organisms.apply(mt_versions)
