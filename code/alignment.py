@@ -49,8 +49,7 @@ def signifcant_alignments(organism_name):
         content[mask].apply(lambda line: e_values.append(float(line.rsplit()[3].split('=')[1])))
     e_values.sort()
     e_threshold=e_values[0]
-    with open(f'/home/birobalint/numt_mining/data/{organism_name}/d_mt_alignment.fa')as infile,
-    open(f'/home/birobalint/numt_mining/results/{organism_name}_signifcant_alignments.fa','w')as outfile:
+    with open(f'/home/birobalint/numt_mining/data/{organism_name}/d_mt_alignment.fa')as infile, open(f'/home/birobalint/numt_mining/results/{organism_name}_signifcant_alignments.fa','w')as outfile:
         content=infile.readlines()
         for index, line in enumerate(content):
             if 'score' in line:
