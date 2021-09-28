@@ -32,10 +32,7 @@ organisms.apply(mt_versions)
 
 #function for creating LASTAL database for each organisms and align reversed mt dna with nuclear genome
 def align_sequences(organism_name):
-    if organism_name==organisms[0]:
-        os.chdir(f'../data/{organism_name}')#change the working directory
-    else:
-        os.chdir(f'../{organism_name}')
+    os.chdir(f'/home/birobalint/numt_mining/data/{organism_name}')#change the working directory
     call('lastdb db genome.fa', shell=True)#building database
     call('lastal db r_mt.fa > r_mt_alignment.fa', shell=True)#align the genome and reversed mt dna into a file called r_mt_alignment.fa
     call('lastal -r1 -q1 -a7 -b1 db d_mt.fa > d_mt_alignment.fa', shell=True)#align the genome and double mt dna into a file called d_mt_alignment.fa
@@ -44,18 +41,16 @@ organisms.apply(align_sequences)
 
 #function for getting the e-value threshold and mask the significant alignments based on that value
 def signifcant_alignments(organism_name):
-    if organism_name==organisms[0]:
-        os.chdir(f'../data/{organism_name}')#change the working directory
-    else:
-        os.chdir(f'../{organism_name}')
+    os.chdir(f'/home/birobalint/numt_mining/data/{organism_name}')#change the working directory
     e_values=[]
-    with open(f'../{organism_name}/r_mt_alignment.fa')as infile:
+    with open(f'/home/birobalint/numt_mining/data/{organism_name}/r_mt_alignment.fa')as infile:
         content=pd.Series(infile.readlines())
         mask=content.apply(lambda line: 'EG2' in line)
         content[mask].apply(lambda line: e_values.append(float(line.rsplit()[3].split('=')[1])))
     e_values.sort()
     e_threshold=e_values[0]
-    with open('d_mt_alignment.fa')as infile, open(f'../results/{organism_name}_signifcant_alignments.fa','w')as outfile:
+    with open(f'/home/birobalint/numt_mining/data/{organism_name}/d_mt_alignment.fa')as infile,
+    open(f'/home/birobalint/numt_mining/results/{organism_name}_signifcant_alignments.fa','w')as outfile:
         content=infile.readlines()
         for index, line in enumerate(content):
             if 'score' in line:
