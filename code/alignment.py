@@ -63,5 +63,6 @@ def signifcant_alignments(organism_name):
                         outfile.write(mt_sequence)
                         outfile.write('\n')
     except IndexError:
-        print(organism_name)
+        print('Problem occurred during LASTAL db creating 'organism_name)
+
 organisms.apply(signifcant_alignments)
