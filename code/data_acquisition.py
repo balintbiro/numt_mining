@@ -54,33 +54,17 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
             shutil.copyfileobj(infile, outfile)
         #remove the gunzipped genome
         os.remove(filepath)
-    except:
-        problems.append(organism_name)
-
-#function for writing problematic organisms
-def handling_exceptions(problematic_organism):
-    if len(problems)==0:
-        pass
-    else:
-        report_dir='../results/problem_reports/'
-        filename='problematic_organisms.txt'
-        if os.path.exists(report_dir):
-            with open(os.path.join(report_dir)+filename,'w')as output:
-                output.write(problematic_organism+',')
+    except:#exception handling, append organism name to a problem report file
+        report_filepath='../data/problematic_organisms.txt'
+        if os.path.exists(report_filepath):
+            with open(report_filepath,'a')as output:
+                output.write(organism_name+',')
         else:
-            os.mkdir(report_dir)
-            with open(os.path.join(report_dir)+filename,'w')as output:
-                output.write(problematic_organism+',')
-
-#global variable problems      
-problems=[]
+            with open(report_filepath,'w')as output:
+                output.write(organism_name+',')
 
 #get nuclear genomes
 organisms.apply(get_genome,args=('nuclear',))
 
 #get mt genomes
 organisms.apply(get_genome,args=('mitochondrial',))
-
-#write problems
-problems=pd.Series(problems)
-problems.apply(handling_exceptions)
