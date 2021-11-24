@@ -40,10 +40,11 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
         filename_short='genome.fa'
     elif genome=='mitochondrial':
         filename=f'{organism_name}.{genome_version}.dna.chromosome.MT.fa.gz'
+        alt_filename=f'{organism_name}.{genome_version}.primary_assembly.mitochondrion_genome.fa.gz'
         filename_short='mt.fa'
-    url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
-    filepath=output_dir+filename
     try:
+        url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
+        filepath=output_dir+filename
         urllib.request.urlretrieve(url, filepath)
         #decompress gunzipped genome sequence
         with gzip.open(filepath, 'rb')as infile, open(f'../data/{organism_name}/{filename_short}', 'wb')as outfile:
@@ -51,7 +52,17 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
         #remove the gunzipped genome
         os.remove(filepath)
     except:
-        problems.append(organism_name)
+        try:
+            url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{alt_filename}'
+            filepath=output_dir+alt_filename
+            urllib.request.urlretrieve(url, filepath)
+            #decompress gunzipped genome sequence
+            with gzip.open(filepath, 'rb')as infile, open(f'../data/{organism_name}/{filename_short}', 'wb')as outfile:
+                shutil.copyfileobj(infile, outfile)
+            #remove the gunzipped genome
+            os.remove(filepath)
+        except:
+            problems.append(organism_name)
 
 #function for writing problematic organisms
 def handling_exceptions(problem, genome):
