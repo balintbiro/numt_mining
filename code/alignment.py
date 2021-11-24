@@ -3,9 +3,21 @@ import os
 import pandas as pd
 from subprocess import call
 
-#get the organism names
+#get the original organism names
 with open('../data/organism_names.txt')as infile:
-    organisms=pd.Series(infile.readlines()[0].split(','))
+    default_organisms=pd.Series(infile.readlines()[0].split(','))
+
+#get the organism names that have problem(s)
+problems_filepath='../data/problematic_organisms.txt'
+problematic_organisms=[]
+if os.path.exists(problems_filepath):
+    with open(problems_filepath)as infile:
+        problematic_organisms=pd.Series(infile.readlines()[0].split(','))
+else:
+    pass
+    
+#get the organisms that have mt and g genomes too
+organisms=pd.Series(list(set(default_organisms)-set(problematic_organisms)))
 
 #function for writing reversed and double mt sequence
 def mt_versions(organism_name):
@@ -32,7 +44,7 @@ organisms.apply(mt_versions)
 
 #function for creating LASTAL database for each organisms and align reversed mt dna with nuclear genome
 def align_sequences(organism_name):
-    os.chdir(f'/home/birobalint/numt_mining/data/{organism_name}')#change the working directory
+    os.chdir(f'../data/{organism_name}/')#change the working directory
     call('lastdb db genome.fa', shell=True)#building database
     call('lastal db r_mt.fa > r_mt_alignment.fa', shell=True)#align the genome and reversed mt dna into a file called r_mt_alignment.fa
     call('lastal -r1 -q1 -a7 -b1 db d_mt.fa > d_mt_alignment.fa', shell=True)#align the genome and double mt dna into a file called d_mt_alignment.fa
@@ -41,16 +53,16 @@ organisms.apply(align_sequences)
 
 #function for getting the e-value threshold and mask the significant alignments based on that value
 def signifcant_alignments(organism_name):
-    os.chdir(f'/home/birobalint/numt_mining/data/{organism_name}')#change the working directory
+    os.chdir('../../code/')#change the working directory
     e_values=[]
-    with open(f'/home/birobalint/numt_mining/data/{organism_name}/r_mt_alignment.fa')as infile:
+    with open(f'../data/{organism_name}/r_mt_alignment.fa')as infile:
         content=pd.Series(infile.readlines())
         mask=content.apply(lambda line: 'EG2' in line)
         content[mask].apply(lambda line: e_values.append(float(line.rsplit()[3].split('=')[1])))
     e_values.sort()
     try:
         e_threshold=e_values[0]
-        with open(f'/home/birobalint/numt_mining/data/{organism_name}/d_mt_alignment.fa')as infile, open(f'/home/birobalint/numt_mining/results/{organism_name}_signifcant_alignments.fa','w')as outfile:
+        with open(f'../data/{organism_name}/d_mt_alignment.fa')as infile, open(f'../results/{organism_name}_signifcant_alignments.fa','w')as outfile:
             content=infile.readlines()
             for index, line in enumerate(content):
                 if 'score' in line:
@@ -63,6 +75,12 @@ def signifcant_alignments(organism_name):
                         outfile.write(mt_sequence)
                         outfile.write('\n')
     except IndexError:
-        print('Problem occurred during LASTAL db creating 'organism_name)
+        lastal_problem_report='../data/lastal_problems.txt'
+        if os.path.exists(lastal_problem_report):
+            with open(lastal_problem_report,'a')as output:
+                output.write(organism_name+',')
+        else:
+            with open(lastal_problem_report,'w')as output:
+                output.write(organism_name+',')
 
 organisms.apply(signifcant_alignments)
