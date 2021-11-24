@@ -1,1 +1,1 @@
-Oryctolagus_cuniculus,Homo_sapiens
+Mus_musculus,Drosophila_melanogaster
