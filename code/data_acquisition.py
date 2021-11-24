@@ -54,7 +54,7 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
         problems.append(organism_name)
 
 #function for writing problematic organisms
-def handling_exceptions(problems, genome):
+def handling_exceptions(problem, genome):
     if len(problems)==0:
         pass
     else:
@@ -66,11 +66,11 @@ def handling_exceptions(problems, genome):
             filename='problematic_mts.txt'
         if os.path.exists(report_dir):
             with open(os.path.join(report_dir)+filename,'w')as output:
-                problems.apply(lambda organism_name: output.write(organism_name+'\n'))
+                output.write(f'No available {genome} genome for {problem}\n')
         else:
             os.mkdir(report_dir)
             with open(os.path.join(report_dir)+filename,'w')as output:
-                problems.apply(lambda organism_name: output.write(organism_name+'\n'))
+                output.write(f'No available {genome} genome for {problem}\n')
 
 #global variable for nuclear problems      
 problems=[]
