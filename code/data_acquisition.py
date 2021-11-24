@@ -58,32 +58,29 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
         problems.append(organism_name)
 
 #function for writing problematic organisms
-def handling_exceptions(problem, genome):
+def handling_exceptions(problematic_organism):
     if len(problems)==0:
         pass
     else:
         report_dir='../results/problem_reports/'
-        filename=''
-        if genome=='nuclear':
-            filename='problematic_genomes.txt'
-        elif genome=='mitochondrial':
-            filename='problematic_mts.txt'
+        filename='problematic_organisms.txt'
         if os.path.exists(report_dir):
             with open(os.path.join(report_dir)+filename,'w')as output:
-                output.write(f'No available {genome} genome for {problem}\n')
+                output.write(problematic_organism+',')
         else:
             os.mkdir(report_dir)
             with open(os.path.join(report_dir)+filename,'w')as output:
-                output.write(f'No available {genome} genome for {problem}\n')
+                output.write(problematic_organism+',')
 
-#global variable for nuclear problems      
+#global variable problems      
 problems=[]
+
+#get nuclear genomes
 organisms.apply(get_genome,args=('nuclear',))
-problems=pd.Series(problems)
-problems.apply(handling_exceptions, args=('nuclear',))
 
-#global variable for mitochondrial problems      
-problems=[]
+#get mt genomes
 organisms.apply(get_genome,args=('mitochondrial',))
+
+#write problems
 problems=pd.Series(problems)
-problems.apply(handling_exceptions, args=('mitochondrial',))
+problems.apply(handling_exceptions)
