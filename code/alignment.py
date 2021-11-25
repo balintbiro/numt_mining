@@ -56,7 +56,10 @@ organisms.apply(align_sequences)
 
 #function for getting the e-value threshold and mask the significant alignments based on that value
 def signifcant_alignments(organism_name):
-    os.chdir('../../code/')#change the working directory
+    try:
+        os.chdir('../../code/')#change the working directory
+    except FileNotFoundError:#compiler is already in 'code/' directory
+        pass
     e_values=[]
     with open(f'../data/{organism_name}/r_mt_alignment.fa')as infile:
         content=pd.Series(infile.readlines())
