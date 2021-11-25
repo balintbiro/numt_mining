@@ -17,6 +17,8 @@ In this file the latin names of the organisms should be provided with capital fi
 Used softwares are the followings (version number is provided if available):
 
 - LASTAL (1219)
+	- https://github.com/UCSantaCruzComputationalGenomicsLab/last/blob/master/doc/lastal.txt
+	- http://last.cbrc.jp/doc/lastal.txt
 - Python (3.7.10)
 
 Used Python modules are the followings (version number is provided if available):
