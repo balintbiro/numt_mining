@@ -51,15 +51,12 @@ def align_sequences(organism_name):
     call('lastdb db genome.fa', shell=True)#building database
     call('lastal db r_mt.fa > r_mt_alignment.fa', shell=True)#align the genome and reversed mt dna into a file called r_mt_alignment.fa
     call('lastal -r1 -q1 -a7 -b1 db d_mt.fa > d_mt_alignment.fa', shell=True)#align the genome and double mt dna into a file called d_mt_alignment.fa
+    os.chdir('../../code/')#change back to the default 'code/' directory
     
 organisms.apply(align_sequences)
 
 #function for getting the e-value threshold and mask the significant alignments based on that value
 def signifcant_alignments(organism_name):
-    try:
-        os.chdir('../../code/')#change the working directory
-    except FileNotFoundError:#compiler is already in 'code/' directory
-        pass
     e_values=[]
     with open(f'../data/{organism_name}/r_mt_alignment.fa')as infile:
         content=pd.Series(infile.readlines())
