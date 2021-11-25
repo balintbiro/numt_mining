@@ -46,7 +46,7 @@ organisms.apply(mt_versions)
 def align_sequences(organism_name):
     try:
         os.chdir(f'../data/{organism_name}/')#change the working directory for first organism
-    else:
+    except FileNotFoundError:
         os.chdir(f'../{organism_name}/')#change the working directory for every other organisms
     call('lastdb db genome.fa', shell=True)#building database
     call('lastal db r_mt.fa > r_mt_alignment.fa', shell=True)#align the genome and reversed mt dna into a file called r_mt_alignment.fa
