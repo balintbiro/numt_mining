@@ -12,8 +12,6 @@ problematic_organisms=[]
 if os.path.exists(problems_filepath):
     with open(problems_filepath)as infile:
         problematic_organisms=pd.Series(infile.readlines()[0].split(','))
-else:
-    pass
     
 #get the organisms that have mt and g genomes too
 organisms=pd.Series(list(set(default_organisms)-set(problematic_organisms)))
