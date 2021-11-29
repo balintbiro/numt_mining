@@ -19,29 +19,6 @@ else:
 #get the organisms that have mt and g genomes too
 organisms=pd.Series(list(set(default_organisms)-set(problematic_organisms)))
 
-#function for writing reversed and double mt sequence
-def mt_versions(organism_name):
-    organism_dir=os.path.join(f'../data/{organism_name}/')
-    mt_filename='mt.fa'
-    mt_path=organism_dir+mt_filename
-    header=''
-    mt_seq=''
-    with open(mt_path)as infile, open(organism_dir+'r_mt.fa','w')as r_outfile, open(organism_dir+'d_mt.fa','w')as d_outfile:
-        for line in infile:
-            if '>' in line:
-                header=line
-            else:
-                mt_seq+=line[:-1]
-        r_mt_seq=mt_seq[::-1]
-        r_outfile.write(header)
-        r_outfile.write(r_mt_seq)
-        d_mt_seq=2*mt_seq
-        d_outfile.write(header)
-        d_outfile.write(d_mt_seq)
-
-
-organisms.apply(mt_versions)
-
 #function for creating LASTAL database for each organisms and align reversed mt dna with nuclear genome
 def align_sequences(organism_name):
     try:
