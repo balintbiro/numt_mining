@@ -9,9 +9,7 @@ import urllib.request
 def mkdir(organism_name):
     parent_dir='../data/'
     path=os.path.join(parent_dir+organism_name)
-    if os.path.exists(path):
-        pass
-    else:
+    if os.path.exists(path)==False:
         os.mkdir(path)
 
 #get the organism names
