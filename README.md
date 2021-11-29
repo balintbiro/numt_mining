@@ -38,11 +38,13 @@ data_acquisition.py
 - If no gDNA and/or mtDNA available, a subfolder called problem_reports with the organism name will be created inside the results folder.
 Separated txt files will be written in the problem reports folder with the corresponding organism names.
 
+duplicate_mt.py
+
+- Get the mitochondrial sequence from mt.fa and create a duplicated version (d_mt) of it
+- Write the d_mt.fa file
+
 alignment.py
 
 - Create mtDNA permutations (reversed and doubled).
 - Build the required LASTAL database.
-- Do the alignment between gDNA and reversed mtDNA.
-- Get the e-value threshold.
 - Align double mtDNA and gDNA.
-- Filter the alignment based on the precomputed e-value threshold.
