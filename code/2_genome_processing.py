@@ -1,6 +1,7 @@
 #import the required modules
 import os
 import filecmp
+import pandas as pd
 from subprocess import call
 
 #get the original organism names
