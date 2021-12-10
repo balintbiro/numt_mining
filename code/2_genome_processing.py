@@ -30,4 +30,4 @@ def process_genome(organism_name):
         call("""sed -i '/^-/d' genome.fa""", shell=True)##delete the line starting with '-' sign which is is introduced by grep command
     os.chdir('../../code/')#change back to the default 'code/' directory
     
-organisms.apply(align_sequences)
+organisms.apply(process_genome)
