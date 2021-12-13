@@ -52,7 +52,7 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
             shutil.copyfileobj(infile, outfile)
         #remove the gunzipped genome
         os.remove(filepath)
-        print(f'The {genome} of {organism_name} successfully downloaded!')
+        print(f'The {genome} genome of {organism_name} has successfully downloaded!')
     except:#exception handling
         report_filepath='../data/problematic_organisms.txt'
         if os.path.exists(report_filepath):
@@ -61,7 +61,7 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
         else:
             with open(report_filepath,'w')as output:
                 output.write(organism_name+',')
-        print(f'The {genome} of {organism_name} could not be downloaded! The problem will also be reported in the ../data/problematic_organisms.txt file')
+        print(f'The {genome} genome of {organism_name} could not be downloaded! The problem will also be reported in the ../data/problematic_organisms.txt file')
 
 #get nuclear genomes
 organisms.apply(get_genome,args=('nuclear',))
