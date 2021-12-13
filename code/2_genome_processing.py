@@ -26,7 +26,10 @@ def process_genome(organism_name):
         os.chdir(f'../{organism_name}/')#change the working directory for every other organisms
     call("""grep -E '>' genome.fa > headers.txt""", shell=True)#get all the headers from the genome
     call("""grep -E '>*REF' headers.txt > ref_headers.txt""", shell=True)#get the reference headers
-    if filecmp.cmp('headers.txt','ref_headers.txt')==False:#that means that there are alternative headers
+    if filecmp.cmp('headers.txt','ref_headers.txt')==True:
+        print(f'There are no alternative contigs in the nuclear genome of {organism_name}!')
+    else:#that means that there are alternative headers
+        print(f'The nuclear genome of {organism_name} contains alternative contigs!')
         os.rename('genome.fa','alt_genome.fa')#rename the original genome.fa file to alt_genome.fa which contains the alternative sequences
         
         with open('alt_genome.fa')as infile, open('processed_genome.fa','w')as outfile: #transform alt_genome to one liner form
