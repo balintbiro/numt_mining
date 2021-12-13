@@ -29,7 +29,7 @@ def process_genome(organism_name):
     if filecmp.cmp('headers.txt','ref_headers.txt')==True:
         print(f'There are no alternative contigs in the nuclear genome of {organism_name}!')
     else:#that means that there are alternative headers
-        print(f'The nuclear genome of {organism_name} contains alternative contigs!')
+        print(f'The nuclear genome of {organism_name} contains alternative contigs! These contigs need to be removed for the alignment. This will take some time!')
         os.rename('genome.fa','alt_genome.fa')#rename the original genome.fa file to alt_genome.fa which contains the alternative sequences
         
         with open('alt_genome.fa')as infile, open('processed_genome.fa','w')as outfile: #transform alt_genome to one liner form
