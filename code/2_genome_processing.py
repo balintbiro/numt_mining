@@ -26,7 +26,7 @@ def process_genome(organism_name):
     if filecmp.cmp('headers.txt','ref_headers.txt')==False:#that means that there are alternative headers
         os.rename('genome.fa','alt_genome.fa')#rename the original genome.fa file to alt_genome.fa which contains the alternative sequences
         
-        with open('alt_genome.fa')as infile, open('alt_genome.fa','w')as outfile: #transform alt_genome to one liner form
+        with open('alt_genome.fa')as infile, open('processed_genome.fa','w')as outfile: #transform alt_genome to one liner form
             for line in alt_genome:
                 if '>' in line:
                     outfile.write('\n')
