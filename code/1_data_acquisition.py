@@ -46,7 +46,7 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
     try:
         url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
         filepath=output_dir+filename
-        print(f'Downloading {genome} genome of {organism_name}...'
+        print(f'Downloading {genome} genome of {organism_name}...')
         urllib.request.urlretrieve(url, filepath)
         print(f'The {genome} genome of {organism_name} has successfully downloaded!')
         #decompress gunzipped genome sequence
