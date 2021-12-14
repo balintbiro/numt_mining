@@ -46,13 +46,16 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
     try:
         url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
         filepath=output_dir+filename
+        print(f'Downloading {genome} genome of {organism_name}...'
         urllib.request.urlretrieve(url, filepath)
+        print(f'The {genome} genome of {organism_name} has successfully downloaded!')
         #decompress gunzipped genome sequence
+        print(f'Decompressing {genome} genome file of {organism_name}...'
         with gzip.open(filepath, 'rb')as infile, open(f'../data/{organism_name}/{filename_short}', 'wb')as outfile:
             shutil.copyfileobj(infile, outfile)
+        print(f'The {genome} genom file of {organism_name} has been succesfully decompressed!')
         #remove the gunzipped genome
         os.remove(filepath)
-        print(f'The {genome} genome of {organism_name} has successfully downloaded!')
     except:#exception handling
         report_filepath='../data/problematic_organisms.txt'
         if os.path.exists(report_filepath):

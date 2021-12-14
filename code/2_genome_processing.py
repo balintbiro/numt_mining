@@ -43,7 +43,7 @@ def process_genome(organism_name):
         call("""grep -f ref_headers.txt -A1 processed_genome.fa > genome.fa""", shell=True)#get the reference sequences based on the reference headers in the ref_headers.txt file
         call("""sed -i '/^-/d' genome.fa""", shell=True)##delete the line starting with '-' sign which is is introduced by grep command
         call("""rm alt_genome.fa processed_genome.fa""", shell=True)#remove the unnecessary genome files
-        print(f'The alternative contigs from the genome of {organism_name} were successfully removed!')
+        print(f'The alternative contigs from the genome of {organism_name} were successfully removed! The files are ready for LASTAL.')
     os.chdir('../../code/')#change back to the default 'code/' directory
     
 organisms.apply(process_genome)

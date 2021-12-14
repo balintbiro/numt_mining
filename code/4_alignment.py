@@ -20,7 +20,9 @@ organisms=pd.Series(list(set(default_organisms)-set(problematic_organisms)))
 #function for creating LASTAL database for each organisms and align reversed mt dna with nuclear genome
 def align_sequences(organism_name):
     os.chdir(f'../data/{organism_name}/')#change the working directory for first organism
+    print(f'Building LASTAL database for {organism_name}...'
     call('lastdb db genome.fa', shell=True)#building database
+    print(f'LASTAL database for {organism_name} has been successfully built!')
     call('lastal -r1 -q1 -a7 -b1 db d_mt.fa > d_mt_alignment.fa', shell=True)#align the genome and double mt dna into a file called d_mt_alignment.fa
     os.chdir('../../code/')#change back to the default 'code/' directory
     
@@ -31,6 +33,7 @@ def signifcant_alignments(organism_name):
     e_threshold=10**-4
     with open(f'../data/{organism_name}/d_mt_alignment.fa')as infile, open(f'../results/{organism_name}_signifcant_alignments.fa','w')as outfile:
         content=infile.readlines()
+        print(f'Searching significant alignments within the {organism_name} genome...')
         for index, line in enumerate(content):
             if 'score' in line:
                 e_value=float(line.rsplit()[3].split('=')[1])
@@ -41,5 +44,6 @@ def signifcant_alignments(organism_name):
                     outfile.write(g_sequence)
                     outfile.write(mt_sequence)
                     outfile.write('\n')
+        print(f'Significant alignments within the {organism_name} genome has been found!')
 
 organisms.apply(signifcant_alignments)
