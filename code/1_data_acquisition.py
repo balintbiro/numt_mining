@@ -50,7 +50,7 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
         urllib.request.urlretrieve(url, filepath)
         print(f'The {genome} genome of {organism_name} has successfully downloaded!')
         #decompress gunzipped genome sequence
-        print(f'Decompressing {genome} genome file of {organism_name}...'
+        print(f'Decompressing {genome} genome file of {organism_name}...')
         with gzip.open(filepath, 'rb')as infile, open(f'../data/{organism_name}/{filename_short}', 'wb')as outfile:
             shutil.copyfileobj(infile, outfile)
         print(f'The {genome} genom file of {organism_name} has been succesfully decompressed!')
