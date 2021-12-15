@@ -45,6 +45,6 @@ def signifcant_alignments(organism_name):
                     outfile.write(mt_sequence)
                     outfile.write('\n')
         print(f'Significant alignments within the {organism_name} genome has been found!')
-        os.remove(f'../data/{organism_name}/genome.fa')#remove genome to not have that much amounf of data
+        os.rmdir(f'../data/{organism_name}')#remove the organism specific directory not to have that much data
 
 organisms.apply(signifcant_alignments)
