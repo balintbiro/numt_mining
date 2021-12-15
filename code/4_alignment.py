@@ -31,7 +31,7 @@ organisms.apply(align_sequences)
 #function for getting the e-value threshold and mask the significant alignments based on that value
 def signifcant_alignments(organism_name):
     e_threshold=10**-4
-    with open(f'../data/{organism_name}/d_mt_alignment.fa')as infile, open(f'../results/{organism_name}_signifcant_alignments.fa','w')as outfile:
+    with open(f'../data/{organism_name}/d_mt_alignment.fa')as infile, open(f'../results/{organism_name}_significant_alignments.fa','w')as outfile:
         content=infile.readlines()
         print(f'Searching significant alignments within the {organism_name} genome...')
         for index, line in enumerate(content):
