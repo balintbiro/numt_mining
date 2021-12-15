@@ -1,5 +1,6 @@
 #import the required modules
 import os
+import shutil
 import pandas as pd
 from subprocess import call
 
@@ -46,7 +47,7 @@ def signifcant_alignments(organism_name):
                     outfile.write('\n')
         print(f'Significant alignments within the {organism_name} genome has been found!')
         print(f'Removing {organism_name} specific directory...')
-        os.rmdir(f'../data/{organism_name}')#remove the organism specific directory not to have that much data
+        shutil.rmtree(f'../data/{organism_name}')#remove the organism specific directory not to have that much data
         print(f'{organism_name} specific data has been removed!')
 
 organisms.apply(signifcant_alignments)
