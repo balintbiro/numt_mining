@@ -63,6 +63,6 @@ def create_df(organism_name):
     updated_alignments=updated_alignments[mt_mask]
     
     #write the dataframe into a csv file
-    updated_alignments.to_csv('../results/1numt_array.csv', index = False)
+    updated_alignments.to_csv(f'../results/{organism_name}_numts.csv', index = False)
     
 organisms.apply(create_df)
