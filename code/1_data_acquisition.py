@@ -44,7 +44,7 @@ def get_genome(organism_name, genome):#genome can be nuclear or mitochondrial
             filename=content[mt_mask].tolist()[0].rsplit()[-1]
             filename_short='mt.fa'
         except:
-            print(f'No available {genome} genome for {organism_name}\npossible problems could be:\n-quality of the fasta file is not good\n-quality of the overall sequence is not good'
+            print(f'No available {genome} genome for {organism_name}\npossible problems could be:\n-quality of the fasta file is not good\n-quality of the overall sequence is not good')
     try:
         url=f'http://ftp.ensembl.org/pub/release-104/fasta/{organism_name.lower()}/dna/{filename}'
         filepath=output_dir+filename
