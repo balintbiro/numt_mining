@@ -20,4 +20,4 @@ with open('../data/organism_names.txt')as infile:
 
 #get the downloadable urls for the required organisms
 print('Get the downloadable URLs of the genomes for the required organisms...')
-organisms.apply(lambda organism_name: call(f"grep -E '{organism_name}' ../data/assembly_summary_genbank.txt | grep 'reference genome' >> ../data/genomic_urls.txt", shell=True))
+organisms.apply(lambda organism_name: call(f"grep -E '{organism_name}' ../data/assembly_summary_genbank.txt >> ../data/genomic_urls.tsv", shell=True))
