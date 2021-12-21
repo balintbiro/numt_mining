@@ -16,6 +16,8 @@ In this file the latin names of the organisms should be provided with capital fi
 
 Used softwares are the followings (version number is provided if available):
 
+- GNU Wget (1.14)
+- grep
 - LASTAL (1219)
 	- https://github.com/UCSantaCruzComputationalGenomicsLab/last/blob/master/doc/lastal.txt
 	- http://last.cbrc.jp/doc/lastal.txt
