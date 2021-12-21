@@ -1,5 +1,6 @@
 #importing the required modules
 import os
+import pandas as pd
 from subprocess import call
 
 #downloading the genome summary file
