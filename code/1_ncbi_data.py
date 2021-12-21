@@ -3,7 +3,8 @@ import os
 from subprocess import call
 
 #downloading the genome summary file
-call('wget https://ftp.ncbi.nlm.nih.gov/genomes/genbank/assembly_summary_genbank.txt -P ../data/', shell=True)
+if os.path.exists('../data/assembly_summary_genbank.txt')==False:
+    call('wget https://ftp.ncbi.nlm.nih.gov/genomes/genbank/assembly_summary_genbank.txt -P ../data/', shell=True)
 
 #function for creating repository for every organisms
 def mkdir(organism_name):
