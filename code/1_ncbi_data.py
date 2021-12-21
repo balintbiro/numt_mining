@@ -7,6 +7,9 @@ from subprocess import call
 if os.path.exists('../data/assembly_summary_genbank.txt')==False:
     call('wget https://ftp.ncbi.nlm.nih.gov/genomes/genbank/assembly_summary_genbank.txt -P ../data/', shell=True)
 
+#add header from assembly summary file to genomic urls files
+call("awk 'NR==2' ../data/assembly_summary_genbank.txt > genomic_urls.tsv", shell=True)
+
 #function for creating repository for every organisms
 def mkdir(organism_name):
     parent_dir='../data/'
