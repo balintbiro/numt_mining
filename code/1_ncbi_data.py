@@ -24,3 +24,11 @@ with open('../data/organism_names.txt')as infile:
 #get the downloadable urls for the required organisms
 print('Get the downloadable URLs of the genomes for the required organisms...')
 organisms.apply(lambda organism_name: call(f"grep -E '{organism_name}' ../data/assembly_summary_genbank.txt | grep 'reference genome\|representative genome'>> ../data/genomic_urls.tsv", shell=True))
+
+#load the tsv files which contains the selected genomes into a pandas dataframe
+df=pd.read_csv('../data/genomic_urls.tsv',sep='\t',header=0)
+df=df.set_index('organism_name')
+
+#get the genome ftp links
+ftp_paths=df['ftp_path']
+print(ftp_paths)
