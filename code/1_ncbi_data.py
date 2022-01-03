@@ -31,4 +31,15 @@ df=df.set_index('organism_name')
 
 #get the genome ftp links
 ftp_paths=df['ftp_path']
-print(ftp_paths)
+
+#defining a function for downloading genomes
+def get_genome(ftp_path):
+    organism_name=ftp_paths[ftp_paths==ftp_path].index[0].replace(' ','_')
+    filename=ftp_path.split('/')[-1]+'_genomic.fna.gz'
+    if os.path.exists(f'../data/{organism_name}/')==False:
+        os.mkdir(f'../data/{organism_name}/')
+    url=ftp_path+'/'+filename
+    call(f'wget {url} -P ../data/{organism_name}/', shell=True)
+    call(f'gunzip -c ../data/{organism_name}/{filename} > ../data/{organism_name}/genome.fa', shell=True)
+    
+ftp_paths.apply(get_genome)
