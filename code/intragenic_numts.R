@@ -26,15 +26,17 @@ proba<-function(row){
 ensembl_query<-function(row){
   strain<-strsplit(as.character(row['organism_name']),'_',FALSE)[[1]][3]
   chr_name<-row['g_id']
-  numt_start<-row['g_start']
-  numt_end<-numt_start+row['g_length']
+  numt_start<-as.numeric(row['g_start'])
+  numt_end<-numt_start+as.numeric(row['g_length'])
   
   ensembl<-useEnsembl(biomart='mouse_strains',#select the desired database
                       dataset=paste('mm',strain,'_gene_ensembl',sep=''),#select the desired dataset
                       mirror='asia')#select the mirror, options -->useast,uswest,asia,www
-  #informations<-getBM(attributes=c('external_gene_name','description','uniprotswissprot'),
-  #             filters=c('chromosome_name','start','end'),
-  #             values=list(chromosome=chr_name,start=numt_start,end=numt_end),
-  #             mart=ensembl)
-  return(numt_end)
+  informations<-getBM(attributes=c('external_gene_name','uniprotswissprot'),
+               filters=c('chromosome_name','start','end'),
+               values=list(chromosome=chr_name,start=numt_start,end=numt_end),
+               mart=ensembl)
+  return(informations)
 }
+
+para<-apply(data[1,],1,ensembl_query)
