@@ -43,15 +43,14 @@ ensembl_query<-function(row){
 
 #define function for querying Ensembl
 ensembl_query<-function(row){
+  mouse_strain<-row['organism_name']
+  ensembl<-ensembl_db[mouse_strain][[1]]
+  chr_name<-row['g_id']
+  numt_start<-as.numeric(row['g_start'])
+  numt_end<-numt_start+as.numeric(row['g_length'])
+  
   out<-tryCatch(
-    
-    #try branch
     {
-      mouse_strain<-row['organism_name']
-      ensembl<-ensembl_db[mouse_strain][[1]]
-      chr_name<-row['g_id']
-      numt_start<-as.numeric(row['g_start'])
-      numt_end<-numt_start+as.numeric(row['g_length'])
       
       informations<-getBM(attributes=c('external_gene_name','uniprotswissprot'),
                           filters=c('chromosome_name','start','end'),#all available listFilters(ensembl)
@@ -65,12 +64,12 @@ ensembl_query<-function(row){
         gene_names<<-append(gene_names,list(informations['external_gene_name'][[1]]))
         uniprot_ids<<-append(uniprot_ids,list(informations['uniprotswissprot'][[1]]))
       }
+      
     },
     
-    #except branch
-    error=function(row){
-      gene_names<<-append(gene_names,NA)
-      uniprot_ids<<-append(uniprot_ids,NA)
+    error=function(e){
+      gene_names<<-append(gene_names,list(NA))
+      uniprot_ids<<-append(uniprot_ids,list(NA))
     }
   )
   
@@ -78,6 +77,6 @@ ensembl_query<-function(row){
 
 gene_names<-c()
 uniprot_ids<-c()
-proba<-apply(data,1,ensembl_query)
-
-
+proba<-apply(data[1:5,],1,ensembl_query)
+gene_names
+uniprot_ids
