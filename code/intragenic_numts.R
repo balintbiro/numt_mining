@@ -17,8 +17,8 @@ genomic_regions<-scan(sprintf('/Volumes/motilin/balint/numt/mice_strains_numt/ge
 #function for querying Ensembl
 ensembl_query<-function(genomic_region){
   ensembl<-getBM(attributes=c('external_gene_name'),
-                 filters=c('chromosomal_region'),#all available listFilters(ensembl)
-                 values=list(genomic_region),#all available listAttributes(ensembl)
+                 filters=c('chromosomal_region'),#all available listFilters(ensembl), search for filters searchFilters(mart=ensembl_db,pattern='sequence')
+                 values=list(genomic_region),#all available listAttributes(ensembl), search for attributes searchAtrributes(mart=ensembl_db,pattern='sequence')
                  mart=ensembl_db)
   return(ensembl)
 }
