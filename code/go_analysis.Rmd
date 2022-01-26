@@ -1,0 +1,57 @@
+---
+title: "GO_analysis"
+author: "Balint_Biro"
+date: "1/20/2022"
+output: github_document
+---
+
+```{r}
+#loading the library
+library(biomaRt)
+```
+```{r}
+current_strain <- 'mmwsbeij'
+print(current_strain)
+```
+
+```{r}
+#read the data
+data <- read.table(sprintf('/Volumes/motilin/balint/numt/mice_strains_numt/gene_ids/%s.csv',current_strain),sep=',',header=TRUE)
+head(data)
+```
+```{r}
+#get the gene names
+gene_names <- as.vector(data['values'])
+gene_names <- unique(gene_names)
+gene_names
+```
+```{r}
+#load Ensembl DB
+ensembl <- useEnsembl(biomart='mouse_strains',
+                      mirror='useast',
+                      dataset=sprintf('%s_gene_ensembl',current_strain))
+ensembl
+```
+```{r}
+#function for querying GO annotations
+go_query <- function(gene_name){
+  data <- getBM(attributes=c('goslim_goa_description','name_1006'),
+                 filters=c('external_gene_name'),
+                 values=list(gene_name),
+              mart=ensembl)
+}
+```
+
+```{r}
+#get GO annotations
+go_term_query <- sapply(gene_names,go_query)
+go_ids <- as.list(go_term_query[1])
+go_terms <- as.list(go_term_query[2])
+df <- data.frame('GO_id'=go_ids,'GO_term'=go_terms)
+head(df)
+```
+
+```{r}
+#write output
+write.csv(df,sprintf('/Volumes/motilin/balint/numt/mice_strains_numt/go_terms/%s_go_terms.csv',current_strain))
+```
