@@ -1,4 +1,5 @@
 #loading the required packages
+library(seqinr)
 library(adegenet)
 library(ape)
 library(ggtree)
@@ -36,7 +37,7 @@ class(tree)
 
 options(ignore.negative.edge=TRUE)
 
-fig <- ggtree(root(tree,outgroup = 'rat_cob'))+
+fig <- ggtree(root(tree,outgroup = 'rat_CYTB'))+
   geom_tiplab(hjust = -.5, size=3.5, align = TRUE) +
   xlim(0,1.35)+
   geom_hilight(node=1, fill="purple", alpha = 0.2) +
