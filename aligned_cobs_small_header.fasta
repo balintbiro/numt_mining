@@ -1,4 +1,4 @@
->lpj dna:chromosome chromosome:LP_J_v1:16:12768898:12769051:1
+>lpj_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -14,7 +14,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->c3hhej dna:chromosome chromosome:C3H_HeJ_v1:16:12894126:12894279:1
+>c3hhej_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->balbcj dna:chromosome chromosome:BALB_cJ_v1:16:12446781:12446934:1
+>balbcj_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->aj dna:chromosome chromosome:A_J_v1:16:12286736:12286889:1
+>aj_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->casteij dna:chromosome chromosome:CAST_EiJ_v1:16:12837364:12837517:1
+>casteij_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ AATTACTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->nodshiltj dna:chromosome chromosome:NOD_ShiLtJ_v1:16:13413028:13413181:1
+>nodshiltj_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->akrj dna:chromosome chromosome:AKR_J_v1:16:12797285:12797438:1
+>akrj_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -110,7 +110,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->wsbeij dna:chromosome chromosome:WSB_EiJ_v1:16:12740123:12740276:1
+>wsbeij_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->dba2j dna:chromosome chromosome:DBA_2J_v1:16:12238097:12238250:1
+>dba2j_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -142,7 +142,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->129s1svimj dna:chromosome chromosome:129S1_SvImJ_v1:16:12980920:12981073:1
+>129s1svimj_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -158,7 +158,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->pwkphj dna:chromosome chromosome:PWK_PhJ_v1:16:12491859:12491981:1
+>pwkphj_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -174,7 +174,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->mm dna:chromosome chromosome:GRCm39:16:15703330:15703483:1
+>mm_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -190,7 +190,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->cbaj dna:chromosome chromosome:CBA_J_v1:16:13728768:13728921:1
+>cbaj_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -206,7 +206,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->nzohlltj dna:chromosome chromosome:NZO_HlLtJ_v1:16:12741181:12741334:1
+>nzohlltj_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -222,7 +222,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->fvbnj dna:chromosome chromosome:FVB_NJ_v1:16:12277145:12277298:1
+>fvbnj_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -238,7 +238,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->c57bl6nj dna:chromosome chromosome:C57BL_6NJ_v1:16:13138463:13138616:1
+>c57bl6nj_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -254,7 +254,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->spreteij dna:chromosome chromosome:SPRET_EiJ_v1:16:12722733:12722855:1
+>spreteij_n
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -270,7 +270,7 @@ AATTAGTTTAATTTTTATGTTGAGCTTGAACACTT---------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -----------------------
->cbaj sequence
+>cbaj_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -286,7 +286,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->aj  sequence
+>aj_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -302,7 +302,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->mm  sequence
+>mm_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -318,7 +318,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->nzohlltj  sequence
+>nzohlltj_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATCAACCACTCATTCATTGACCTACCTACCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTGAATTACGGGTGACTAATCCGA
@@ -334,7 +334,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->akrj  sequence
+>akrj_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -350,7 +350,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->pwkphj  sequence
+>pwkphj_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCCGCCCCATCCAACAT
 CTCATCATGATGAAACTTTGGGTCCCTTCTAGGAATCTGCCTAATAGTCCAAATCATCACAGGCCTTTTCTTAGCCATAC
 ACTATACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -366,7 +366,7 @@ TAGTTTTATCTATCCTAATTTTAGCCCTTATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTATACTGAATCCTAGTAGCTAACCTACTTATCTTAACCTGAATTGGAGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTCATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->129s1svimj  sequence
+>129s1svimj_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -382,7 +382,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAGTCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->c57bl6nj  sequence
+>c57bl6nj_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -398,7 +398,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->lpj  sequence
+>lpj_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -414,7 +414,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->nodshiltj  sequence
+>nodshiltj_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -430,7 +430,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->balbcj  sequence
+>balbcj_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -446,7 +446,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->casteij  sequence
+>casteij_g
 ATGACAAACATACGAAAAACACATCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCCGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGATCCCTTCTAGGAATCTGCCTAATAGTTCAAATCATCACAGGCCTTTTCTTAGCCATAC
 ACTATACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGCCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -462,7 +462,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGGATTCTAGTAGCTAATCTACTTATCCTAACCTGAATTGGGGGCCAGCCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCTATCTCATACTTCTCAATCATCTTAATTCTCATGCCAATCTCAGGAATTATTGAAG
 ACAAAATACTAA-----------
->dba2j  sequence
+>dba2j_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -478,7 +478,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->c3hhej  sequence
+>c3hhej_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -494,7 +494,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->fvbnj  sequence
+>fvbnj_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -510,7 +510,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->wsbeij  sequence
+>wsbeij_g
 ATGACAAACATACGAAAAACACACCCATTATTTAAAATTATTAACCACTCATTCATTGACCTACCTGCCCCATCCAACAT
 TTCATCATGATGAAACTTTGGGTCCCTTCTAGGAGTCTGCCTAATAGTCCAAATCATTACAGGTCTTTTCTTAGCCATAC
 ACTACACATCAGATACAATAACAGCCTTTTCATCAGTAACACACATTTGTCGAGACGTAAATTACGGGTGACTAATCCGA
@@ -526,7 +526,7 @@ TAATCTTATCTATCCTAATTTTAGCCCTAATACCTTTCCTTCATACCTCAAAGCAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATTTTGTACTGAATCCTAGTAGCCAACCTACTTATCTTAACCTGAATTGGGGGCCAACCAGTAGAACACCCATT
 TATTATCATTGGCCAACTAGCCTCCATCTCATACTTCTCAATCATCTTAATTCTTATACCAATCTCAGGAATTATCGAAG
 ACAAAATACTAA-----------
->spreteij  sequence
+>spreteij_g
 ATGACAAACATGCGGAAAACACACCCATTATTTAAAATTATTAATCATTCATTCATTGACTTACCCACCCCATCCAATAT
 CTCATCATGATGAAACTTCGGATCTCTCCTAGGAATCTGTCTAATAGTCCAAATCATTACAGGCCTATTCTTAGCTATAC
 ACTATACATCAGACACAATGACAGCCTTCTCATCAGTAACTCATATCTGCCGAGACGTGAATTACGGGTGATTAATCCGA
@@ -542,7 +542,7 @@ TAATCTTATCTATTCTAATTTTAGCCCTAATACCTTTTCTCCACACTTCAAAACAACGAAGCCTAATATTCCGCCCAATC
 ACACAAATCTTGTATTGAATCCTAGTAGCAAACCTACTGATCTTAACTTGAATTGGAGGCCAACCAGTAGAACATCCATT
 CATTATTATTGGCCAATTAGCTTCCATCTCATACTTCTCGATCATCTTAATCCTCATACCAATCTCAGGAATTATTGAAG
 ACAAAATACTAA-----------
->rat_CYTB  dna:primary_assembly primary_assembly:mRatBN7.2:MT:14136:15278:1
+>rat_CYTB
 ATGACAAACATCCGAAAATCTCACCCCCTATTCAAAATCATCAACCACTCCTTTATCGACCTCCCCGCCCCATCTAACAT
 CTCATCATGATGAAACTTCGGTTCTCTACTAGGAGTATGCCTCATAGTACAAATCCTCACAGGCTTATTCCTAGCAATAC
 ACTACACGTCTGATACCATAACAGCATTTTCATCAGTCACCCACATCTGCCGAGACGTAAACTACGGCTGACTAATCCGA
