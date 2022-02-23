@@ -46,7 +46,7 @@ ensembl_query <- function(mice_strain){
 gos <- sapply(mice_strains,ensembl_query)
 ```
 ```{r}
-mice_strains
+gos[,'mmusculus'][1]
 ```
 
 ```{r}
