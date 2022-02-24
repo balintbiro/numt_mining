@@ -1,0 +1,140 @@
+---
+title: "phylogenetics"
+author: "Balint Biro"
+date: "2/23/2022"
+output: github_document
+---
+Documnetations:
+- https://yulab-smu.top/treedata-book/chapter4.html
+- https://cran.r-project.org/web/packages/phangorn/vignettes/Trees.html
+- https://rdrr.io/cran/phangorn/f/vignettes/Trees.Rmd
+Related articles:
+- https://academic.oup.com/jhered/article/98/3/243/2188032
+- https://academic.oup.com/sysbio/article/54/6/952/1630741
+```{r}
+#loading the required packages
+library(seqinr)
+library(phangorn)
+library(adegenet)
+library(ape)
+library(ggtree)
+library(DECIPHER)
+library(viridis)
+library(ggplot2)
+```
+UPGMA tree with bootstrap support
+```{r}
+pseudogenes <- read.phyDat('../data/pseudogenes.dna',
+                          format='interleaved')
+
+set.seed(1)
+fun <- function(x) upgma(dist.ml(x,model='JC69'))
+bs_upgma <- bootstrap.phyDat(pseudogenes,  fun, bs=100)
+#png('../results/bs_upgma.png',width=800, height=600)
+ggtree(root(consensus(bs_upgma),outgroup='rat_CYTB'))+
+  geom_tiplab(size=5,align=TRUE)+
+  xlim(0,5.5)+
+  geom_cladelabel(node=37, label="numt", 
+                  color="dark green",
+                  fontsize=5, alpha=0.5,
+                  barsize=2, hjust=-.1,
+                  align=TRUE, offset=0.5)+
+  geom_cladelabel(node=38, label="CYTB", 
+                  color="brown",
+                  fontsize=5, alpha=0.5,
+                  barsize=2, hjust=-.1,
+                  align=TRUE, offset=0.5)+
+  geom_cladelabel(node=10, label="outgroup", 
+                  color="blue",
+                  fontsize=5, alpha=0.5,
+                  barsize=2, hjust=-.1,
+                  align=TRUE, offset=0.5)
+#dev.off()
+
+```
+Parsimony tree with bootstrap support
+```{r}
+pseudogenes <- read.phyDat('../data/pseudogenes.dna',
+                          format='interleaved')
+treepars <- pratchet(pseudogenes,
+                     trace=0)
+#png('../results/bs_mp.png',width=800, height=600)
+ggtree(root(treepars,outgroup='rat_CYTB'))+
+  geom_tiplab(align=TRUE,size=5)+
+  xlim(0,7.8)+
+  geom_cladelabel(node=38, label="numt", 
+                  color="dark green",
+                  fontsize=5, alpha=0.5,
+                  barsize=2, hjust=-.1,
+                  align=TRUE, offset=0.85)+
+  geom_cladelabel(node=39, label="CYTB", 
+                  color="brown",
+                  fontsize=5, alpha=0.5,
+                  barsize=2, hjust=-.1,
+                  align=TRUE, offset=0.85)+
+  geom_cladelabel(node=4, label="outgroup", 
+                  color="blue",
+                  fontsize=5, alpha=0.5,
+                  barsize=2, hjust=-.1,
+                  align=TRUE, offset=0.85)
+#dev.off()
+```
+Maximum Likelihood tree
+```{r}
+pseudogenes <- read.phyDat('../data/pseudogenes.dna',
+                          format='interleaved')
+dm <- dist.ml(pseudogenes,
+              model='JC69')
+treeupgma <- root(upgma(dm),outgroup='rat_CYTB')
+fit <- pml(treeupgma,data=pseudogenes)
+#png('../results/ml.png',width=800, height=600)
+ggtree(root(fit$tree,outgroup='rat_CYTB'))+
+  geom_tiplab(aling=TRUE,size=5)+
+  xlim(0,0.3)+
+  geom_cladelabel(node=37, label="numt", 
+                  color="dark green",
+                  fontsize=5, alpha=0.5,
+                  barsize=2, hjust=-.1,
+                  align=TRUE,offset=.035)+
+  geom_cladelabel(node=38, label="CYTB", 
+                  color="brown",
+                  fontsize=5, alpha=0.5,
+                  barsize=2, hjust=-.1,
+                  align=TRUE, offset=-.115)+
+  geom_cladelabel(node=18, label="outgroup", 
+                  color="blue",
+                  fontsize=5, alpha=0.5,
+                  barsize=2, hjust=-.1,
+                  align=TRUE, offset.text = -.12)
+#dev.off()
+```
+
+
+```{r}
+#bs consensus upgma tree
+pseudogenes <- read.phyDat('../data/pseudogenes.dna',
+                          format='interleaved')
+
+dm <- dist.ml(pseudogenes,
+        model='JC69')
+
+fun <- function(x) upgma(dist.ml(x,model='JC69'))
+bs_upgma <- bootstrap.phyDat(pseudogenes,  fun, bs=100)
+
+treeupgma <- upgma(dm)
+#png('../results/bs_trees.png',width=800, height=600)
+ggdensitree(bs_upgma, alpha=0.15, color='lightblue',align.tips=TRUE, size=1.5)+
+  geom_tiplab(size=5, offset=0.003)+
+  xlim(-0.2,0.05)+
+  geom_cladelabel(node=37, label="CYTB", 
+                  color="brown",
+                  fontsize=8, alpha=0.5,
+                  barsize=2, offset=0.03, offset.text=0.005,
+                  angle=90)+
+  geom_cladelabel(node=36, label="numt", 
+                  color="darkgreen",
+                  fontsize=8, alpha=0.5,
+                  barsize=2, offset=0.03, offset.text=0.005,
+                  angle=90)
+#dev.off()
+```
