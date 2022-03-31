@@ -3,7 +3,7 @@
 Pipeline for mining mitochondrial sequences in the nuclear genome.
 Multiple sequence alignments are performed with LASTAL.
 The LINUX commands are embedded into Python scripts with the subprocess module.
-Nuclear and mitochondrial genomes are acquired from Ensembl genome browser (http://ftp.ensembl.org/pub/release-104/fasta/).
+Nuclear and mitochondrial genomes are acquired from Ensembl genome browser (http://ftp.ensembl.org/pub/release-104/fasta/). Mitochondrial fasta sequences are also available at https://ftp.ncbi.nlm.nih.gov/genomes/refseq/mitochondrion/ link!
 The initial folder structure consists of three folders:
 
 - code
