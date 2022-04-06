@@ -1,2 +1,8 @@
 
 *.png
+code/categories.dmp
+data/eukaryotes.txt
+data/nodes.dmp
+data/nuclear_genomes.txt
+data/organelles.csv
+data/taxcat.zip

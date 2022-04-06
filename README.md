@@ -51,3 +51,6 @@ alignment.py
 - Create mtDNA permutations (reversed and doubled).
 - Build the required LASTAL database.
 - Align double mtDNA and gDNA.
+
+
+Nuclear genome informations (size and quality) can be downloaded from https://ftp.ncbi.nlm.nih.gov/genomes/GENOME_REPORTS/ as a .txt file called eukaryotes.txt, while mitochondrial genome informations can be obtained from https://www.ncbi.nlm.nih.gov/genome/browse#!/organelles/ as a .csv file called organelles.csv. Phylogenetic information is gained from https://ftp.ncbi.nih.gov/pub/taxonomy/taxdmp.zip included nodes.dmp file.
