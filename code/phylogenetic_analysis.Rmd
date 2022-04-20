@@ -148,23 +148,23 @@ dm <- dist.ml(pseudogenes,
         model='JC69')
 
 fun <- function(x) upgma(dist.ml(x,model='JC69'))
-bs_upgma <- bootstrap.phyDat(pseudogenes,  fun, bs=100)
+bs_upgma <- bootstrap.phyDat(pseudogenes,  fun, bs=500)
 
 treeupgma <- upgma(dm)
-png('../results/bs_trees.png',width=800, height=600)
-ggdensitree(bs_upgma, alpha=0.15, color='lightblue',align.tips=TRUE, size=1.5)+
-  geom_tiplab(size=5, offset=0.003)+
+#png('../results/bs_trees.png',width=800, height=600)
+ggdensitree(bs_upgma, alpha=0.05, color='lightblue',align.tips=TRUE, size=1.5)+
+  geom_tiplab(size=3.5, offset=0.003)+
   xlim(-0.2,0.05)+
   geom_cladelabel(node=37, label="CYTB", 
                   color="brown",
-                  fontsize=8, alpha=0.5,
-                  barsize=2, offset=0.03, offset.text=0.005,
+                  fontsize=4, alpha=0.5,
+                  barsize=2, offset=0.042, offset.text=0.005,
                   angle=90)+
   geom_cladelabel(node=36, label="numt", 
                   color="darkgreen",
-                  fontsize=8, alpha=0.5,
-                  barsize=2, offset=0.03, offset.text=0.005,
+                  fontsize=4, alpha=0.5,
+                  barsize=2, offset=0.042, offset.text=0.005,
                   angle=90)
-dev.off()
+ggsave('../results/bs_trees_ggsave.png',dpi=400)
 ```
 
