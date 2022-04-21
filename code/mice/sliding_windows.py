@@ -29,9 +29,9 @@ numt_test=numts.loc['18'].sort_values(by='g_start')
 numt_array=set(np.concatenate(numt_test.apply(lambda row: np.arange(row['g_start'],(row['g_start']+row['g_length'])),axis=1)))
 
 #function for sliding window
-def sliding_window(repclass,chr_size,window_size,step_size,numt_array):
+def sliding_window(repname,chr_size,window_size,step_size,numt_array):
     plt.style.use('fivethirtyeight')
-    rmsk_test=rmsk.loc[rmsk['repclass']==repclass]
+    rmsk_test=rmsk.loc[rmsk['name']==repname]
     rmsk_array=set(np.concatenate(rmsk_test.apply(lambda row: np.arange(row['chromStart'],row['chromEnd']),axis=1)))
     repeats=[]
     numts=[]
@@ -45,8 +45,10 @@ def sliding_window(repclass,chr_size,window_size,step_size,numt_array):
         axs[1].plot(repeats,linewidth=0.8)
         axs[0].fill(np.arange(0,len(numts)),numts,alpha=0.3)
         axs[1].fill(np.arange(0,len(repeats)),repeats,alpha=0.3)
-        axs[0].set_title(repclass+' '+str(round(pearsonr(repeats,numts)[0],4)))
-        repclass=re.sub(r'[\\/*?:"<>|]',"",repclass)
-        plt.savefig(f'../data/sliding_windows/{repclass}.png')
+        axs[0].set_title(repname+' '+str(round(pearsonr(repeats,numts)[0],4)))
+        repname=re.sub(r'[\\/*?:"<>|]',"",repname)
+        plt.savefig(f'../data/sliding_windows/{repname}.png')
+    else:
+        print(repname)
 
-pd.Series(rmsk['repclass'].unique()).apply(sliding_window,args=(numt_test['g_size'][0],50000,50000,numt_array))
+pd.Series(rmsk['name'].unique()).apply(sliding_window,args=(numt_test['g_size'][0],50000,50000,numt_array))
