@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from Bio import AlignIO
 from subprocess import call
+import matplotlib.pyplot as plt
 
 #function for performing alignment with EMBOSS needle
 def alignment(filename):
