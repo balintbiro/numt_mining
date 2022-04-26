@@ -25,6 +25,7 @@ if os.path.isdir('../results/modK2_parameters/')==False:
 #function for calculating modified Kimura2 paramter based on:
 #https://link.springer.com/article/10.1007/s00239-018-9885-1
 def modK2_dist(filename,window_size,step_size):
+    global modKs
     alignment=AlignIO.read(f'../data/mt_pairwise_alignments/{filename}','emboss')
     alignment=pd.DataFrame(alignment)
     Ks=[]
@@ -55,13 +56,48 @@ def modK2_dist(filename,window_size,step_size):
                 Ks.append(K)
             except:
                 Ks.append(0)
-    plt.style.use('fivethirtyeight')
-    fig,axs=plt.subplots(1,1)
-    axs.plot(Ks)
-    axs.set_xlabel('Mitochondrial_nucleotides (bp)')
-    axs.set_ylabel('mod K2 distance')
-    plt.tight_layout()
-    plt.savefig(f"../results/modK2_parameters/{filename.split('.')[0].split('_')[-1]}_modK2.png",dpi=200)
+    modKs.append(Ks)
 
 #get modK2 parameters
+modKs=[]
 pd.Series(os.listdir('../data/mt_pairwise_alignments/')).apply(modK2_dist, args=(1000,10,))
+modKs=pd.DataFrame(
+    data=modKs,
+    index=pd.Series(os.listdir('../data/mt_pairwise_alignments/')).apply(lambda filename:filename.split('.')[0].split('_')[-1])
+    )
+
+#set order
+modKs=modKs.loc[['casteij','spreteij', 'pwkphj','wsbeij', 'lpj', 'c3hhej', 'balbcj','aj', 'nodshiltj', 'akrj','dba2j','129s1svimj','cbaj', 'nzohiltj', 'fvbnj','c57bl6nj']]
+
+#write output to csv
+modKs.to_csv('../data/mm_modKs.csv',index=True)
+
+modKs=pd.read_csv('../data/mm_modKs.csv',index_col=0)
+
+#create main plot
+plt.style.use('fivethirtyeight')
+fig,axs=plt.subplots(4,4,figsize=(14,8),sharey=True,sharex=True)
+fig.text(0.5, 0.01, 'mitochondrial nucleotides', ha='center',fontsize=25)
+fig.text(0.01, 0.5, 'modK2', va='center', rotation='vertical',fontsize=25)
+
+#function for creating plot
+def modK_plotter(row):
+    global row_tracker
+    global column_tracker
+    if column_tracker==4:
+        column_tracker+=-4
+        row_tracker+=1
+    axs[row_tracker,column_tracker].plot(row,'grey',linewidth=0.5)
+    axs[row_tracker,column_tracker].set_title(row.name,fontsize=25)
+    axs[row_tracker,column_tracker].fill_between(np.arange(0,len(row)),row,alpha=0.3)
+    column_tracker+=1
+
+row_tracker=0
+column_tracker=0 
+
+modKs.apply(modK_plotter,axis=1)
+
+plt.savefig('../results/modK2s.png',dpi=400)
+
+
+
