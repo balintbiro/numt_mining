@@ -20,9 +20,9 @@ class process_DNA():
             URL=f'https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/{self.organism_name}/latest_assembly_versions/{LatestAssembly}/'
             filename=f'{LatestAssembly}_genomic.fna.gz'
             #download genome
-            call(f'wget --output-document=../../data/genomes/gDNA.fna.gz {URL+filename}',shell=True)
+            call(f'wget --output-document=../data/genomes/gDNA.fna.gz {URL+filename}',shell=True)
             #decompress genome
-            call(f'gzip -d ../../data/genomes/gDNA.fna.gz',shell=True)
+            call(f'gzip -d ../data/genomes/gDNA.fna.gz',shell=True)
         except:
             print(f'A problem occured during {self.organism_name} gDNA acquisition!\nPossibilities are:\n\t-broken FTP connection\n\t-non existing assembly version')
 
@@ -30,17 +30,17 @@ class process_DNA():
         try:
             #get mitochondrial id
             mtID=run(
-                f"""egrep '{self.organism_name.replace('_',' ')} mitochondrion' ../../data/genomes/mitochondrion.1.1.genomic.fna""",
+                f"""egrep '{self.organism_name.replace('_',' ')} mitochondrion' ../data/genomes/mitochondrion.1.1.genomic.fna""",
                 shell=True,
                 capture_output=True
             )
             mtID=str(mtID.stdout).split()[0][3:]
             #get mitochondrial sequence
-            call(f'samtools faidx ../../data/genomes/mitochondrion.1.1.genomic.fna {mtID} > ../../data/genomes/mtDNA.fna',shell=True)
+            call(f'samtools faidx ../data/genomes/mitochondrion.1.1.genomic.fna {mtID} > ../data/genomes/mtDNA.fna',shell=True)
             #get duplicated mitochondria
-            mtRecord=SeqIO.read("../../data/genomes/mtDNA.fna", "fasta")
+            mtRecord=SeqIO.read("../data/genomes/mtDNA.fna", "fasta")
             mtSeq=str(mtRecord.seq)
-            with open('../../data/genomes/dmtDNA.fna','w')as outfile:
+            with open('../data/genomes/dmtDNA.fna','w')as outfile:
                 outfile.write('>'+str(mtID)+'\n'+2*mtSeq)
         except:
             print(f'A problem occured during {self.organism_name} mtDNA acquisition!\nPossibilities are:\n\t-no available mtDNA file for the given organism')
@@ -48,9 +48,9 @@ class process_DNA():
     def LASTAL(self):
         try:
             #generate LASTAL db
-            call('lastdb ../../data/genomes/db ../../data/genomes/gDNA.fna', shell=True)
+            call('lastdb ../data/genomes/db ../data/genomes/gDNA.fna', shell=True)
             #align gDNA with dmtDNA
-            call('lastal -r1 -q1 -a7 -b1 ../../data/genomes/db ../../data/genomes/dmtDNA.fna  > ../../data/genomes/aligned_dmtDNA.afa', shell=True)
+            call('lastal -r1 -q1 -a7 -b1 ../data/genomes/db ../data/genomes/dmtDNA.fna  > ../data/genomes/aligned_dmtDNA.afa', shell=True)
         except:
             print(f'A problem occured during {self.organism_name} db building or alignment!\nPossibilities are:\n\t-gDNA and/or mtDNA is/are missing')
 
@@ -58,7 +58,7 @@ class process_DNA():
         try:
             #get data from alignment file
             lines = []
-            with open ('../../data/genomes/aligned_dmtDNA.afa') as infile:
+            with open ('../data/genomes/aligned_dmtDNA.afa') as infile:
                 content = infile.readlines()
                 for index, line in enumerate(content):
                     if 'score' in line:
@@ -84,7 +84,7 @@ class process_DNA():
                          'mitochondrial_sequence']
             )
             #create filter to discard artifacts that are the results of using dmtDNA
-            mtRecord=SeqIO.read("../../data/genomes/mtDNA.fna", "fasta")
+            mtRecord=SeqIO.read("../data/genomes/mtDNA.fna", "fasta")
             mtSize=len(str(mtRecord.seq))
             size_fil=alignments['mitochondrial_start']<mtSize
             #create filter to discard non significant alignments
@@ -95,26 +95,26 @@ class process_DNA():
                 )
             #apply filters and write output into alignments folder
             alignments=alignments[size_fil][sig_fil][mt_fil]
-            alignments.to_csv(f'../../data/alignments/{self.organism_name}_numts.csv',header=True)
+            alignments.to_csv(f'../data/alignments/{self.organism_name}_numts.csv',header=True)
         except:
             print(f'A problem occured during {self.organism_name} alignment csv construction!\nPossibilities are:-missing input files\n\t-no alignment')
 
     def clear_folder(self):
-        folder_content=pd.Series(os.listdir('../../data/genomes/'))
+        folder_content=pd.Series(os.listdir('../data/genomes/'))
         necessary_files=['mitochondrion.1.1.genomic.fna','mitochondrion.1.1.genomic.fna.fai']
         folder_content.apply(
-            lambda file: os.remove(f'../../data/genomes/{file}') if file not in necessary_files else file
+            lambda file: os.remove(f'../data/genomes/{file}') if file not in necessary_files else file
         )
 
 #get mitochondrion file 
 call(
-    f'wget --directory-prefix=../../data/genomes/ https://ftp.ncbi.nlm.nih.gov/genomes/refseq/mitochondrion/mitochondrion.1.1.genomic.fna.gz',
+    f'wget --directory-prefix=../data/genomes/ https://ftp.ncbi.nlm.nih.gov/genomes/refseq/mitochondrion/mitochondrion.1.1.genomic.fna.gz',
     shell=True
 )
 
 #decompress mitochondrion file
 call(
-    f'gzip -d ../../data/genomes/mitochondrion.1.1.genomic.fna.gz',
+    f'gzip -d ../data/genomes/mitochondrion.1.1.genomic.fna.gz',
     shell=True
 )
 
@@ -127,12 +127,12 @@ ftp.cwd('/genomes/refseq/vertebrate_mammalian/')
 organisms=ftp.nlst()[:1]
 
 #create folder for genomes
-if os.path.isdir('../../data/genomes/')==False:
-    os.mkdir('../../data/genomes/')
+if os.path.isdir('../data/genomes/')==False:
+    os.mkdir('../data/genomes/')
 
 #create folder for significant alignments
-if os.path.isdir('../../data/alignments/')==False:
-    os.mkdir('../../data/alignments/')
+if os.path.isdir('../data/alignments/')==False:
+    os.mkdir('../data/alignments/')
 
 #create classes and apply functions
 for organism in organisms:
