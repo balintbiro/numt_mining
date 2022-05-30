@@ -33,7 +33,7 @@ class process_DNA():
             mtID=str(mtID.stdout).split()[0][3:]
             #get mitochondrial sequence
             call(f'samtools faidx ../data/genomes/mitochondrion.1.1.genomic.fna {mtID} > ../data/genomes/mtDNA.fna',shell=True)
-            if os.path.getsize('../data/genomes/mitochondrion.1.1.genomic.fna')<1000:
+            if os.path.getsize('../data/genomes/mtDNA.fna')<1000:
                 mtID=run(f"""egrep '{self.organism_name.replace('_',' ')} mitochondrion' ../data/genomes/mitochondrion.2.1.genomic.fna""",shell=True,capture_output=True)
                 mtID=str(mtID.stdout).split()[0][3:]
                 call(f'samtools faidx ../data/genomes/mitochondrion.2.1.genomic.fna {mtID} > ../data/genomes/mtDNA.fna',shell=True)
@@ -47,10 +47,13 @@ class process_DNA():
 
     def LASTAL(self):
         try:
-            #generate LASTAL db
-            call('lastdb ../data/genomes/db ../data/genomes/gDNA.fna', shell=True)
-            #align gDNA with dmtDNA
-            call('lastal -r1 -q1 -a7 -b1 ../data/genomes/db ../data/genomes/dmtDNA.fna  > ../data/genomes/aligned_dmtDNA.afa', shell=True)
+            if os.path.getsize('../data/genomes/mtDNA.fna')>1000:
+                #generate LASTAL db
+                call('lastdb ../data/genomes/db ../data/genomes/gDNA.fna', shell=True)
+                #align gDNA with dmtDNA
+                call('lastal -r1 -q1 -a7 -b1 ../data/genomes/db ../data/genomes/dmtDNA.fna  > ../data/genomes/aligned_dmtDNA.afa', shell=True)
+            else:
+                print(f'A problem occured during {self.organism_name} db building or alignment!\nPossibilities are:\n\t-gDNA and/or mtDNA is/are missing')
         except:
             print(f'A problem occured during {self.organism_name} db building or alignment!\nPossibilities are:\n\t-gDNA and/or mtDNA is/are missing')
 
