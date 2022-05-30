@@ -43,7 +43,7 @@ class process_DNA():
             with open('../data/genomes/dmtDNA.fna','w')as outfile:
                 outfile.write('>'+str(mtID)+'\n'+2*mtSeq)
         except:
-            print(f'A problem occured during {self.organism_name} mtDNA acquisition!\nPossibilities are:\n\t-no available mtDNA file for the given organism')
+            print(f'A problem occured during {self.organism_name} mtDNA acquisition!\nPossibilities are:\n\t-no available mtDNA sequence for the given organism\n\t-problematic ID')
 
     def LASTAL(self):
         try:
@@ -97,7 +97,7 @@ class process_DNA():
             alignments=alignments[size_fil][sig_fil][mt_fil]
             alignments.to_csv(f'../data/alignments/{self.organism_name}_numts.csv',header=True)
         except:
-            print(f'A problem occured during {self.organism_name} alignment csv construction!\nPossibilities are:-missing input files\n\t-no alignment')
+            print(f'A problem occured during {self.organism_name} alignment csv construction!\nPossibilities are:\n\t-missing input files\n\t-no alignment')
 
     def clear_folder(self):
         folder_content=pd.Series(os.listdir('../data/genomes/'))
@@ -124,7 +124,7 @@ ftp.login()
 #change directory to mammalian genomes
 ftp.cwd('/genomes/refseq/vertebrate_mammalian/')
 #get organism names
-organisms=ftp.nlst()[:1]
+organisms=ftp.nlst()
 
 #create folder for genomes
 if os.path.isdir('../data/genomes/')==False:
