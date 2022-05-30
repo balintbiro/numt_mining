@@ -29,14 +29,14 @@ class process_DNA():
     def get_mtDNA(self):
         try:
             #get mitochondrial id
-            mtID=run(
-                f"""egrep '{self.organism_name.replace('_',' ')} mitochondrion' ../data/genomes/mitochondrion.1.1.genomic.fna""",
-                shell=True,
-                capture_output=True
-            )
+            mtID=run(f"""egrep '{self.organism_name.replace('_',' ')} mitochondrion' ../data/genomes/mitochondrion.1.1.genomic.fna""",shell=True,capture_output=True)
             mtID=str(mtID.stdout).split()[0][3:]
             #get mitochondrial sequence
             call(f'samtools faidx ../data/genomes/mitochondrion.1.1.genomic.fna {mtID} > ../data/genomes/mtDNA.fna',shell=True)
+            if os.path.getsize('../data/genomes/mitochondrion.1.1.genomic.fna')<1000:
+                mtID=run(f"""egrep '{self.organism_name.replace('_',' ')} mitochondrion' ../data/genomes/mitochondrion.2.1.genomic.fna""",shell=True,capture_output=True)
+                mtID=str(mtID.stdout).split()[0][3:]
+                call(f'samtools faidx ../data/genomes/mitochondrion.2.1.genomic.fna {mtID} > ../data/genomes/mtDNA.fna',shell=True)
             #get duplicated mitochondria
             mtRecord=SeqIO.read("../data/genomes/mtDNA.fna", "fasta")
             mtSeq=str(mtRecord.seq)
@@ -101,22 +101,16 @@ class process_DNA():
 
     def clear_folder(self):
         folder_content=pd.Series(os.listdir('../data/genomes/'))
-        necessary_files=['mitochondrion.1.1.genomic.fna','mitochondrion.1.1.genomic.fna.fai']
+        necessary_files=['mitochondrion.1.1.genomic.fna','mitochondrion.1.1.genomic.fna.fai','mitochondrion.2.1.genomic.fna','mitochondrion.2.1.genomic.fna.fai']
         folder_content.apply(
             lambda file: os.remove(f'../data/genomes/{file}') if file not in necessary_files else file
         )
 
-#get mitochondrion file 
-call(
-    f'wget --directory-prefix=../data/genomes/ https://ftp.ncbi.nlm.nih.gov/genomes/refseq/mitochondrion/mitochondrion.1.1.genomic.fna.gz',
-    shell=True
-)
-
-#decompress mitochondrion file
-call(
-    f'gzip -d ../data/genomes/mitochondrion.1.1.genomic.fna.gz',
-    shell=True
-)
+#get mitochondrion files and decompress them
+call(f'wget --directory-prefix=../data/genomes/ https://ftp.ncbi.nlm.nih.gov/genomes/refseq/mitochondrion/mitochondrion.1.1.genomic.fna.gz',shell=True)
+call(f'wget --directory-prefix=../data/genomes/ https://ftp.ncbi.nlm.nih.gov/genomes/refseq/mitochondrion/mitochondrion.2.1.genomic.fna.gz',shell=True)
+call(f'gzip -d ../data/genomes/mitochondrion.1.1.genomic.fna.gz',shell=True)
+call(f'gzip -d ../data/genomes/mitochondrion.2.1.genomic.fna.gz',shell=True)
 
 #connect to NCBI FTP site
 ftp=FTP('ftp.ncbi.nlm.nih.gov')
@@ -135,7 +129,7 @@ if os.path.isdir('../data/alignments/')==False:
     os.mkdir('../data/alignments/')
 
 #create classes and apply functions
-for organism in organisms:
+for organism in organisms[1:]:
     organism_class=process_DNA(organism)#instantiation
     organism_class.get_gDNA()#download and decompress gDNA sequence
     organism_class.get_mtDNA()#get mtDNA sequence
