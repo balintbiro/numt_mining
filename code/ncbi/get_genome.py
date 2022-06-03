@@ -29,12 +29,12 @@ class process_DNA():
     def get_mtDNA(self):
         try:
             #get mitochondrial id
-            mtID=run(f"""egrep '{self.organism_name.replace('_',' ')} mitochondrion' ../data/genomes/mitochondrion.1.1.genomic.fna""",shell=True,capture_output=True)
+            mtID=run(f"""egrep '{self.organism_name.replace('_',' ')}' ../data/genomes/mitochondrion.1.1.genomic.fna""",shell=True,capture_output=True)
             mtID=str(mtID.stdout).split()[0][3:]
             #get mitochondrial sequence
             call(f'samtools faidx ../data/genomes/mitochondrion.1.1.genomic.fna {mtID} > ../data/genomes/mtDNA.fna',shell=True)
             if os.path.getsize('../data/genomes/mtDNA.fna')<1000:
-                mtID=run(f"""egrep '{self.organism_name.replace('_',' ')} mitochondrion' ../data/genomes/mitochondrion.2.1.genomic.fna""",shell=True,capture_output=True)
+                mtID=run(f"""egrep '{self.organism_name.replace('_',' ')}' ../data/genomes/mitochondrion.2.1.genomic.fna""",shell=True,capture_output=True)
                 mtID=str(mtID.stdout).split()[0][3:]
                 call(f'samtools faidx ../data/genomes/mitochondrion.2.1.genomic.fna {mtID} > ../data/genomes/mtDNA.fna',shell=True)
             #get duplicated mitochondria
