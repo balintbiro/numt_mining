@@ -9,3 +9,6 @@ data/taxcat.zip
 data/rmsk/mm_rmsk
 data/aligned.afa
 data/mm_mt_annotation.bed
+*.dmp
+data/ncbi_numts.csv
+results/tsne_input.csv
