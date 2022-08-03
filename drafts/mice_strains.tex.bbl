@@ -1,6 +1,30 @@
 \begin{thebibliography}{}
 
 \bibitem [\protect \citeauthoryear {%
+Behura%
+}{%
+Behura%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+bee_numts}
+\APACinsertmetastar {%
+bee_numts}%
+\begin{APACrefauthors}%
+Behura, S\BPBI K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Analysis of nuclear copies of mitochondrial sequences in
+  honeybee (Apis mellifera) genome} {Analysis of nuclear copies of
+  mitochondrial sequences in honeybee (apis mellifera) genome}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Molecular biology and evolution}{24}{7}{1492--1505}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Bernt%
 \ \protect \BOthers {.}}{%
 Bernt%
@@ -32,6 +56,33 @@ Bernt, M.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Calabrese%
+, Simone%
+\BCBL {}\ \BBA {} Attimonelli%
+}{%
+Calabrese%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+mouse_numts1}
+\APACinsertmetastar {%
+mouse_numts1}%
+\begin{APACrefauthors}%
+Calabrese, F\BPBI M.%
+, Simone, D.%
+\BCBL {}\ \BBA {} Attimonelli, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Primates and mouse NumtS in the UCSC Genome Browser}
+  {Primates and mouse numts in the ucsc genome browser}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{BMC bioinformatics}{13}{4}{1--9}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Cunningham%
 \ \protect \BOthers {.}}{%
 Cunningham%
@@ -57,6 +108,63 @@ Cunningham, F.%
 {\BBOQ}\APACrefatitle {Ensembl 2022} {Ensembl 2022}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nucleic acids research}{50}{D1}{D988--D995}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Gonzalez%
+, Giannerini%
+\BCBL {}\ \BBA {} Rosa%
+}{%
+Gonzalez%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+genetic_codes}
+\APACinsertmetastar {%
+genetic_codes}%
+\begin{APACrefauthors}%
+Gonzalez, D\BPBI L.%
+, Giannerini, S.%
+\BCBL {}\ \BBA {} Rosa, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {On the origin of the mitochondrial genetic code: towards
+  a unified mathematical framework for the management of genetic information}
+  {On the origin of the mitochondrial genetic code: towards a unified
+  mathematical framework for the management of genetic information}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature precedings}{7}{}{1--1}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hazkani-Covo%
+, Zeller%
+\BCBL {}\ \BBA {} Martin%
+}{%
+Hazkani-Covo%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+molecular_poltergeists}
+\APACinsertmetastar {%
+molecular_poltergeists}%
+\begin{APACrefauthors}%
+Hazkani-Covo, E.%
+, Zeller, R\BPBI M.%
+\BCBL {}\ \BBA {} Martin, W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Molecular poltergeists: mitochondrial DNA copies (numts)
+  in sequenced nuclear genomes} {Molecular poltergeists: mitochondrial dna
+  copies (numts) in sequenced nuclear genomes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{PLoS genetics}{6}{2}{e1000834}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -114,6 +222,36 @@ Kie{\l}basa, S\BPBI M.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Lascaro%
+\ \protect \BOthers {.}}{%
+Lascaro%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2008}}%
+}]{%
+chrsize_corr_numtnumber}
+\APACinsertmetastar {%
+chrsize_corr_numtnumber}%
+\begin{APACrefauthors}%
+Lascaro, D.%
+, Castellana, S.%
+, Gasparre, G.%
+, Romeo, G.%
+, Saccone, C.%
+\BCBL {}\ \BBA {} Attimonelli, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The RHNumtS compilation: features and bioinformatics
+  approaches to locate and quantify Human NumtS} {The rhnumts compilation:
+  features and bioinformatics approaches to locate and quantify human
+  numts}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{BMC genomics}{9}{1}{1--13}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Li%
 \ \protect \BOthers {.}}{%
 Li%
@@ -140,6 +278,34 @@ Li, H.%
   sequence alignment/map format and samtools}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Bioinformatics}{25}{16}{2078--2079}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Liu%
+\ \BBA {} Zhao%
+}{%
+Liu%
+\ \BBA {} Zhao%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+trna_expression}
+\APACinsertmetastar {%
+trna_expression}%
+\begin{APACrefauthors}%
+Liu, Y.%
+\BCBT {}\ \BBA {} Zhao, X.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Distribution of nuclear mitochondrial DNA in cattle
+  nuclear genome} {Distribution of nuclear mitochondrial dna in cattle nuclear
+  genome}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Animal Breeding and
+  Genetics}{124}{5}{264--268}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -199,6 +365,67 @@ Ouyang, Z.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Rodr{\'\i}guez%
+, Albornoz%
+\BCBL {}\ \BBA {} Dom{\'\i}nguez%
+}{%
+Rodr{\'\i}guez%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2007}}%
+}]{%
+phylogenetic_method}
+\APACinsertmetastar {%
+phylogenetic_method}%
+\begin{APACrefauthors}%
+Rodr{\'\i}guez, F.%
+, Albornoz, J.%
+\BCBL {}\ \BBA {} Dom{\'\i}nguez, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Cytochrome b pseudogene originated from a highly
+  divergent mitochondrial lineage in genus Rupicapra} {Cytochrome b pseudogene
+  originated from a highly divergent mitochondrial lineage in genus
+  rupicapra}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Heredity}{98}{3}{243--249}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Rodr{\'\i}guez-Salinas%
+\ \protect \BOthers {.}}{%
+Rodr{\'\i}guez-Salinas%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+numt_fragmentation}
+\APACinsertmetastar {%
+numt_fragmentation}%
+\begin{APACrefauthors}%
+Rodr{\'\i}guez-Salinas, E.%
+, Riveros-Rosas, H.%
+, Li, Z.%
+, Fu{\v{c}}{\'\i}kov{\'a}, K.%
+, Brand, J\BPBI J.%
+, Lewis, L\BPBI A.%
+\BCBL {}\ \BBA {} Gonz{\'a}lez-Halphen, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Lineage-specific fragmentation and nuclear relocation of
+  the mitochondrial cox2 gene in chlorophycean green algae (Chlorophyta)}
+  {Lineage-specific fragmentation and nuclear relocation of the mitochondrial
+  cox2 gene in chlorophycean green algae (chlorophyta)}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Molecular phylogenetics and
+  evolution}{64}{1}{166--176}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Schliep%
 }{%
 Schliep%
@@ -219,6 +446,39 @@ Schliep, K\BPBI P.%
   phylogenetic analysis in r}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Bioinformatics}{27}{4}{592--593}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Simone%
+, Calabrese%
+, Lang%
+, Gasparre%
+\BCBL {}\ \BBA {} Attimonelli%
+}{%
+Simone%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+human_numts}
+\APACinsertmetastar {%
+human_numts}%
+\begin{APACrefauthors}%
+Simone, D.%
+, Calabrese, F\BPBI M.%
+, Lang, M.%
+, Gasparre, G.%
+\BCBL {}\ \BBA {} Attimonelli, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The reference human nuclear mitochondrial sequences
+  compilation validated and implemented on the UCSC genome browser} {The
+  reference human nuclear mitochondrial sequences compilation validated and
+  implemented on the ucsc genome browser}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{BMC genomics}{12}{1}{1--11}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -278,6 +538,39 @@ Virtanen, P.%
   computing in python}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nature methods}{17}{3}{261--272}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wang%
+, Liu%
+, Miao%
+, Huang%
+\BCBL {}\ \BBA {} Xiao%
+}{%
+Wang%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2020}}%
+}]{%
+wasp_numts}
+\APACinsertmetastar {%
+wasp_numts}%
+\begin{APACrefauthors}%
+Wang, J\BHBI X.%
+, Liu, J.%
+, Miao, Y\BHBI H.%
+, Huang, D\BHBI W.%
+\BCBL {}\ \BBA {} Xiao, J\BHBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Tracking the distribution and burst of nuclear
+  mitochondrial DNA sequences (NUMTs) in Fig Wasp Genomes} {Tracking the
+  distribution and burst of nuclear mitochondrial dna sequences (numts) in fig
+  wasp genomes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Insects}{11}{10}{680}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
