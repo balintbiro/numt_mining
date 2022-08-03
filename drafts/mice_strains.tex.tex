@@ -1,0 +1,123 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[a4paper,left=25mm,right=20mm,top=20mm,bottom=20mm]{geometry}
+\usepackage{t1enc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{apacite}
+\usepackage{eqlist}
+\usepackage{mathtools}
+\usepackage{caption}
+\usepackage{svg}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{sectsty}
+\numberwithin{equation}{section} % how the equation numbers are formed
+\newtagform{show_eq}{(Equation.\ }{)}  % how the equation numbers are displayed
+\usetagform{show_eq}
+\newtagform{show_fig}{(Figure.\ }{)}
+\usetagform{show_fig}
+\usepackage{caption}
+ \captionsetup[figure]{labelfont={bf},name={Fig.},labelsep=period}
+
+\sectionfont{\fontsize{12}{15}\selectfont}
+
+\begin{document}
+\begin{center}
+	\Large{Analysis of numts in sixteen different mice strains}
+\end{center}
+\small{Bálint Biró$^1$, Zoltán Gál$^1$, Giuseppina Schiavo$^2$, Anisa Ribari$^2$, Valerio Joe Utzeri$^2$, Michael Brookman$^3$, Luca Fontanesi$^2$, Orsolya Ivett Hoffmann$^1$}\\ \\
+\scriptsize{$^1$ Hungarian University of Agricultural and Life Sciences, Institute of Genetics and Biotechnology, Szent-Györgyi Albert Str. 4, H-2100, Gödöllö, Hungary\\
+$^2$ University of Bologna, Department of Agricultural and Food Sciences, Division of Animal Sciences, Viale Fanin 46, 40127 Bologna, Italy\\
+$^3$ Hanze University of Applied Sciences, Department for Biology and Medical Laboratory Research, Zernikeplein 7, 9747 AS Groningen, Netherlands}
+
+\section{Introduction}
+
+\section{Materials and Methods}
+\normalsize
+\indent Nuclear and mitochondrial DNAs were acquired from Ensembl and NCBI databases~\shortcite{ncbi,ensembl}. The mitochondrion of Mus musculus musculus was annotated using MITOS server hosted by the University of Leipzig~\shortcite{mitos}. Double mtDNA and gDNA were aligned using LASTAL (v1219)~\shortcite{lastal} with the scoring scheme of + 1 for matches, −1 for mismatches, 7 for gap-open penalty and 1 for gap-extension penalty. Using doubled mtDNA, we were able to identify numts that are located on the linearization point of the mtDNA. After that, alignments were filtered based on their e-values as proposed by Tsuji~\shortcite{e_threshold}.  False positive alignments that were the results of using double mtDNA were also discarded.\\ \indent To examine normality, Anderson-Darling test was performed at 0.05 p value. t-test or Wilcoxon signed rank test was performed based on the result of normality testing. All the statistical calculations were conducted in Scipy (v1.6.2)~\shortcite{scipy}. The free energy values of RNA structures were calculated with seqfold~\shortcite{seqfold}. \\ Pairwise divergences were calculated using the modified Kimura 2 parameter~\shortcite{kimura2} which tolerates gaps in the alignments. The modified Kimura 2 formula is described by Equation~\ref{eq:kimura2}.
+
+\begin{equation}\label{eq:kimura2}
+	K=\frac{3}{4}w\log w- \frac{w}{2} \log (S-P) \sqrt{S+P-Q}
+\end{equation}\\
+where $w$=the probability that the given position contains a nucleotide,\\
+$S$=$n_1$/$n$,\\
+$n_1$=the number of positions where the two aligned sequences contain the same nucleotide,\\
+$n$=total number of nucleotides,\\
+$P$=$n_2$/$n$,\\
+$n_2$=number of transition type mutations,\\
+$n_3$=number of transversion type mutations.\\
+
+Pairwise divergence values were calculated using a sliding window approach with 1kb window size and 10bp step size.\\ \indent For the free energy calculations, the corresponding tRNA sequences for each strains were acquired with SAMTOOLS's (v1.6) faidx function~\shortcite{samtools}.\\ \indent The phylogenetic analysis was conducted in R with phangorn~\shortcite{phangorn}. The Maximum-Parsimony tree was constructed using Jukes-Cantor distance with 100 bootstrap. For tree construction cytochrome b (\textit{CYTB}) and corresponding numt sequences were used as described by a previous study~\shortcite{phylogenetic_method} with rat as outgroup.\\ \indent All figures were created in matplotlib (v3.4.3) and seaborn (v0.11.2)~\shortcite{matplotlib,seaborn}.
+
+\section{Results}
+\indent 152 numts can be identified in the Mus musculus genome. There is a huge variability in terms of numt numbers on the chromosomes. For example, chr1 contains 14 numts, while no numt can be found on chr19. The numts cover the total mitochondrion. The longest numt (4654 bp) covers 6 protein coding genes~(Fig.\ref{fig:mm_numts_corr}/a). There is a strong correlation (Pearson correlation coefficients: 0.77) between the chromosome size and the number of numts on a given chromosome~(Fig.\ref{fig:mm_numts_corr}/b). The shortest chromosome contains the smallest number of numts while the longest chromosome contains the highest number of numts. However this relationship is not true for any of the investigated strains.
+\begin{figure}[H]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=.8\textwidth]{../results/mm_numts_corr.png}
+    \caption{Patterns of Mus musculus numts. Distribution of Mus musculus numts with the genomic locations (a) and the correlation between the number of numts and the size of the corresponding chromosome (b). Small tRNA genes are not part of the annotation.}
+    \label{fig:mm_numts_corr}
+\end{figure}
+
+\indent When investigating the distribution of numts along the mitochondria in different strains, it turns out that the majority of the numts are the same as in the case of Mus musculus musculus. However exceptions do exist. For example as we have already described above,  numts originate from the whole mitochondrion in case of Mus musculus musculus but not in the case of several inbred and wild derived strains. Differences are also present in the lengths of the numts. For instance, the longest numt in the Mus musculus musculus genome which locates on chr1 is missing from all the strains investigated~(Fig.\ref{fig:mitochondrial_origins}.). 
+\begin{figure}[H]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=.8\textwidth]{../results/mitochondrial_origins.png}
+    \caption{Distributions of numts in different mice strains. The upper row contains the wild derived strains. Blue arrows indicate mitochondrial regions where numts do not originate from.}
+    \label{fig:mitochondrial_origins}
+\end{figure}
+
+\indent There are common patterns in terms of  numt coverage. Interestingly the regions of mitochondria that contain the linearization point (the start and the end of the linearized mitochondrion) are highly covered by numts. This region contains the \textit{tRNA-S} coding gene and the D-loop. Another numt dense region which is present in every strains, covers \textit{atp6}, \textit{cox3}, \textit{nad3} and \textit{nad4l} genes. There are two general numt sparse regions. The first one partially covers \textit{tRNA-S} and \textit{tRNA-L} genes while the second one covers \textit{nad4}~(Fig.\ref{fig:mt_sliding_window}.).\\ \indent From the wild derived strains casteij, spreteij and pwkphj while from inbred strains aj and akrj are clustered together when it comes to nuclotides along mitochondria involved in numtogenesis. At the same time wsbeij and the rest of the inbred strains are also clustered together~(Fig.\ref{fig:numts_bp_corr}.).
+\begin{figure}[H]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=.8\textwidth]{../results/mt_sliding_windows.png}
+    \caption{Numt contents along mitochondria. Colored areas show common patterns. Green color is corresponding for dense numt region while red color is corresponding for numt sparse region.}
+    \label{fig:mt_sliding_windows}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=.5\textwidth]{../results/numts_bp_corr.png}
+    \caption{Pearson correlation matrix of nuclotides involved in numtogenesis along mitochondria.}
+    \label{fig:numts_bp_corr}
+\end{figure}
+
+\indent The wild derived strains casteij, spreteij and pwkphj show higher pairwise divergence values when total mitochondria are compared with the mitochondrion of Mus musculus musculus. Surprisingly, the fourth wild derived strain wsbeij does not differ significantly from Mus musculus musculus while the inbred nzohiltj strain shows elevated pairvise distance values to some extent~(Fig.\ref{fig:modK2s}.).
+\begin{figure}[H]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=.8\textwidth]{../results/modK2s.png}
+    \caption{Pairwise divergence values. The upper row contains the wild derived strains.}
+    \label{fig:modK2s}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=.8\textwidth]{../results/bs_mp.png}
+    \caption{Maximum-Parsimony tree based on Jukes-Cantor distance with 100 bootstrap and rat CYTB as outgroup.}
+    \label{fig:deltaGs}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=.8\textwidth]{../results/connected_deltaGs.png}
+    \caption{The free energy values of the predicted structures  of tRNA numts. The upper row contains the wild derived strains.}
+    \label{fig:deltaGs}
+\end{figure}
+
+\section{Conclusions}
+\section{Acknowledgements}
+\section{References}
+\renewcommand{\refname}{}
+\bibliographystyle{apacite}
+\bibliography{references.bib}
+
+
+\end{document}

@@ -12,3 +12,7 @@ data/mm_mt_annotation.bed
 *.dmp
 data/ncbi_numts.csv
 results/tsne_input.csv
+data/label_for_tsne.csv
+data/ncbi_numts_modk2_added.csv
+data/ncbi_numts_tsne.csv
+results/modk2_added_numts.csv

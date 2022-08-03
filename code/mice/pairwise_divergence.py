@@ -75,7 +75,7 @@ modKs.to_csv('../data/mm_modKs.csv',index=True)
 modKs=pd.read_csv('../data/mm_modKs.csv',index_col=0)
 
 #create main plot
-plt.style.use('fivethirtyeight')
+plt.style.use('seaborn')
 fig,axs=plt.subplots(4,4,figsize=(14,8),sharey=True,sharex=True)
 fig.text(0.5, 0.01, 'mitochondrial nucleotides', ha='center',fontsize=25)
 fig.text(0.01, 0.5, 'modK2', va='center', rotation='vertical',fontsize=25)

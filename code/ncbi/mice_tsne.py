@@ -1,4 +1,5 @@
 #import dependencies
+import os
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -6,15 +7,12 @@ import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 from sklearn.preprocessing import StandardScaler
 
-#read in dataframe
-#import numts
-numts=pd.read_csv('../data/ncbi_numts_tsne.csv',index_col=0)
-numts['score']=numts.index
-numts.index=np.arange(0,len(numts))
+#read in csv
+numts=pd.read_csv('../data/mice_numts.csv')
 
 #create datasets
 X=numts[[
-    'score','eg2_value','e_value','genomic_start','genomic_length','mitochondrial_length','GC','modk2','transversions','transitions','numt_ratio','cum_g_size'
+    'score','eg2_value','e_value','g_start','g_length','mt_start','mt_length','GC','modk2','transitions','transversions'
         ]]#
 y=numts['label']
 
@@ -45,10 +43,11 @@ def grid_search(perplexity_value,learning_rate_value):
 	axs.axis('off')
 	plt.legend().remove()
 	plt.tight_layout()
-	plt.savefig(f'../results/tsnes/{perplexity_value}pp_{learning_rate_value}lr.png',dpi=450)
+	plt.savefig(f'../results/mice_tsnes/{perplexity_value}pp_{learning_rate_value}lr.png',dpi=450)
 
 #apply function. Optimal hyperparameters: https://www.nature.com/articles/s41467-019-13056-x
-for perplexity_value in np.linspace(5,len(numts)/100,5,dtype=int):
-	for learning_rate_value in np.linspace(10,len(numts)/12,5,dtype=int):
+for perplexity_value in np.linspace(5,len(numts)/100,7,dtype=int):
+	for learning_rate_value in np.linspace(10,len(numts)/12,7,dtype=int):
 		grid_search(perplexity_value,learning_rate_value)
-#grid_search((len(numts)/100),(len(numts)/12))
+
+grid_search(50,round(len(numts)/12,0))

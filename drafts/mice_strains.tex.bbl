@@ -1,0 +1,336 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Bernt%
+\ \protect \BOthers {.}}{%
+Bernt%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+mitos}
+\APACinsertmetastar {%
+mitos}%
+\begin{APACrefauthors}%
+Bernt, M.%
+, Donath, A.%
+, J{\"u}hling, F.%
+, Externbrink, F.%
+, Florentz, C.%
+, Fritzsch, G.%
+\BDBL {}Stadler, P\BPBI F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {MITOS: improved de novo metazoan mitochondrial genome
+  annotation} {Mitos: improved de novo metazoan mitochondrial genome
+  annotation}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Molecular phylogenetics and
+  evolution}{69}{2}{313--319}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Cunningham%
+\ \protect \BOthers {.}}{%
+Cunningham%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2022}}%
+}]{%
+ensembl}
+\APACinsertmetastar {%
+ensembl}%
+\begin{APACrefauthors}%
+Cunningham, F.%
+, Allen, J\BPBI E.%
+, Allen, J.%
+, Alvarez-Jarreta, J.%
+, Amode, M\BPBI R.%
+, Armean, I\BPBI M.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2022}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Ensembl 2022} {Ensembl 2022}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nucleic acids research}{50}{D1}{D988--D995}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hunter%
+}{%
+Hunter%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+matplotlib}
+\APACinsertmetastar {%
+matplotlib}%
+\begin{APACrefauthors}%
+Hunter, J\BPBI D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Matplotlib: A 2D graphics environment} {Matplotlib: A 2d
+  graphics environment}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Computing in science \& engineering}{9}{03}{90--95}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kie{\l}basa%
+, Wan%
+, Sato%
+, Horton%
+\BCBL {}\ \BBA {} Frith%
+}{%
+Kie{\l}basa%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+lastal}
+\APACinsertmetastar {%
+lastal}%
+\begin{APACrefauthors}%
+Kie{\l}basa, S\BPBI M.%
+, Wan, R.%
+, Sato, K.%
+, Horton, P.%
+\BCBL {}\ \BBA {} Frith, M\BPBI C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Adaptive seeds tame genomic sequence comparison}
+  {Adaptive seeds tame genomic sequence comparison}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome research}{21}{3}{487--493}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Li%
+\ \protect \BOthers {.}}{%
+Li%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+samtools}
+\APACinsertmetastar {%
+samtools}%
+\begin{APACrefauthors}%
+Li, H.%
+, Handsaker, B.%
+, Wysoker, A.%
+, Fennell, T.%
+, Ruan, J.%
+, Homer, N.%
+\BDBL {}Durbin, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The sequence alignment/map format and SAMtools} {The
+  sequence alignment/map format and samtools}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Bioinformatics}{25}{16}{2078--2079}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Nishimaki%
+\ \BBA {} Sato%
+}{%
+Nishimaki%
+\ \BBA {} Sato%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+kimura2}
+\APACinsertmetastar {%
+kimura2}%
+\begin{APACrefauthors}%
+Nishimaki, T.%
+\BCBT {}\ \BBA {} Sato, K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {An extension of the Kimura two-parameter model to the
+  natural evolutionary process} {An extension of the kimura two-parameter model
+  to the natural evolutionary process}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of molecular evolution}{87}{1}{60--67}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ouyang%
+, Snyder%
+\BCBL {}\ \BBA {} Chang%
+}{%
+Ouyang%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+seqfold}
+\APACinsertmetastar {%
+seqfold}%
+\begin{APACrefauthors}%
+Ouyang, Z.%
+, Snyder, M\BPBI P.%
+\BCBL {}\ \BBA {} Chang, H\BPBI Y.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {SeqFold: genome-scale reconstruction of RNA secondary
+  structure integrating high-throughput sequencing data} {Seqfold: genome-scale
+  reconstruction of rna secondary structure integrating high-throughput
+  sequencing data}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome research}{23}{2}{377--387}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Schliep%
+}{%
+Schliep%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+phangorn}
+\APACinsertmetastar {%
+phangorn}%
+\begin{APACrefauthors}%
+Schliep, K\BPBI P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {phangorn: phylogenetic analysis in R} {phangorn:
+  phylogenetic analysis in r}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Bioinformatics}{27}{4}{592--593}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Tsuji%
+, Frith%
+, Tomii%
+\BCBL {}\ \BBA {} Horton%
+}{%
+Tsuji%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+e_threshold}
+\APACinsertmetastar {%
+e_threshold}%
+\begin{APACrefauthors}%
+Tsuji, J.%
+, Frith, M\BPBI C.%
+, Tomii, K.%
+\BCBL {}\ \BBA {} Horton, P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Mammalian NUMT insertion is non-random} {Mammalian numt
+  insertion is non-random}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nucleic acids research}{40}{18}{9073--9088}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Virtanen%
+\ \protect \BOthers {.}}{%
+Virtanen%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2020}}%
+}]{%
+scipy}
+\APACinsertmetastar {%
+scipy}%
+\begin{APACrefauthors}%
+Virtanen, P.%
+, Gommers, R.%
+, Oliphant, T\BPBI E.%
+, Haberland, M.%
+, Reddy, T.%
+, Cournapeau, D.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {SciPy 1.0: fundamental algorithms for scientific
+  computing in Python} {Scipy 1.0: fundamental algorithms for scientific
+  computing in python}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature methods}{17}{3}{261--272}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Waskom%
+}{%
+Waskom%
+}{%
+{\protect \APACyear {2021}}%
+}]{%
+seaborn}
+\APACinsertmetastar {%
+seaborn}%
+\begin{APACrefauthors}%
+Waskom, M\BPBI L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2021}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Seaborn: statistical data visualization} {Seaborn:
+  statistical data visualization}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Open Source Software}{6}{60}{3021}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wheeler%
+\ \protect \BOthers {.}}{%
+Wheeler%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2007}}%
+}]{%
+ncbi}
+\APACinsertmetastar {%
+ncbi}%
+\begin{APACrefauthors}%
+Wheeler, D\BPBI L.%
+, Barrett, T.%
+, Benson, D\BPBI A.%
+, Bryant, S\BPBI H.%
+, Canese, K.%
+, Chetvernin, V.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Database resources of the national center for
+  biotechnology information} {Database resources of the national center for
+  biotechnology information}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nucleic acids research}{36}{suppl\_1}{D13--D21}.
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}
