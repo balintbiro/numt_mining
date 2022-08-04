@@ -365,6 +365,35 @@ Ouyang, Z.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Pozzi%
+\ \BBA {} Dowling%
+}{%
+Pozzi%
+\ \BBA {} Dowling%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+genomic_origin_of_mtrnas}
+\APACinsertmetastar {%
+genomic_origin_of_mtrnas}%
+\begin{APACrefauthors}%
+Pozzi, A.%
+\BCBT {}\ \BBA {} Dowling, D\BPBI K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The genomic origins of small mitochondrial RNAs: are
+  they transcribed by the mitochondrial DNA or by mitochondrial pseudogenes
+  within the nucleus (NUMTs)?} {The genomic origins of small mitochondrial
+  rnas: are they transcribed by the mitochondrial dna or by mitochondrial
+  pseudogenes within the nucleus (numts)?}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome biology and evolution}{11}{7}{1883--1896}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Rodr{\'\i}guez%
 , Albornoz%
 \BCBL {}\ \BBA {} Dom{\'\i}nguez%
@@ -479,6 +508,37 @@ Simone, D.%
   implemented on the ucsc genome browser}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{BMC genomics}{12}{1}{1--11}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Su%
+, Weir%
+, Zhang%
+, Yan%
+\BCBL {}\ \BBA {} Wu%
+}{%
+Su%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2019}}%
+}]{%
+rna_structure}
+\APACinsertmetastar {%
+rna_structure}%
+\begin{APACrefauthors}%
+Su, C.%
+, Weir, J\BPBI D.%
+, Zhang, F.%
+, Yan, H.%
+\BCBL {}\ \BBA {} Wu, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {ENTRNA: a framework to predict RNA foldability} {Entrna:
+  a framework to predict rna foldability}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{BMC bioinformatics}{20}{1}{1--11}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
