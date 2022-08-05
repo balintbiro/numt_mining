@@ -17,3 +17,14 @@ data/ncbi_numts_modk2_added.csv
 data/ncbi_numts_tsne.csv
 results/modk2_added_numts.csv
 data/mice_numts.csv
+*.aux
+*.bbl
+*.docx
+*.blg
+*.log
+*.pdf
+*.gz
+*.tex
+*.aux
+*.aux
+*.log

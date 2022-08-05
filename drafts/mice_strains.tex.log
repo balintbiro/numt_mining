@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.15.0 (TeX Live 2022)  (format=lualatex 2022.5.23)  5 AUG 2022 12:08
+This is LuaHBTeX, Version 1.15.0 (TeX Live 2022)  (format=lualatex 2022.5.23)  5 AUG 2022 12:57
  restricted system commands enabled.
  file:line:error style messages enabled.
 **mice_strains.tex.tex
@@ -670,57 +670,52 @@ Underfull \hbox (badness 10000) in paragraph at lines 29--32
 [1
 
 {/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (7.25703pt too wide) in paragraph at lines 48--49
-\TU/TimesNewRoman(0)/m/n/12 (CAST/EiJ, PWK/PhJ, WSB/EiJ, SPRET/EiJ) were se-lect
-ed based on a pre-vi-ously pub-lished genome
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 52--60
-
- []
-
 [2]
-<../results/mm_numts_corr.png, id=21, 1011.78pt x 433.62pt>
+Underfull \hbox (badness 10000) in paragraph at lines 54--62
+
+ []
+
+<../results/mm_numts_corr.png, id=17, 1011.78pt x 433.62pt>
 File: ../results/mm_numts_corr.png Graphic file (type png)
 <use ../results/mm_numts_corr.png>
-Package luatex.def Info: ../results/mm_numts_corr.png  used on input line 68.
+Package luatex.def Info: ../results/mm_numts_corr.png  used on input line 70.
 (luatex.def)             Requested size: 375.57782pt x 160.9662pt.
-<../results/mitochondrial_origins.png, id=22, 1011.78pt x 578.16pt>
+[3]
+<../results/mitochondrial_origins.png, id=25, 1011.78pt x 578.16pt>
 File: ../results/mitochondrial_origins.png Graphic file (type png)
 <use ../results/mitochondrial_origins.png>
 Package luatex.def Info: ../results/mitochondrial_origins.png  used on input li
-ne 77.
+ne 79.
 (luatex.def)             Requested size: 375.57782pt x 214.62161pt.
- [3<../results/mm_numts_corr.png>]
-<../results/mt_sliding_windows.png, id=27, 1011.78pt x 578.16pt>
+<../results/mt_sliding_windows.png, id=26, 1011.78pt x 578.16pt>
 File: ../results/mt_sliding_windows.png Graphic file (type png)
 <use ../results/mt_sliding_windows.png>
 Package luatex.def Info: ../results/mt_sliding_windows.png  used on input line 
-86.
+88.
 (luatex.def)             Requested size: 375.57782pt x 214.62161pt.
-<../results/numts_bp_corr.png, id=28, 696.32146pt x 704.27115pt>
+ [4<../results/mm_numts_corr.png><../results/mitochondrial_origins.png>]
+<../results/numts_bp_corr.png, id=32, 696.32146pt x 704.27115pt>
 File: ../results/numts_bp_corr.png Graphic file (type png)
 <use ../results/numts_bp_corr.png>
-Package luatex.def Info: ../results/numts_bp_corr.png  used on input line 93.
+Package luatex.def Info: ../results/numts_bp_corr.png  used on input line 95.
 (luatex.def)             Requested size: 234.73524pt x 237.40723pt.
- [4<../results/mitochondrial_origins.png>]
 <../results/modK2s.png, id=33, 1011.78pt x 578.16pt>
 File: ../results/modK2s.png Graphic file (type png)
 <use ../results/modK2s.png>
-Package luatex.def Info: ../results/modK2s.png  used on input line 102.
+Package luatex.def Info: ../results/modK2s.png  used on input line 104.
 (luatex.def)             Requested size: 375.57782pt x 214.62161pt.
+
 [5<../results/mt_sliding_windows.png><../results/numts_bp_corr.png>]
 <../results/bs_mp.png, id=39, 803.0pt x 602.25pt>
 File: ../results/bs_mp.png Graphic file (type png)
 <use ../results/bs_mp.png>
-Package luatex.def Info: ../results/bs_mp.png  used on input line 110.
+Package luatex.def Info: ../results/bs_mp.png  used on input line 112.
 (luatex.def)             Requested size: 375.57782pt x 281.68828pt.
 <../results/connected_deltaGs.png, id=40, 1020.27173pt x 561.89925pt>
 File: ../results/connected_deltaGs.png Graphic file (type png)
 <use ../results/connected_deltaGs.png>
 Package luatex.def Info: ../results/connected_deltaGs.png  used on input line 1
-19.
+21.
 (luatex.def)             Requested size: 375.57782pt x 206.84488pt.
  [6<../results/modK2s.png><../results/bs_mp.png>] [7<../results/connected_deltaG
 s.png>]
@@ -732,10 +727,10 @@ Here is how much of LuaTeX's memory you used:
  544 words of node memory still in use:
    6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 9 attribute, 61 glue_spec,
  9 attribute_list, 2 write nodes
-   avail lists: 2:1040,3:228,4:94,5:323,6:43,7:9343,8:33,9:264,10:18,11:819
+   avail lists: 2:1047,3:231,4:96,5:323,6:44,7:9373,8:33,9:243,10:18,11:767
  31385 multiletter control sequences out of 65536+600000
  58 fonts using 13107207 bytes
- 94i,7n,87p,4306b,383s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 94i,7n,87p,4333b,383s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </System/Library/Fonts/Supplemental/Times New Roman Italic.ttf></System/Library/
 Fonts/Supplemental/Times New Roman Bold.ttf></System/Library/Fonts/Supplemental/
 Times New Roman.ttf></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfo
@@ -745,7 +740,7 @@ cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
 .pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
 fb>
-Output written on mice_strains.tex.pdf (11 pages, 3857292 bytes).
+Output written on mice_strains.tex.pdf (11 pages, 3859460 bytes).
 
 PDF statistics: 102 PDF objects out of 1000 (max. 8388607)
  59 compressed objects within 1 object stream
