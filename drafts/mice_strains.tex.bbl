@@ -56,6 +56,33 @@ Bernt, M.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Breton%
+\ \BBA {} Stewart%
+}{%
+Breton%
+\ \BBA {} Stewart%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+mt_uniparental_inheritance}
+\APACinsertmetastar {%
+mt_uniparental_inheritance}%
+\begin{APACrefauthors}%
+Breton, S.%
+\BCBT {}\ \BBA {} Stewart, D\BPBI T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Atypical mitochondrial inheritance patterns in
+  eukaryotes} {Atypical mitochondrial inheritance patterns in
+  eukaryotes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome}{58}{10}{423--431}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Calabrese%
 , Simone%
 \BCBL {}\ \BBA {} Attimonelli%
@@ -80,6 +107,38 @@ Calabrese, F\BPBI M.%
   {Primates and mouse numts in the ucsc genome browser}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{BMC bioinformatics}{13}{4}{1--9}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Cortes-Figueiredo%
+\ \protect \BOthers {.}}{%
+Cortes-Figueiredo%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2021}}%
+}]{%
+forensic_numt2}
+\APACinsertmetastar {%
+forensic_numt2}%
+\begin{APACrefauthors}%
+Cortes-Figueiredo, F.%
+, Carvalho, F\BPBI S.%
+, Fonseca, A\BPBI C.%
+, Paul, F.%
+, Ferro, J\BPBI M.%
+, Sch{\"o}nherr, S.%
+\BDBL {}Morais, V\BPBI A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2021}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {From forensics to clinical research: expanding the
+  variant calling pipeline for the precision ID mtDNA whole genome panel} {From
+  forensics to clinical research: expanding the variant calling pipeline for
+  the precision id mtdna whole genome panel}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{International journal of molecular
+  sciences}{22}{21}{12031}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -108,6 +167,64 @@ Cunningham, F.%
 {\BBOQ}\APACrefatitle {Ensembl 2022} {Ensembl 2022}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nucleic acids research}{50}{D1}{D988--D995}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Gaziev%
+\ \BBA {} Shaikhaev%
+}{%
+Gaziev%
+\ \BBA {} Shaikhaev%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+radiation_numtogenesis}
+\APACinsertmetastar {%
+radiation_numtogenesis}%
+\begin{APACrefauthors}%
+Gaziev, A.%
+\BCBT {}\ \BBA {} Shaikhaev, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Ionizing radiation can activate the insertion of
+  mitochondrial DNA fragments in the nuclear genome} {Ionizing radiation can
+  activate the insertion of mitochondrial dna fragments in the nuclear
+  genome}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Radiatsionnaia Biologiia,
+  Radioecologiia}{47}{6}{673--683}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Goldman%
+, Taylor%
+, Zhang%
+\BCBL {}\ \BBA {} Jin%
+}{%
+Goldman%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+mitochondrial_degradation}
+\APACinsertmetastar {%
+mitochondrial_degradation}%
+\begin{APACrefauthors}%
+Goldman, S\BPBI J.%
+, Taylor, R.%
+, Zhang, Y.%
+\BCBL {}\ \BBA {} Jin, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Autophagy and the degradation of mitochondria}
+  {Autophagy and the degradation of mitochondria}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Mitochondrion}{10}{4}{309--315}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -168,6 +285,66 @@ Hazkani-Covo, E.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Hickman%
+, Johnson%
+, Vemulapalli%
+, Crisler%
+\BCBL {}\ \BBA {} Shepherd%
+}{%
+Hickman%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+animal_models2}
+\APACinsertmetastar {%
+animal_models2}%
+\begin{APACrefauthors}%
+Hickman, D.%
+, Johnson, J.%
+, Vemulapalli, T.%
+, Crisler, J.%
+\BCBL {}\ \BBA {} Shepherd, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Commonly used animal models} {Commonly used animal
+  models}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Principles of animal research for graduate and
+  undergraduate students}{}{}{117}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Howe%
+\ \BBA {} Denver%
+}{%
+Howe%
+\ \BBA {} Denver%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+muller_to_mt3}
+\APACinsertmetastar {%
+muller_to_mt3}%
+\begin{APACrefauthors}%
+Howe, D\BPBI K.%
+\BCBT {}\ \BBA {} Denver, D\BPBI R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Muller's Ratchet and compensatory mutation in
+  Caenorhabditis briggsae mitochondrial genome evolution} {Muller's ratchet and
+  compensatory mutation in caenorhabditis briggsae mitochondrial genome
+  evolution}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{BMC evolutionary biology}{8}{1}{1--13}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Hunter%
 }{%
 Hunter%
@@ -188,6 +365,54 @@ Hunter, J\BPBI D.%
   graphics environment}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Computing in science \& engineering}{9}{03}{90--95}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kelly%
+}{%
+Kelly%
+}{%
+{\protect \APACyear {2020}}%
+}]{%
+EGTheory}
+\APACinsertmetastar {%
+EGTheory}%
+\begin{APACrefauthors}%
+Kelly, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The economics of endosymbiotic gene transfer and the
+  evolution of organellar genomes} {The economics of endosymbiotic gene
+  transfer and the evolution of organellar genomes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{bioRxiv}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kelly%
+}{%
+Kelly%
+}{%
+{\protect \APACyear {2021}}%
+}]{%
+EGT_economy}
+\APACinsertmetastar {%
+EGT_economy}%
+\begin{APACrefauthors}%
+Kelly, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2021}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The economics of organellar gene loss and endosymbiotic
+  gene transfer} {The economics of organellar gene loss and endosymbiotic gene
+  transfer}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome biology}{22}{1}{1--22}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -222,6 +447,36 @@ Kie{\l}basa, S\BPBI M.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Ko%
+\ \protect \BOthers {.}}{%
+Ko%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+phylogenetic_numt1}
+\APACinsertmetastar {%
+phylogenetic_numt1}%
+\begin{APACrefauthors}%
+Ko, Y\BHBI J.%
+, Yang, E\BPBI C.%
+, Lee, J\BHBI H.%
+, Lee, K\BPBI W.%
+, Jeong, J\BHBI Y.%
+, Park, K.%
+\BDBL {}Yim, H\BHBI S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Characterization of cetacean Numt and its application
+  into cetacean phylogeny} {Characterization of cetacean numt and its
+  application into cetacean phylogeny}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genes \& Genomics}{37}{12}{1061--1071}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Lascaro%
 \ \protect \BOthers {.}}{%
 Lascaro%
@@ -249,6 +504,36 @@ Lascaro, D.%
   numts}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{BMC genomics}{9}{1}{1--13}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lei%
+\ \protect \BOthers {.}}{%
+Lei%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2022}}%
+}]{%
+off_target_numt}
+\APACinsertmetastar {%
+off_target_numt}%
+\begin{APACrefauthors}%
+Lei, Z.%
+, Meng, H.%
+, Liu, L.%
+, Zhao, H.%
+, Rao, X.%
+, Yan, Y.%
+\BDBL {}Yi, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2022}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Mitochondrial base editor induces substantial nuclear
+  off-target mutations} {Mitochondrial base editor induces substantial nuclear
+  off-target mutations}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature}{}{}{1--1}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -281,6 +566,37 @@ Li, H.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Lilue%
+\ \protect \BOthers {.}}{%
+Lilue%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+mice_strains}
+\APACinsertmetastar {%
+mice_strains}%
+\begin{APACrefauthors}%
+Lilue, J.%
+, Doran, A\BPBI G.%
+, Fiddes, I\BPBI T.%
+, Abrudan, M.%
+, Armstrong, J.%
+, Bennett, R.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Sixteen diverse laboratory mouse reference genomes
+  define strain-specific haplotypes and novel functional loci} {Sixteen diverse
+  laboratory mouse reference genomes define strain-specific haplotypes and
+  novel functional loci}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature genetics}{50}{11}{1574--1583}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Liu%
 \ \BBA {} Zhao%
 }{%
@@ -306,6 +622,260 @@ Liu, Y.%
 \newblock
 \APACjournalVolNumPages{Journal of Animal Breeding and
   Genetics}{124}{5}{264--268}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lopez%
+, Yuhki%
+, Masuda%
+, Modi%
+\BCBL {}\ \BBA {} O'Brien%
+}{%
+Lopez%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1994}}%
+}]{%
+cat_numt}
+\APACinsertmetastar {%
+cat_numt}%
+\begin{APACrefauthors}%
+Lopez, J\BPBI V.%
+, Yuhki, N.%
+, Masuda, R.%
+, Modi, W.%
+\BCBL {}\ \BBA {} O'Brien, S\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1994}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Numt, a recent transfer and tandem amplification of
+  mitochondrial DNA to the nuclear genome of the domestic cat} {Numt, a recent
+  transfer and tandem amplification of mitochondrial dna to the nuclear genome
+  of the domestic cat}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of molecular evolution}{39}{2}{174--190}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Marshall%
+\ \BBA {} Parson%
+}{%
+Marshall%
+\ \BBA {} Parson%
+}{%
+{\protect \APACyear {2021}}%
+}]{%
+forensic_numt1}
+\APACinsertmetastar {%
+forensic_numt1}%
+\begin{APACrefauthors}%
+Marshall, C.%
+\BCBT {}\ \BBA {} Parson, W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2021}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Interpreting NUMTs in forensic genetics: Seeing the
+  forest for the trees} {Interpreting numts in forensic genetics: Seeing the
+  forest for the trees}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Forensic Science International:
+  Genetics}{53}{}{102497}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+W.~Martin%
+\ \BBA {} Herrmann%
+}{%
+W.~Martin%
+\ \BBA {} Herrmann%
+}{%
+{\protect \APACyear {1998}}%
+}]{%
+EGT_rescues_MT}
+\APACinsertmetastar {%
+EGT_rescues_MT}%
+\begin{APACrefauthors}%
+Martin, W.%
+\BCBT {}\ \BBA {} Herrmann, R\BPBI G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1998}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Gene transfer from organelles to the nucleus: how much,
+  what happens, and why?} {Gene transfer from organelles to the nucleus: how
+  much, what happens, and why?}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Plant physiology}{118}{1}{9--17}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+W\BPBI F.~Martin%
+, Garg%
+\BCBL {}\ \BBA {} Zimorski%
+}{%
+W\BPBI F.~Martin%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+endosymbiotic_origin}
+\APACinsertmetastar {%
+endosymbiotic_origin}%
+\begin{APACrefauthors}%
+Martin, W\BPBI F.%
+, Garg, S.%
+\BCBL {}\ \BBA {} Zimorski, V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Endosymbiotic theories for eukaryote origin}
+  {Endosymbiotic theories for eukaryote origin}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Philosophical Transactions of the Royal Society B:
+  Biological Sciences}{370}{1678}{20140330}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Metzger%
+\ \BBA {} Eule%
+}{%
+Metzger%
+\ \BBA {} Eule%
+}{%
+{\protect \APACyear {2013}}%
+}]{%
+muller_to_mt1}
+\APACinsertmetastar {%
+muller_to_mt1}%
+\begin{APACrefauthors}%
+Metzger, J\BPBI J.%
+\BCBT {}\ \BBA {} Eule, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Distribution of the fittest individuals and the rate of
+  Muller's ratchet in a model with overlapping generations} {Distribution of
+  the fittest individuals and the rate of muller's ratchet in a model with
+  overlapping generations}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{PLoS computational biology}{9}{11}{e1003303}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Muller%
+}{%
+Muller%
+}{%
+{\protect \APACyear {1964}}%
+}]{%
+mullers_theory}
+\APACinsertmetastar {%
+mullers_theory}%
+\begin{APACrefauthors}%
+Muller, H\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1964}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The relation of recombination to mutational advance}
+  {The relation of recombination to mutational advance}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Mutation Research/Fundamental and Molecular Mechanisms
+  of Mutagenesis}{1}{1}{2--9}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Murillo-Cuesta%
+\ \protect \BOthers {.}}{%
+Murillo-Cuesta%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2020}}%
+}]{%
+animal_models4}
+\APACinsertmetastar {%
+animal_models4}%
+\begin{APACrefauthors}%
+Murillo-Cuesta, S.%
+, Artuch, R.%
+, Asensio, F.%
+, De~la Villa, P.%
+, Dierssen, M.%
+, Enr{\'\i}quez, J\BPBI A.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The value of mouse models of rare diseases: a Spanish
+  experience} {The value of mouse models of rare diseases: a spanish
+  experience}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Frontiers in Genetics}{11}{}{583932}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Nacer%
+\ \BBA {} do Amaral%
+}{%
+Nacer%
+\ \BBA {} do Amaral%
+}{%
+{\protect \APACyear {2017}}%
+}]{%
+phylogenetic_numt2}
+\APACinsertmetastar {%
+phylogenetic_numt2}%
+\begin{APACrefauthors}%
+Nacer, D\BPBI F.%
+\BCBT {}\ \BBA {} do Amaral, F\BPBI R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Striking pseudogenization in avian phylogenetics: numts
+  are large and common in falcons} {Striking pseudogenization in avian
+  phylogenetics: numts are large and common in falcons}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Molecular phylogenetics and evolution}{115}{}{1--6}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Naito%
+\ \BBA {} Pawlowska%
+}{%
+Naito%
+\ \BBA {} Pawlowska%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+muller_to_mt2}
+\APACinsertmetastar {%
+muller_to_mt2}%
+\begin{APACrefauthors}%
+Naito, M.%
+\BCBT {}\ \BBA {} Pawlowska, T\BPBI E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Defying Muller’s Ratchet: Ancient heritable
+  endobacteria escape extinction through retention of recombination and genome
+  plasticity} {Defying muller’s ratchet: Ancient heritable endobacteria
+  escape extinction through retention of recombination and genome
+  plasticity}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{MBio}{7}{3}{e02057--15}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -365,6 +935,58 @@ Ouyang, Z.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Palodhi%
+, Singla%
+\BCBL {}\ \BBA {} Maitra%
+}{%
+Palodhi%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2020}}%
+}]{%
+cancer_numt2}
+\APACinsertmetastar {%
+cancer_numt2}%
+\begin{APACrefauthors}%
+Palodhi, A.%
+, Singla, T.%
+\BCBL {}\ \BBA {} Maitra, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Profiling of NUMTs in Gingivobuccal Oral Cancer}
+  {Profiling of numts in gingivobuccal oral cancer}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{bioRxiv}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Perlman%
+}{%
+Perlman%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+animal_models1}
+\APACinsertmetastar {%
+animal_models1}%
+\begin{APACrefauthors}%
+Perlman, R\BPBI L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Mouse models of human diseaseAn evolutionary
+  perspective} {Mouse models of human diseasean evolutionary
+  perspective}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Evolution, medicine, and public
+  health}{2016}{1}{170--176}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Pozzi%
 \ \BBA {} Dowling%
 }{%
@@ -391,6 +1013,33 @@ Pozzi, A.%
   pseudogenes within the nucleus (numts)?}{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Genome biology and evolution}{11}{7}{1883--1896}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Puertas%
+\ \BBA {} Gonz{\'a}lez-S{\'a}nchez%
+}{%
+Puertas%
+\ \BBA {} Gonz{\'a}lez-S{\'a}nchez%
+}{%
+{\protect \APACyear {2020}}%
+}]{%
+alt_numtogenesis}
+\APACinsertmetastar {%
+alt_numtogenesis}%
+\begin{APACrefauthors}%
+Puertas, M\BPBI J.%
+\BCBT {}\ \BBA {} Gonz{\'a}lez-S{\'a}nchez, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Insertions of mitochondrial DNA into the
+  nucleus—effects and role in cell evolution} {Insertions of mitochondrial
+  dna into the nucleus—effects and role in cell evolution}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome}{63}{8}{365--374}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -455,6 +1104,33 @@ Rodr{\'\i}guez-Salinas, E.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Roger%
+, Mu{\~n}oz-G{\'o}mez%
+\BCBL {}\ \BBA {} Kamikawa%
+}{%
+Roger%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+mitochondrion_origin}
+\APACinsertmetastar {%
+mitochondrion_origin}%
+\begin{APACrefauthors}%
+Roger, A\BPBI J.%
+, Mu{\~n}oz-G{\'o}mez, S\BPBI A.%
+\BCBL {}\ \BBA {} Kamikawa, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The origin and diversification of mitochondria} {The
+  origin and diversification of mitochondria}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Current Biology}{27}{21}{R1177--R1192}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Schliep%
 }{%
 Schliep%
@@ -511,6 +1187,64 @@ Simone, D.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Singh%
+, Choudhury%
+\BCBL {}\ \BBA {} Tiwari%
+}{%
+Singh%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+cancer_numt1}
+\APACinsertmetastar {%
+cancer_numt1}%
+\begin{APACrefauthors}%
+Singh, K\BPBI K.%
+, Choudhury, A\BPBI R.%
+\BCBL {}\ \BBA {} Tiwari, H\BPBI K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Numtogenesis as a mechanism for development of cancer}
+  {Numtogenesis as a mechanism for development of cancer}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Seminars in cancer biology} {Seminars in cancer
+  biology}\ (\BVOL~47, \BPGS\ 101--109).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Srinivasainagendra%
+\ \protect \BOthers {.}}{%
+Srinivasainagendra%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+adenocarcinoma_numt}
+\APACinsertmetastar {%
+adenocarcinoma_numt}%
+\begin{APACrefauthors}%
+Srinivasainagendra, V.%
+, Sandel, M\BPBI W.%
+, Singh, B.%
+, Sundaresan, A.%
+, Mooga, V\BPBI P.%
+, Bajpai, P.%
+\BDBL {}Singh, K\BPBI K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Migration of mitochondrial DNA in the nuclear genome of
+  colorectal adenocarcinoma} {Migration of mitochondrial dna in the nuclear
+  genome of colorectal adenocarcinoma}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome medicine}{9}{1}{1--15}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Su%
 , Weir%
 , Zhang%
@@ -539,6 +1273,30 @@ Su, C.%
   a framework to predict rna foldability}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{BMC bioinformatics}{20}{1}{1--11}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Tibbetts%
+}{%
+Tibbetts%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+animal_models3}
+\APACinsertmetastar {%
+animal_models3}%
+\begin{APACrefauthors}%
+Tibbetts, J\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Precision Medicine Brings Mouse Models Closer to Human
+  Patients} {Precision medicine brings mouse models closer to human
+  patients}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{BioScience}{68}{10}{828--828}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
