@@ -34,7 +34,7 @@ class process_DNA():
             #get mitochondrial sequence
             call(f'samtools faidx ../data/genomes/mitochondrion.1.1.genomic.fna {mtID} > ../data/genomes/mtDNA.fna',shell=True)
             if os.path.getsize('../data/genomes/mtDNA.fna')<1000:
-                mtID=run(f"""egrep '{self.organism_name.replace('_',' ')}' ../data/genomes/mitochondrion.1.1.genomic.fna | grep mitochondrion""",shell=True,capture_output=True)
+                mtID=run(f"""egrep '{self.organism_name.replace('_',' ')}' ../data/genomes/mitochondrion.2.1.genomic.fna | grep mitochondrion""",shell=True,capture_output=True)
                 mtID=str(mtID.stdout).split()[0][3:]
                 call(f'samtools faidx ../data/genomes/mitochondrion.2.1.genomic.fna {mtID} > ../data/genomes/mtDNA.fna',shell=True)
             #get duplicated mitochondria
@@ -104,41 +104,42 @@ class process_DNA():
 
     def add_flankings(self):
         #add 5kb flankings (up and down) with samtools
-        try:
-            alignments=pd.read_csv(f'../data/alignments/{self.organism_name}_numts.csv')
-            upstream_flankings=[]
-            downstream_flankings=[]
-            for index,row in alignments.iterrows():
-                g_id=row['genomic_id']
-                upstream_start=row['genomic_start']-5000
-                #if it would negative-samtools would not handle it!
-                if upstream_start<0:
-                    upstream_start=0
-                upstream_end=row['genomic_start']
-                downstream_start=row['genomic_start']+row['genomic_length']
-                downstream_end=downstream_start+5000
-                #if it would be longer than the actual chromosome-samtools would not handle it!
-                if downstream_end>row['genomic_size']:
-                    downstream_end=row['genomic_size']
-                upstream_flanking=''.join(run(
-                    f'samtools faidx ../data/genomes/gDNA.fna {genomic_id}:{upstream_start}-{upstream_end}',
-                    shell=True,
-                    capture_output=True,
-                    text=True
-                    ).stdout.rsplit()[1:])
-                downstream_flanking=''.join(run(
-                    f'samtools faidx ../data/genomes/gDNA.fna {genomic_id}:{downstream_start}-{downstream_end}',
-                    shell=True,
-                    capture_output=True,
-                    text=True
-                    ))
-                upstream_flankings.append(upstream_flanking)
-                downstream_flankings.append(downstream_flanking)
-            alignments['upstream_5kb']=upstream_flankings
-            alignments['downstream_5kb']=downstream_flankings
-            alignments.to_csv(f'../data/alignments/{self.organism_name}_numts.csv',header=True)
-        except:
-            print(f'A problem occured flanking extraction of {self.organism_name}!\nPossibilities are:\n\t-missing input file (.csv)\n\t-non existing genomic coordinates')
+        #try:
+        alignments=pd.read_csv(f'../data/alignments/{self.organism_name}_numts.csv')
+        upstream_flankings=[]
+        downstream_flankings=[]
+        for index,row in alignments.iterrows():
+            genomic_id=row['genomic_id']
+            upstream_start=row['genomic_start']-5000
+            #if it would negative-samtools would not handle it!
+            if upstream_start<0:
+                upstream_start=0
+            upstream_end=row['genomic_start']
+            downstream_start=row['genomic_start']+row['genomic_length']
+            downstream_end=downstream_start+5000
+            #if it would be longer than the actual chromosome-samtools would not handle it!
+            if downstream_end>row['genomic_size']:
+                downstream_end=row['genomic_size']
+            upstream_flanking=''.join(run(
+                f'samtools faidx ../data/genomes/gDNA.fna {genomic_id}:{upstream_start}-{upstream_end}',
+                shell=True,
+                capture_output=True,
+                text=True
+                ).stdout.rsplit()[1:])
+            downstream_flanking=''.join(run(
+                f'samtools faidx ../data/genomes/gDNA.fna {genomic_id}:{downstream_start}-{downstream_end}',
+                shell=True,
+                capture_output=True,
+                text=True
+                ).stdout.rsplit()[1:])
+            upstream_flankings.append(upstream_flanking)
+            downstream_flankings.append(downstream_flanking)
+        updated_alignments=alignments
+        updated_alignments['upstream_5kb']=upstream_flankings
+        updated_alignments['downstream_5kb']=downstream_flankings
+        updated_alignments.to_csv(f'../data/alignments/{self.organism_name}_numts.csv',header=True)
+        #except:
+        #    print(f'A problem occured flanking extraction of {self.organism_name}!\nPossibilities are:\n\t-missing input file (.csv)\n\t-non existing genomic coordinates')
 
 
     def clear_folder(self):
@@ -177,4 +178,5 @@ for organism in organisms[1:]:
     organism_class.get_mtDNA()#get mtDNA sequence
     organism_class.LASTAL()#building LASTAL db and align dmtDNA and gDNA
     organism_class.filter_alignments()#filter alignments based on mt start, genomic size, e value
+    organism_class.add_flankings()#add 5kb up and downstream flankings
     organism_class.clear_folder()#delete the unnecessary files
