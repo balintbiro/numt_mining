@@ -1,13 +1,13 @@
 # numt mining pipeline
 Pipeline for mining mitochondrial sequences in the nuclear genome.
 
-Setting up the environment
+Setting up the environment with conda package manager
 ---
 ```bash
 mkdir codes data results
-conda install -c bioconda last
-conda install -c bioconda samtools
-conda install -c bioconda repeatmasker
+conda install -c bioconda last=1219
+conda install -c bioconda samtools=1.6
+conda install -c bioconda repeatmasker=4.1.2
 ```
 In the codes relative paths are used so in case of forking the repository it is necessary to have the same folder structure as described above.
 
@@ -19,4 +19,11 @@ Used LINUX commands
 ```bash
 wget
 gzip
+```
+
+Used Python packages
+---
+```python
+subprocess
+os
 ```
