@@ -13,13 +13,15 @@ class process_DNA():
 
     def get_gDNA(self):
         try:
+            #connect to the NCBI FTP site
             ftp=FTP('ftp.ncbi.nlm.nih.gov')
             ftp.login()
+            #go to the latest assembly version of the given organism
             ftp.cwd(f'/genomes/refseq/vertebrate_mammalian/{self.organism_name}/latest_assembly_versions/')
             LatestAssembly=ftp.nlst()[0]
             URL=f'https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/{self.organism_name}/latest_assembly_versions/{LatestAssembly}/'
             filename=f'{LatestAssembly}_genomic.fna.gz'
-            #download genome
+            #download latest genome version
             call(f'wget --output-document=../data/genomes/gDNA.fna.gz {URL+filename}',shell=True)
             #decompress genome
             call(f'gzip -d ../data/genomes/gDNA.fna.gz',shell=True)
@@ -33,6 +35,7 @@ class process_DNA():
             mtID=str(mtID.stdout).split()[0][3:]
             #get mitochondrial sequence
             call(f'samtools faidx ../data/genomes/mitochondrion.1.1.genomic.fna {mtID} > ../data/genomes/mtDNA.fna',shell=True)
+            #some organisms are not present in the mitochondrion.1.1.genomic.fna file so try mitochondrion.2.1.genomic.fna instead
             if os.path.getsize('../data/genomes/mtDNA.fna')<1000:
                 mtID=run(f"""egrep '{self.organism_name.replace('_',' ')}' ../data/genomes/mitochondrion.2.1.genomic.fna | grep mitochondrion""",shell=True,capture_output=True)
                 mtID=str(mtID.stdout).split()[0][3:]
@@ -86,7 +89,7 @@ class process_DNA():
                         'mitochondrial_strand', 'genomic_size', 'genomic_sequence',
                          'mitochondrial_sequence']
             )
-            #create filter to discard artifacts that are the results of using dmtDNA
+            #create filter to discard artifacts that are the results of using double mtDNA
             mtRecord=SeqIO.read("../data/genomes/mtDNA.fna", "fasta")
             mtSize=len(str(mtRecord.seq))
             size_fil=alignments['mitochondrial_start']<mtSize
