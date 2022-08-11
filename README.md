@@ -20,10 +20,3 @@ Used LINUX commands
 wget
 gzip
 ```
-
-Used Python packages
----
-```python
-subprocess
-os
-```
