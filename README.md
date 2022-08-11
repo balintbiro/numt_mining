@@ -13,4 +13,10 @@ In the codes relative paths are used so in case of forking the repository it is 
 
 Nuclear genome sequence files are acquired from
 https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/ , while the files (mitochondrion.1.1.genomic.fna.gz, mitochondrion.2.1.genomic.fna.gz) containing the mitochondrial sequences are acquired from https://ftp.ncbi.nlm.nih.gov/genomes/refseq/mitochondrion/ .
-The LINUX commands are embedded into Python scripts with the subprocess module.
+
+Used LINUX commands
+---
+```bash
+wget
+gzip
+```
