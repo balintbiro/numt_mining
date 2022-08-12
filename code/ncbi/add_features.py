@@ -1,11 +1,29 @@
 #import dependencies
-import numpy as np
+import os
+import  numpy as np
 import pandas as pd
+from subprocess import call
 
-#function for checking mutations
-def mutations(seq1,seq2):
-    global transversions
-    global transitions
+#reading different dfs
+dfs=pd.Series(os.listdir('../data/alignments/')).apply(lambda csv_file: pd.read_csv(f'../data/alignments/{csv_file}'))
+
+#get organism names
+organism_names=pd.Series(os.listdir('../data/alignments/'))
+organism_names=organism_names.apply(lambda name: '_'.join(name.split('_')[:2]).lower()).tolist()
+
+#add organism_names to dfs
+for index, organism_name in enumerate(organism_names):
+	dfs[index]['organism_name']=len(dfs[index])*[organism_name]
+
+#merging different dfs into a common df
+numts=pd.concat(dfs.tolist())
+
+#write common df into a csv file
+numts.to_csv('../data/ncbi_numts.csv')
+
+#function for calculating modified Kimura2 parameter
+#https://link.springer.com/article/10.1007/s00239-018-9885-1
+def modK2(seq1,seq2):
     try:
         seq1=seq1.upper()
         seq2=seq2.upper()
@@ -27,39 +45,43 @@ def mutations(seq1,seq2):
         sites_differ=no_gap_alignment.apply(lambda column: column[0]!=column[1],axis=0)
         purins=['A','G']
         pyrimidines=['C','T']
-        transition=[]
-        transversion=[]
-        no_gap_alignment.loc[:,sites_differ].apply(lambda column: transition.append(1)
+        transitions=[]
+        transversions=[]
+        Ks=0
+        try:
+            no_gap_alignment.loc[:,sites_differ].apply(lambda column: transitions.append(1)
                     if (column[0] in purins and column[1] in purins) or (column[0] in pyrimidines and column[1] in pyrimidines)
-                    else transversion.append(1),axis=0)
-        transversions.append(sum(transversion))
-        transitions.append(sum(transition))
+                    else transversions.append(1),axis=0)
+            S=len(no_gap_alignment.loc[:,~sites_differ].columns.values)/len(alignment.columns.values)
+            P=sum(transitions)/len(alignment.columns.values)
+            Q=sum(transversions)/len(alignment.columns.values)
+            K=(3/4)*w*np.log(w)-(w/2)*np.log(S-P)*np.sqrt(S+P-Q)
+            Ks=K
+        except:
+            Ks=Ks
+        return Ks
     except:
-        transversions.append(np.nan)
-        transitions.append(np.nan)
+        return np.nan
 
-#read in numts
-numts=pd.read_csv('../data/ncbi_numts_tsne.csv',index_col=0)
-
-#apply the function
-transitions=[]
-transversions=[]
+#calculate Kimura2 parameter
+Kimura2s=[]
 for index,row in numts.iterrows():
-    mutations(row['mitochondrial_sequence'],row['genomic_sequence'])
+    Kimura2s.append(modK2(row['mitochondrial_sequence'],row['genomic_sequence']))
 
-#add mutations to numts df
-numts['transversions']=transversions
-numts['transitions']=transitions
+#add Kimura2 Distances to numts dataframe
+numts['modk2']=Kimura2s
 
-#calculate the cumulative sizes of genome parts that contain numts
-gpart_cum_sizes=pd.Series(numts['label'].unique()).apply(lambda label: sum(numts.loc[numts['label']==label]['genomic_size'].drop_duplicates()))
-gpart_cum_sizes.index=numts['label'].unique()
+#function for calculating GC content
+def get_GC(seq):
+	try:
+		return (seq.upper().count('G')+seq.upper().count('C'))/len(seq.replace('-',''))
+	except:
+		return np.nan
 
-#calcuate for each numt the ratio of cumulative sizes of genome parts
-numt_ratio=numts.apply(lambda row: (row['genomic_length']/gpart_cum_sizes[row['label']])*100,axis=1)
+#calculate GCs and add them to the merged df
+numts['numt_GC']=numts['genomic_sequence'].apply(get_GC)
+numts['upstream_GC']=numts['upstream_5kb'].apply(get_GC)
+numts['downstream_GC']=numts['downstream_5kb'].apply(get_GC)
 
-#add numt ratio to numts df
-numts['numt_ratio']=numt_ratio
-
-#write out dataframe to csv file
-numts.to_csv('../data/ncbi_numts_tsne.csv')
+#export csv p4 means that 4 patterns have been added (Kimura2, numtGC, flankings GC)
+numts.to_csv('../data/ncbi_numts_p4.csv',index=False)
