@@ -36,7 +36,7 @@ def repeatmasker(organism_name,sequence_type):
 		#append individual repeat df to a common df list
 		RM_dfs.append(repeats)
 		#clear the directory
-		call('rm ../data/RM_files/*',shell=True)
+		call('rm -r ../data/RM_files/*',shell=True)
 	except:
 		pass
 
