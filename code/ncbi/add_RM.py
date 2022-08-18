@@ -11,8 +11,7 @@ if os.path.isdir('../data/RM_files/')==False:
     os.mkdir('../data/RM_files/')
 
 #function for preparing the output for RepeatMasker analysis, run RepeatMasker itself and process outputs
-def repeatmasker(organism_name,sequence_type):
-	global RM_dfs
+def repeatmasker(organism_name,sequence_type,output_file):
 	try:
 		subdf=numts.loc[numts['organism_name']==organism_name]
 		#write the sequences into a fasta file
@@ -33,8 +32,8 @@ def repeatmasker(organism_name,sequence_type):
 		repeats=pd.read_csv('../data/RM_files/RM_input.tab',sep='\t',skiprows=2,header=None)
 		#add organism name to repeats df
 		repeats['organism_name']=len(repeats)*[organism_name]
-		#append individual repeat df to a common df list
-		RM_dfs.append(repeats)
+		#add current repeats to an existing output file
+		repeats.to_csv(output_file,mode='a',index=False,header=False)
 		#clear the directory
 		call('rm -r ../data/RM_files/*',shell=True)
 	except:
@@ -44,31 +43,29 @@ def repeatmasker(organism_name,sequence_type):
 organism_names=pd.Series(os.listdir('../data/alignments/')).apply(lambda name: '_'.join(name.split('_')[:2]).lower())
 
 ######################################################################################################
-#create global variable for upstream RM dfs
-RM_dfs=[]
-#make the function work for upstream repeats
-organism_names.apply(repeatmasker,args=('upstream_5kb',))
-#create a merged df for upstream repeats
-upstream_repeats=pd.concat(RM_dfs)
-#add column names for upstream repeats
-upstream_repeats.columns=[
+#create a df for upstream repeats
+upstream_repeats=pd.DataFrame(
+	data=[],
+	columns=[
 	'SW_score','div_perc','del_perc','ins_perc','query_name','piq_begin','piq_end','piq_left','matching','repeat',
 	'repeat_class','pir_begin','pir_end','pin_left','ID','higher_score_match','organism_name'
 	]#piq means Position In Query while pir means Position In Repeat
-#write upstream outputs
+	)
+#write upstream csv into a file; this df is going to be prolonged with the species specific RM dfs
 upstream_repeats.to_csv('../results/upstream_RM.csv',index=False)
+#make the function work for upstream repeats
+organism_names[:2].apply(repeatmasker,args=('upstream_5kb','../results/upstream_RM.csv',))
 
 ######################################################################################################
-#create global variable for downstream RM dfs
-RM_dfs=[]
-#make the function work for downstream repeats
-organism_names.apply(repeatmasker,args=('downstream_5kb',))
-#create a merged df for downstream repeats
-downstream_repeats=pd.concat(RM_dfs)
-#add column names for upstream repeats
-downstream_repeats.columns=[
+#create a df for downstream repeats
+downstream_repeats=pd.DataFrame(
+	data=[],
+	columns=[
 	'SW_score','div_perc','del_perc','ins_perc','query_name','piq_begin','piq_end','piq_left','matching','repeat',
 	'repeat_class','pir_begin','pir_end','pin_left','ID','higher_score_match','organism_name'
 	]#piq means Position In Query while pir means Position In Repeat
-#write upstream outputs
-downstream_repeats.to_csv('../results/downstream_RM.csv',index=False)
+	)
+#write downstream csv into a file; this df is going to be prolonged with the species specific RM dfs
+upstream_repeats.to_csv('../results/downstream_RM.csv',index=False)
+#make the function work for downstream repeats
+organism_names[:2].apply(repeatmasker,args=('downstream_5kb','../results/downstream_RM.csv',))
