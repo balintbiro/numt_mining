@@ -54,7 +54,7 @@ upstream_repeats=pd.DataFrame(
 #write upstream csv into a file; this df is going to be prolonged with the species specific RM dfs
 upstream_repeats.to_csv('../results/upstream_RM.csv',index=False)
 #make the function work for upstream repeats
-organism_names[:2].apply(repeatmasker,args=('upstream_5kb','../results/upstream_RM.csv',))
+organism_names.apply(repeatmasker,args=('upstream_5kb','../results/upstream_RM.csv',))
 
 ######################################################################################################
 #create a df for downstream repeats
@@ -68,4 +68,4 @@ downstream_repeats=pd.DataFrame(
 #write downstream csv into a file; this df is going to be prolonged with the species specific RM dfs
 upstream_repeats.to_csv('../results/downstream_RM.csv',index=False)
 #make the function work for downstream repeats
-organism_names[:2].apply(repeatmasker,args=('downstream_5kb','../results/downstream_RM.csv',))
+organism_names.apply(repeatmasker,args=('downstream_5kb','../results/downstream_RM.csv',))
