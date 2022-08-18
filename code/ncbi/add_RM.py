@@ -4,7 +4,7 @@ import pandas as pd
 from subprocess import call
 
 #reading in merged numts df
-numts=pd.read_csv('../data/ncbi_numts_p4.csv')
+numts=pd.read_csv('../data/ncbi_numts.csv')
 
 #create folder for RepeatMasker files
 if os.path.isdir('../data/RM_files/')==False:
@@ -19,7 +19,7 @@ def repeatmasker(organism_name,sequence_type):
 		with open('../data/RM_files/RM_input.fa','w')as outfile:
 			subdf.apply(
 					lambda row: outfile.write(
-							f">{row['genomic_id']}_{str(int(row['genomic_start']))}_{str(int(row['mitochondrial_start']))}\n{row[sequence_type]}\n" #header consists of genomic id+genomic and mitochondrial starts (to make sure of uniqueness)
+							f">{row['genomic_id']}_{str(int(row['genomic_start']))}_{str(len(row[sequence_type]))}_{str(int(row['mitochondrial_start']))}\n{row[sequence_type]}\n" #header consists of genomic id+flanking length, genomic and mitochondrial starts (to make sure of uniqueness)
 						)
 					if type(row[sequence_type])==str #in some cases there is no flanking region and so np.nans are present
 					else print(f"{organism_name} doesnt have {sequence_type} under the genomic ID of {row['genomic_id']} in the position of {str(row['genomic_start']).upper()}"),
