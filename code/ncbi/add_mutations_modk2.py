@@ -24,6 +24,8 @@ numts.to_csv('../data/ncbi_numts.csv')
 #function for calculating modified Kimura2 parameter
 #https://link.springer.com/article/10.1007/s00239-018-9885-1
 def modK2(seq1,seq2):
+    global sum_transversions
+    global sum_transitions
     try:
         seq1=seq1.upper()
         seq2=seq2.upper()
@@ -57,19 +59,29 @@ def modK2(seq1,seq2):
             Q=sum(transversions)/len(alignment.columns.values)
             K=(3/4)*w*np.log(w)-(w/2)*np.log(S-P)*np.sqrt(S+P-Q)
             Ks=K
+            sum_transversions.append(sum(transversions))
+            sum_transitions.append(sum(transitions))
         except:
             Ks=Ks
+            sum_transversions.append(np.nan)
+            sum_transitions.append(np.nan)
         return Ks
     except:
         return np.nan
+        sum_transversions.append(np.nan)
+        sum_transitions.append(np.nan)
 
 #calculate Kimura2 parameter
+sum_transitions=[]
+sum_transversions=[]
 Kimura2s=[]
 for index,row in numts.iterrows():
     Kimura2s.append(modK2(row['mitochondrial_sequence'],row['genomic_sequence']))
 
-#add Kimura2 Distances to numts dataframe
+#add Kimura2 Distances and different mutations to numts dataframe
 numts['modk2']=Kimura2s
+numts['transversions']=sum_transversions
+numts['transitions']=sum_transitions
 
 #function for calculating GC content
 def get_GC(seq):
@@ -83,5 +95,5 @@ numts['numt_GC']=numts['genomic_sequence'].apply(get_GC)
 numts['upstream_GC']=numts['upstream_5kb'].apply(get_GC)
 numts['downstream_GC']=numts['downstream_5kb'].apply(get_GC)
 
-#export csv p4 means that 4 patterns have been added (Kimura2, numtGC, flankings GC)
-numts.to_csv('../data/ncbi_numts_p4.csv',index=False)
+#export csv p6 means that 6 patterns have been added (Kimura2, mutations, numtGC, flankings GC)
+numts.to_csv('../data/ncbi_numts_p6.csv',index=False)
