@@ -44,6 +44,7 @@ organism_names=pd.Series(os.listdir('../data/alignments/')).apply(lambda name: '
 
 ######################################################################################################
 #create a df for upstream repeats
+#columns are from https://www.repeatmasker.org/webrepeatmaskerhelp.html How to read the results
 upstream_repeats=pd.DataFrame(
 	data=[],
 	columns=[
@@ -69,3 +70,48 @@ downstream_repeats=pd.DataFrame(
 upstream_repeats.to_csv('../results/downstream_RM.csv',index=False)
 #make the function work for downstream repeats
 organism_names.apply(repeatmasker,args=('downstream_5kb','../results/downstream_RM.csv',))
+
+#reading in the repeat files
+upstream_repeats=pd.read_csv('../results/upstream_RM.csv')
+downstream_repeats=pd.read_csv('../results/downstream_RM.csv')
+
+#reading in numts
+numts=pd.read_csv('../data/ncbi_numts_p6.csv')
+
+#add flanking types
+upstream_repeats['flanking']=len(upstream_repeats)*['upstream']
+downstream_repeats['flanking']=len(downstream_repeats)*['downstream']
+
+#merge the repeat dfs into one df
+repeats=pd.concat([upstream_repeats,downstream_repeats])
+
+#function for adding different features of RepeatMasker to the "master" df
+def add_RM(row,sequence_type):
+	try:
+		query_name=f"{row['genomic_id']}_{str(int(row['genomic_start']))}_{str(len(row[sequence_type]))}_{str(int(row['mitochondrial_start']))}"
+		subdf=repeats.loc[repeats['query_name']==query_name]
+		if len(subdf)!=0:
+			SW_mean=np.mean(subdf['SW_score'])
+			SW_median=np.median(subdf['SW_score'])
+			RMs_count=len(subdf)
+			RMs_lengths=sum(subdf['piq_end']-subdf['piq_begin'])
+			return [SW_mean,SW_median,RMs_count,RMs_lengths]
+		else:
+			return [np.nan,np.nan,np.nan,np.nan]
+	except:
+		return [np.nan,np.nan,np.nan,np.nan]
+
+#get RM features for upstream flanking
+uRM_features=pd.DataFrame(numts.apply(add_RM,args=('upstream_5kb',),axis=1).tolist())
+uRM_features.columns=['uSW_mean','uSW_median','uRMs_count','uRMs_lengths']
+
+#get RM features for downstream flanking
+dRM_features=pd.DataFrame(numts.apply(add_RM,args=('downstream_5kb',),axis=1).tolist())
+dRM_features.columns=['dSW_mean','dSW_median','dRMs_count','dRMs_lengths']
+
+#add RM features to numts df
+numts=pd.concat([numts,uRM_features],axis=1)
+numts=pd.concat([numts,dRM_features],axis=1)
+
+#write output into a csv p14 means the number of features
+numts.to_csv('../data/ncbi_numts_p14.csv',index=False)
