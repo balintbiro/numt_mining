@@ -1,4 +1,5 @@
 #import dependencies
+import os
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -7,16 +8,34 @@ from sklearn.manifold import TSNE
 from sklearn.preprocessing import StandardScaler
 
 #read in dataframe
-#import numts
-numts=pd.read_csv('../data/ncbi_numts_tsne.csv',index_col=0)
-numts['score']=numts.index
-numts.index=np.arange(0,len(numts))
+numts=pd.read_csv('../data/ncbi_numts_p14.csv',index_col=0)
+
+#get labels based on organism name
+indices=pd.Series(
+	data=np.arange(0,len(numts['organism_name'].unique())),
+	index=numts['organism_name'].unique()
+	)
+
+#add labels to numts df
+numts['label']=numts['organism_name'].apply(lambda organism_name: indices[organism_name])
+
+#dropnas since its not suitable for tsne
+numts=numts.dropna()
 
 #create datasets
 X=numts[[
-    'score','eg2_value','e_value','genomic_start','genomic_length','mitochondrial_length','GC','modk2','transversions','transitions','numt_ratio','cum_g_size'
-        ]]#
+    'score','eg2_value','e_value',#alignment scores
+    'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
+    'numt_GC','upstream_GC','downstream_GC',#GCs
+    'modk2','transversions','transitions',#pairwise divergence
+    'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
+    'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths'#downstream_flanking features
+        ]]
 y=numts['label']
+
+#conditional creation of tSNE results folder
+if os.path.exists('../results/tSNEs/')==False:
+    os.mkdir('../results/tSNEs/')
 
 #function for performing grid search
 def grid_search(perplexity_value,learning_rate_value):
@@ -45,7 +64,7 @@ def grid_search(perplexity_value,learning_rate_value):
 	axs.axis('off')
 	plt.legend().remove()
 	plt.tight_layout()
-	plt.savefig(f'../results/tsnes/{perplexity_value}pp_{learning_rate_value}lr.png',dpi=450)
+	plt.savefig(f'../results/tSNEs/{perplexity_value}pp_{learning_rate_value}lr.png',dpi=450)
 
 #apply function. Optimal hyperparameters: https://www.nature.com/articles/s41467-019-13056-x
 for perplexity_value in np.linspace(5,len(numts)/100,5,dtype=int):
