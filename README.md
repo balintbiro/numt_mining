@@ -11,12 +11,5 @@ conda install -c bioconda repeatmasker=4.1.2
 ```
 In the codes relative paths are used so in case of forking the repository it is necessary to have the same folder structure as described above.
 
-Nuclear genome sequence files are acquired from
-https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/ , while the files (mitochondrion.1.1.genomic.fna.gz, mitochondrion.2.1.genomic.fna.gz) containing the mitochondrial sequences are acquired from https://ftp.ncbi.nlm.nih.gov/genomes/refseq/mitochondrion/ .
-
-Used LINUX commands
----
-```bash
-wget
-gzip
-```
+Nuclear genome sequence files are from
+https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/ , while the files (mitochondrion.1.1.genomic.fna.gz, mitochondrion.2.1.genomic.fna.gz) containing the mitochondrial sequences are from https://ftp.ncbi.nlm.nih.gov/genomes/refseq/mitochondrion/ . Tax  information is from https://ftp.ncbi.nlm.nih.gov/genomes/GENOME_REPORTS/eukaryotes.txt and phylogenetic ranks are from https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.zip / rankedlineage.dmp.
