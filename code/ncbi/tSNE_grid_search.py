@@ -24,8 +24,8 @@ numts=numts.dropna()
 
 #create datasets
 X=numts[[
-    'score','eg2_value','e_value',#alignment scores
-    'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
+    #'score','eg2_value','e_value',#alignment scores
+    #'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
     'numt_GC','upstream_GC','downstream_GC',#GCs
     'modk2','transversions','transitions',#pairwise divergence
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
@@ -67,7 +67,7 @@ def grid_search(perplexity_value,learning_rate_value):
 	plt.savefig(f'../results/tSNEs/{perplexity_value}pp_{learning_rate_value}lr.png',dpi=450)
 
 #apply function. Optimal hyperparameters: https://www.nature.com/articles/s41467-019-13056-x
-for perplexity_value in np.linspace(5,len(numts)/100,5,dtype=int):
-	for learning_rate_value in np.linspace(10,len(numts)/12,5,dtype=int):
+for perplexity_value in np.linspace(5,len(numts)/100,3,dtype=int):
+	for learning_rate_value in np.linspace(10,len(numts)/12,3,dtype=int):
 		grid_search(perplexity_value,learning_rate_value)
 #grid_search((len(numts)/100),(len(numts)/12))
