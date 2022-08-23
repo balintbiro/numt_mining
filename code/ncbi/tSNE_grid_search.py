@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 numts=pd.read_csv('../data/ncbi_numts_p15.csv')
 
 #create datasets
-X=numts[[
+X_labeled=numts[[
     'score','eg2_value','e_value',#alignment scores
     'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
     'numt_GC','upstream_GC','downstream_GC',#GCs
@@ -21,20 +21,16 @@ X=numts[[
         'genus_label','family_label','order_label','label']]
 
 #dropnas since its not suitable for tsne
-X=X.dropna()
-X=X[X['genus_label']>0]
-X=X[X['family_label']>0]
-X=X[X['order_label']>0]
-X_labeled=X
+X_labeled=X_labeled.dropna()
 
-X=X[[
+X=X_labeled[[
     'score','eg2_value','e_value',#alignment scores
     'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
     'numt_GC','upstream_GC','downstream_GC',#GCs
     'modk2','transversions','transitions',#pairwise divergence
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
     'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths'#downstream_flanking features
-        ]]
+    ]]
 
 #conditional creation of tSNE results folder
 if os.path.exists('../results/tSNEs/')==False:
@@ -106,7 +102,7 @@ def grid_search(perplexity_value,learning_rate_value):
 	sns.scatterplot(
 	    x='x',
 	    y='y',
-	    hue='label',
+	    hue='species_label',
 	    data=X,
 	    palette='Paired',
 	    alpha=.7,
@@ -118,7 +114,6 @@ def grid_search(perplexity_value,learning_rate_value):
 	plt.savefig(f'../results/tSNEs/species_{perplexity_value}pp_{learning_rate_value}lr.png',dpi=250)
 
 #apply function. Optimal hyperparameters: https://www.nature.com/articles/s41467-019-13056-x
-#for perplexity_value in np.linspace(5,len(numts)/100,5,dtype=int):
-#	for learning_rate_value in np.linspace(10,len(numts)/12,5,dtype=int):
-#		grid_search(perplexity_value,learning_rate_value)
-grid_search(202,3323)
+for perplexity_value in np.linspace(5,len(numts)/100,5,dtype=int):
+	for learning_rate_value in np.linspace(10,len(numts)/12,5,dtype=int):
+		grid_search(perplexity_value,learning_rate_value)
