@@ -38,7 +38,7 @@ numts['label']=numts['organism_name'].apply(lambda organism_name: indices[organi
 def get_taxid(organism_name):
 	try:
 		organism_name=organism_name[0].upper()+organism_name[1:].replace('_',' ')
-		tax_id=int(tax_ids.loc[organism_name]['TaxID'].tolist())
+		tax_id=tax_ids.loc[organism_name]['TaxID'].tolist()
 		if type(tax_id)==int:
 			return tax_id
 		else:
