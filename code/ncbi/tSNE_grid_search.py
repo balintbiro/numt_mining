@@ -8,7 +8,7 @@ from sklearn.manifold import TSNE
 from sklearn.preprocessing import StandardScaler
 
 #read in dataframe
-numts=pd.read_csv('../data/ncbi_numts_p15.csv')
+numts=pd.read_csv('../data/ncbi_numts_p16.csv')
 
 #create datasets
 X_labeled=numts[[
@@ -18,6 +18,7 @@ X_labeled=numts[[
     'modk2','transversions','transitions',#pairwise divergence
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
     'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths',#downstream_flanking features
+    'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC',#genomic data
         'genus_label','family_label','order_label','label']]
 
 #dropnas since its not suitable for tsne
@@ -29,8 +30,8 @@ X=X_labeled[[
     'numt_GC','upstream_GC','downstream_GC',#GCs
     'modk2','transversions','transitions',#pairwise divergence
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
-    'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths'#downstream_flanking features
-    ]]
+    'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths',#downstream_flanking features
+    'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC']]
 
 #conditional creation of tSNE results folder
 if os.path.exists('../results/tSNEs/')==False:
@@ -74,7 +75,7 @@ def grid_search(perplexity_value,learning_rate_value):
 	    y='y',
 	    hue='order_label',
 	    data=X,
-	    palette='Paired',
+	    palette='Paired_r',
 	    alpha=.7,
 	    ax=axs
 	)
@@ -89,7 +90,7 @@ def grid_search(perplexity_value,learning_rate_value):
 	    y='y',
 	    hue='genus_label',
 	    data=X,
-	    palette='Paired',
+	    palette='Spectral',
 	    alpha=.7,
 	    ax=axs
 	)
@@ -104,7 +105,7 @@ def grid_search(perplexity_value,learning_rate_value):
 	    y='y',
 	    hue='species_label',
 	    data=X,
-	    palette='Paired',
+	    palette='Spectral_r',
 	    alpha=.7,
 	    ax=axs
 	)
