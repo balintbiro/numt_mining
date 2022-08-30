@@ -26,7 +26,8 @@ X_labeled=X_labeled.dropna()
 
 X=X_labeled[[
     'score','eg2_value','e_value',#alignment scores
-    'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
+    #'genomic_start','genomic_length','mitochondrial_length'
+    'genomic_size',#sequences features
     'numt_GC','upstream_GC','downstream_GC',#GCs
     'modk2','transversions','transitions',#pairwise divergence
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
@@ -44,6 +45,7 @@ def grid_search(perplexity_value,learning_rate_value):
 			random_state = 0,
 			perplexity=perplexity_value,
 			learning_rate=learning_rate_value,
+			init='pca',
 			n_jobs=-1
 		)
 	X_tsne = tsne.fit_transform(X_normalized)
@@ -60,7 +62,7 @@ def grid_search(perplexity_value,learning_rate_value):
 	    y='y',
 	    hue='family_label',
 	    data=X,
-	    palette='Paired',
+	    palette='tab20',
 	    alpha=.7,
 	    ax=axs
 	)
@@ -75,7 +77,7 @@ def grid_search(perplexity_value,learning_rate_value):
 	    y='y',
 	    hue='order_label',
 	    data=X,
-	    palette='Paired_r',
+	    palette='tab20_r',
 	    alpha=.7,
 	    ax=axs
 	)
@@ -90,7 +92,7 @@ def grid_search(perplexity_value,learning_rate_value):
 	    y='y',
 	    hue='genus_label',
 	    data=X,
-	    palette='Spectral',
+	    palette='Paired',
 	    alpha=.7,
 	    ax=axs
 	)
@@ -105,7 +107,7 @@ def grid_search(perplexity_value,learning_rate_value):
 	    y='y',
 	    hue='species_label',
 	    data=X,
-	    palette='Spectral_r',
+	    palette='Paired_r',
 	    alpha=.7,
 	    ax=axs
 	)
@@ -115,6 +117,6 @@ def grid_search(perplexity_value,learning_rate_value):
 	plt.savefig(f'../results/tSNEs/species_{perplexity_value}pp_{learning_rate_value}lr.png',dpi=250)
 
 #apply function. Optimal hyperparameters: https://www.nature.com/articles/s41467-019-13056-x
-for perplexity_value in np.linspace(5,len(numts)/100,5,dtype=int):
-	for learning_rate_value in np.linspace(10,len(numts)/12,5,dtype=int):
+for perplexity_value in np.linspace(5,len(numts)/100,4,dtype=int):
+	for learning_rate_value in np.linspace(10,len(numts)/12,4,dtype=int):
 		grid_search(perplexity_value,learning_rate_value)
