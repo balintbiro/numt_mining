@@ -26,9 +26,9 @@ X_labeled=numts[[
 X_labeled=X_labeled.dropna()
 
 X=X_labeled[[
-    'score','eg2_value','e_value',#alignment scores
-    'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
-    'numt_GC','upstream_GC','downstream_GC',#GCs
+    #'score','eg2_value','e_value',#alignment scores
+    #'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
+    #'numt_GC','upstream_GC','downstream_GC',#GCs
     'modk2','transversions','transitions',#pairwise divergence
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
     'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths',#downstream_flanking features
