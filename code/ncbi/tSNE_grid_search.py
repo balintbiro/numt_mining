@@ -8,7 +8,7 @@ from sklearn.manifold import TSNE
 from sklearn.preprocessing import StandardScaler
 
 #read in dataframe
-numts=pd.read_csv('../data/ncbi_numts_p16.csv')
+numts=pd.read_csv('../data/ncbi_numts_p26.csv')
 
 #create datasets
 X_labeled=numts[[
