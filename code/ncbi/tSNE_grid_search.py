@@ -40,6 +40,23 @@ X=X_labeled[[
 if os.path.exists('../results/tSNEs/')==False:
     os.mkdir('../results/tSNEs/')
 
+#define function for plotting the result
+def plotter(coloring_label,color_palette,pp_value,lr_value):
+	fig,axs=plt.subplots(1,1,figsize=(10,10))
+	sns.scatterplot(
+	    x='x',
+	    y='y',
+	    hue=coloring_label,
+	    data=X,
+	    palette=color_palette,
+	    alpha=.7,
+	    ax=axs
+	)
+	axs.axis('off')
+	plt.legend().remove()
+	plt.tight_layout()
+	plt.savefig(f'../results/tSNEs/family_{pp_value}pp_{lr_value}lr.png',dpi=250)
+
 #function for performing grid search
 def grid_search(perplexity_value,learning_rate_value):
 	X_normalized=StandardScaler().fit(X).transform(X)
@@ -58,67 +75,15 @@ def grid_search(perplexity_value,learning_rate_value):
 	X['genus_label']=X_labeled['genus_label']
 	X['species_label']=X_labeled['label']
 	plt.style.use('fivethirtyeight')
-	fig,axs=plt.subplots(1,1,figsize=(10,10))
-	sns.scatterplot(
-	    x='x',
-	    y='y',
-	    hue='family_label',
-	    data=X,
-	    palette='tab20',
-	    alpha=.7,
-	    ax=axs
-	)
-	axs.axis('off')
-	plt.legend().remove()
-	plt.tight_layout()
-	plt.savefig(f'../results/tSNEs/family_{perplexity_value}pp_{learning_rate_value}lr.png',dpi=250)
 
-	fig,axs=plt.subplots(1,1,figsize=(10,10))
-	sns.scatterplot(
-	    x='x',
-	    y='y',
-	    hue='order_label',
-	    data=X,
-	    palette='tab20_r',
-	    alpha=.7,
-	    ax=axs
-	)
-	axs.axis('off')
-	plt.legend().remove()
-	plt.tight_layout()
-	plt.savefig(f'../results/tSNEs/order_{perplexity_value}pp_{learning_rate_value}lr.png',dpi=250)
-
-	fig,axs=plt.subplots(1,1,figsize=(10,10))
-	sns.scatterplot(
-	    x='x',
-	    y='y',
-	    hue='genus_label',
-	    data=X,
-	    palette='Paired',
-	    alpha=.7,
-	    ax=axs
-	)
-	axs.axis('off')
-	plt.legend().remove()
-	plt.tight_layout()
-	plt.savefig(f'../results/tSNEs/genus_{perplexity_value}pp_{learning_rate_value}lr.png',dpi=250)
-
-	fig,axs=plt.subplots(1,1,figsize=(10,10))
-	sns.scatterplot(
-	    x='x',
-	    y='y',
-	    hue='species_label',
-	    data=X,
-	    palette='Paired_r',
-	    alpha=.7,
-	    ax=axs
-	)
-	axs.axis('off')
-	plt.legend().remove()
-	plt.tight_layout()
-	plt.savefig(f'../results/tSNEs/species_{perplexity_value}pp_{learning_rate_value}lr.png',dpi=250)
+	plotter('family_label','tab20',perplexity_value,learning_rate_value)
+	plotter('order_label','tab20_r',perplexity_value,learning_rate_value)
+	plotter('genus_label','Paired',perplexity_value,learning_rate_value)
+	plotter('species_label','Paired_r',perplexity_value,learning_rate_value)
 
 #apply function. Optimal hyperparameters: https://www.nature.com/articles/s41467-019-13056-x
-for perplexity_value in np.linspace(5,len(numts)/100,4,dtype=int):
-	for learning_rate_value in np.linspace(10,len(numts)/12,4,dtype=int):
-		grid_search(perplexity_value,learning_rate_value)
+#for perplexity_value in np.linspace(5,len(numts)/100,4,dtype=int):
+#	for learning_rate_value in np.linspace(10,len(numts)/12,4,dtype=int):
+#		grid_search(perplexity_value,learning_rate_value)
+
+grid_search(int(len(X)/100),int(len(X)/12))
