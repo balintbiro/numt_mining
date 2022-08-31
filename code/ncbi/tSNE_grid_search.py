@@ -51,7 +51,7 @@ def plotter(coloring_label,color_palette,pp_value,lr_value,curr_ax):
 	    alpha=.7,
 	    ax=curr_ax
 	)
-	axs.axis('off')
+	curr_ax.axis('off')
 	plt.legend().remove()
 	plt.tight_layout()
 
