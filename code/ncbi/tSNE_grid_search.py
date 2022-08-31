@@ -29,10 +29,10 @@ X=X_labeled[[
     #'score','eg2_value','e_value',#alignment scores
     #'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
     #'numt_GC','upstream_GC','downstream_GC',#GCs
-    'modk2','transversions','transitions',#pairwise divergence
+    #'modk2','transversions','transitions',#pairwise divergence
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
     'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths',#downstream_flanking features
-    'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC',#genomic data
+    #'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC',#genomic data
     'u_1st_repeatl', 'u_2nd_repeatl', 'u_3rd_repeatl','u_4th_repeatl', 'u_5th_repeatl','u_1st_repeatclassl','u_2nd_repeatclassl',#RM frequencies
     ]]
 
