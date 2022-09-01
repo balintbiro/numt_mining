@@ -83,6 +83,11 @@ genus_dict=create_dict('genus')
 family_dict=create_dict('family')
 order_dict=create_dict('order')
 
+#write the dictionaries into files
+genus_dict.to_csv('../data/genus_dict.csv')
+family_dict.to_csv('../data/family_dict.csv')
+order_dict.to_csv('../data/order_dict.csv')
+
 #translate each phylo type to numbers and add them to numts df
 numts['genus_label']=genus_dict[numts['genus']].values
 numts['family_label']=family_dict[numts['family']].values

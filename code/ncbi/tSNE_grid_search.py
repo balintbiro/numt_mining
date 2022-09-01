@@ -10,6 +10,14 @@ from sklearn.preprocessing import StandardScaler
 #read in dataframe
 numts=pd.read_csv('../data/ncbi_numts_p26.csv')
 
+#add sizes
+numts['gsize_comp']=numts['genomic_length']-(numts['gDNA_size (Mb)']*1000000)
+numts['mtsize_comp']=numts['mitochondrial_length']-(numts['mtDNA_size (Mb)']*1000000)
+
+#order label 3 is NaN
+#family label 4 is NaN
+#genus label 4 is NaN
+
 #create datasets
 X_labeled=numts[[
     'score','eg2_value','e_value',#alignment scores
@@ -20,20 +28,39 @@ X_labeled=numts[[
     'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths',#downstream_flanking features
     'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC',#genomic data
     'u_1st_repeatl', 'u_2nd_repeatl', 'u_3rd_repeatl','u_4th_repeatl', 'u_5th_repeatl','u_1st_repeatclassl','u_2nd_repeatclassl',#RM frequencies
+    'gsize_comp','mtsize_comp',
+    'gDNA_size (Mb)','mtDNA_size (Mb)',
         'genus_label','family_label','order_label','label']]
 
-#dropnas since its not suitable for tsne
-X_labeled=X_labeled.dropna()
+#sample df
+X_labeled=X_labeled.sample(n=int(len(X_labeled)/5))
 
-X=X_labeled[[
-    #'score','eg2_value','e_value',#alignment scores
-    #'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
-    #'numt_GC','upstream_GC','downstream_GC',#GCs
-    #'modk2','transversions','transitions',#pairwise divergence
+X_labeled=X_labeled[[
+    'score','eg2_value','e_value',#alignment scores
+    'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
+    'numt_GC','upstream_GC','downstream_GC',#GCs
+    'modk2','transversions','transitions',#pairwise divergence
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
     'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths',#downstream_flanking features
-    #'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC',#genomic data
-    'u_1st_repeatl', 'u_2nd_repeatl', 'u_3rd_repeatl','u_4th_repeatl', 'u_5th_repeatl','u_1st_repeatclassl','u_2nd_repeatclassl',#RM frequencies
+    'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC',#genomic data
+    'u_1st_repeatl', 'u_2nd_repeatl', 'u_3rd_repeatl','u_1st_repeatclassl',#'u_4th_repeatl', 'u_5th_repeatl',#'u_2nd_repeatclassl',#RM frequencies
+    'genus_label','family_label','order_label','label',
+    'gsize_comp','mtsize_comp',
+    'gDNA_size (Mb)','mtDNA_size (Mb)'
+    ]].dropna()
+
+X=X_labeled[[
+	'score','eg2_value','e_value',#alignment scores
+    'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
+    'numt_GC','upstream_GC','downstream_GC',#GCs
+    'modk2','transversions','transitions',#pairwise divergence
+    'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
+    'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths',#downstream_flanking features
+    'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC',#genomic data
+    'u_1st_repeatl', 'u_2nd_repeatl', 'u_3rd_repeatl','u_1st_repeatclassl',#'u_4th_repeatl', 'u_5th_repeatl',#'u_2nd_repeatclassl',#RM frequencies
+    #'genus_label','family_label','order_label','label',
+    'gsize_comp','mtsize_comp',
+    'gDNA_size (Mb)','mtDNA_size (Mb)'
     ]]
 
 #conditional creation of tSNE results folder
@@ -41,7 +68,7 @@ if os.path.exists('../results/tSNEs/')==False:
     os.mkdir('../results/tSNEs/')
 
 #define function for plotting the result
-def plotter(coloring_label,color_palette,pp_value,lr_value,curr_ax):
+def plotter(coloring_label,color_palette,curr_ax,title):
 	sns.scatterplot(
 	    x='x',
 	    y='y',
@@ -51,19 +78,22 @@ def plotter(coloring_label,color_palette,pp_value,lr_value,curr_ax):
 	    alpha=.7,
 	    ax=curr_ax
 	)
+	curr_ax.set_title(title)
 	curr_ax.axis('off')
-	plt.legend().remove()
+	curr_ax.get_legend().remove()
 	plt.tight_layout()
 
 #function for performing grid search
-def grid_search(perplexity_value,learning_rate_value):
+def grid_search(perplexity_value,learning_rate_value,dataset):
 	X_normalized=StandardScaler().fit(X).transform(X)
 	tsne = TSNE(
-			random_state = 0,
+			random_state=0,
 			perplexity=perplexity_value,
 			learning_rate=learning_rate_value,
 			init='pca',
-			n_jobs=-1
+			n_jobs=-1,
+			early_exaggeration=12,
+			n_iter=1000
 		)
 	X_tsne = tsne.fit_transform(X_normalized)
 	X['x']=X_tsne[:,0]
@@ -74,15 +104,19 @@ def grid_search(perplexity_value,learning_rate_value):
 	X['species_label']=X_labeled['label']
 	plt.style.use('fivethirtyeight')
 	fig,axs=plt.subplots(2,2,figsize=(10,10))
-	plotter('family_label','tab20',perplexity_value,learning_rate_value,axs[0,0])
-	plotter('order_label','tab20_r',perplexity_value,learning_rate_value,axs[0,1])
-	plotter('genus_label','Paired',perplexity_value,learning_rate_value,axs[1,0])
-	plotter('species_label','Paired_r',perplexity_value,learning_rate_value,axs[1,1])
-	plt.savefig(f'../results/tSNEs/family_{pp_value}pp_{lr_value}lr.png',dpi=250)
+	plotter('family_label','tab20',axs[0,0],'family')
+	plotter('order_label','tab20_r',axs[0,1],'order')
+	plotter('genus_label','Paired',axs[1,0],'genus')
+	plotter('species_label','Paired_r',axs[1,1],'species')
+	plt.savefig(f'../results/tSNEs/{perplexity_value}pp_{learning_rate_value}lr_{dataset}.png',dpi=250)
 
 #apply function. Optimal hyperparameters: https://www.nature.com/articles/s41467-019-13056-x
-#for perplexity_value in np.linspace(5,len(numts)/100,4,dtype=int):
-#	for learning_rate_value in np.linspace(10,len(numts)/12,4,dtype=int):
-#		grid_search(perplexity_value,learning_rate_value)
+#for perplexity_value in np.linspace(5,len(X_labeled)/100,4,dtype=int):
+#	for learning_rate_value in np.linspace(10,len(X_labeled)/12,4,dtype=int):
+#		grid_search(perplexity_value,learning_rate_value,'relsizes')
 
-grid_search(30,200)
+for perplexity_value in [30,40,60,90,150]:
+	for learning_rate_value in [30,40,60,90,150]:
+		grid_search(perplexity_value,learning_rate_value,'full')
+
+#grid_search(30,200,'full')
