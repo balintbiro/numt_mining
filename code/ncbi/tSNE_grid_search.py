@@ -14,9 +14,17 @@ numts=pd.read_csv('../data/ncbi_numts_p26.csv')
 numts['gsize_comp']=numts['genomic_length']-(numts['gDNA_size (Mb)']*1000000)
 numts['mtsize_comp']=numts['mitochondrial_length']-(numts['mtDNA_size (Mb)']*1000000)
 
-#order label 3 is NaN
-#family label 4 is NaN
-#genus label 4 is NaN
+#get taxonomy dictionaries
+order_dict=pd.read_csv('../data/order_dict.csv',index_col=0)
+genus_dict=pd.read_csv('../data/genus_dict.csv',index_col=0)
+family_dict=pd.read_csv('../data/family_dict.csv',index_col=0)
+
+#create filters to filter out missing taxonomy labels (it may have cause issues)
+order_fil=numts['order_label']!=order_dict.loc[np.nan].values[0]
+genus_fil=numts['genus_label']!=genus_dict.loc[np.nan].values[0]
+family_fil=numts['family_label']!=family_dict.loc[np.nan].values[0]
+
+numts=numts[order_fil][family_fil][genus_fil]
 
 #create datasets
 X_labeled=numts[[
@@ -33,7 +41,7 @@ X_labeled=numts[[
         'genus_label','family_label','order_label','label']]
 
 #sample df
-X_labeled=X_labeled.sample(n=int(len(X_labeled)/5))
+X_labeled=X_labeled.sample(frac=0.25)
 
 X_labeled=X_labeled[[
     'score','eg2_value','e_value',#alignment scores
@@ -50,15 +58,15 @@ X_labeled=X_labeled[[
     ]].dropna()
 
 X=X_labeled[[
-	'score','eg2_value','e_value',#alignment scores
-    'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
+	#'score','eg2_value','e_value',#alignment scores
+    #'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
     'numt_GC','upstream_GC','downstream_GC',#GCs
     'modk2','transversions','transitions',#pairwise divergence
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
     'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths',#downstream_flanking features
     'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC',#genomic data
     'u_1st_repeatl', 'u_2nd_repeatl', 'u_3rd_repeatl','u_1st_repeatclassl',#'u_4th_repeatl', 'u_5th_repeatl',#'u_2nd_repeatclassl',#RM frequencies
-    #'genus_label','family_label','order_label','label',
+    'genus_label','label',#'family_label','order_label',
     'gsize_comp','mtsize_comp',
     'gDNA_size (Mb)','mtDNA_size (Mb)'
     ]]
@@ -115,8 +123,8 @@ def grid_search(perplexity_value,learning_rate_value,dataset):
 #	for learning_rate_value in np.linspace(10,len(X_labeled)/12,4,dtype=int):
 #		grid_search(perplexity_value,learning_rate_value,'relsizes')
 
-for perplexity_value in [30,40,60,90,150]:
-	for learning_rate_value in [30,40,60,90,150]:
-		grid_search(perplexity_value,learning_rate_value,'full')
+#for perplexity_value in [800,1000,1500]:
+#	for learning_rate_value in [800,1000,1500]:
+#		grid_search(perplexity_value,learning_rate_value,'full')
 
-#grid_search(30,200,'full')
+grid_search(1500,1500,'full')
