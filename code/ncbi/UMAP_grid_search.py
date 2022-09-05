@@ -28,14 +28,15 @@ numts=numts[order_fil][family_fil][genus_fil]
 
 #create datasets
 X_labeled=numts[[
-    'score','eg2_value','e_value',#alignment scores
-    'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
+    #'score','eg2_value','e_value',#alignment scores
+    #'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
     'numt_GC','upstream_GC','downstream_GC',#GCs
     'modk2','transversions','transitions',#pairwise divergence
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
     'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths',#downstream_flanking features
     'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC',#genomic data
-    'u_1st_repeatl', 'u_2nd_repeatl', 'u_3rd_repeatl','u_4th_repeatl', 'u_5th_repeatl','u_1st_repeatclassl','u_2nd_repeatclassl',#RM frequencies
+    'u_1st_repeatl', 'u_2nd_repeatl', 'u_3rd_repeatl',
+    #'u_4th_repeatl', 'u_5th_repeatl','u_1st_repeatclassl','u_2nd_repeatclassl',#RM frequencies
     'gsize_comp','mtsize_comp',
     'gDNA_size (Mb)','mtDNA_size (Mb)',
         'genus_label','family_label','order_label','label']]
@@ -51,22 +52,22 @@ X_labeled=X_labeled[[
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
     'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths',#downstream_flanking features
     'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC',#genomic data
-    'u_1st_repeatl', 'u_2nd_repeatl', 'u_3rd_repeatl','u_1st_repeatclassl',#'u_4th_repeatl', 'u_5th_repeatl',#'u_2nd_repeatclassl',#RM frequencies
+    'u_1st_repeatl', 'u_2nd_repeatl', 'u_3rd_repeatl','u_1st_repeatclassl','u_4th_repeatl', 'u_5th_repeatl',#'u_2nd_repeatclassl',#RM frequencies
     'genus_label','family_label','order_label','label',
     'gsize_comp','mtsize_comp',
     'gDNA_size (Mb)','mtDNA_size (Mb)'
     ]].dropna()
 
 X=X_labeled[[
-    'score','eg2_value','e_value',#alignment scores
-    'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
+    #'score','eg2_value','e_value',#alignment scores
+    #'genomic_start','genomic_length','mitochondrial_length','genomic_size',#sequences features
     'numt_GC','upstream_GC','downstream_GC',#GCs
     'modk2','transversions','transitions',#pairwise divergence
     'uSW_mean', 'uSW_median', 'uRMs_count', 'uRMs_lengths',#upstream flanking features
     'dSW_mean', 'dSW_median', 'dRMs_count', 'dRMs_lengths',#downstream_flanking features
     'gnumt_relGC', 'u_relGC', 'd_relGC', 'grel_numt_size', 'mtrel_numt_size', 'mtnumt_relGC',#genomic data
-    'u_1st_repeatl', 'u_2nd_repeatl', 'u_3rd_repeatl','u_1st_repeatclassl',#'u_4th_repeatl', 'u_5th_repeatl',#'u_2nd_repeatclassl',#RM frequencies
-    'genus_label','label',#'family_label','order_label',
+    'u_1st_repeatl', 'u_2nd_repeatl', 'u_1st_repeatclassl','u_3rd_repeatl',#'u_4th_repeatl', 'u_5th_repeatl',#'u_2nd_repeatclassl',#RM frequencies
+    'genus_label','label','family_label',#'order_label',
     'gsize_comp','mtsize_comp',
     'gDNA_size (Mb)','mtDNA_size (Mb)'
     ]]
@@ -77,6 +78,7 @@ if os.path.exists('../results/UMAPs/')==False:
 
 #define function for plotting the result
 def plotter(coloring_label,color_palette,curr_ax,title):
+    kwargs={'edgecolor':'face'}
     sns.scatterplot(
         x='x',
         y='y',
@@ -84,7 +86,8 @@ def plotter(coloring_label,color_palette,curr_ax,title):
         data=X,
         palette=color_palette,
         alpha=.7,
-        ax=curr_ax
+        ax=curr_ax,
+        **kwargs
     )
     curr_ax.set_title(title)
     curr_ax.axis('off')
@@ -115,8 +118,8 @@ def grid_search(n_neighbors,min_dist):
     plotter('species_label','Paired_r',axs[1,1],'species')
     plt.savefig(f'../results/UMAPs/{n_neighbors}_nn_{min_dist}_md.png',dpi=450)
 
-#for n_neighbor in [50,100,200]:
-#    for min_dist in [0.8,0.99]:
+#for n_neighbor in [100,200,600,750]:
+#    for min_dist in [0.25,0.5,0.8,0.99]:
 #        grid_search(n_neighbor,min_dist)
 
-grid_search(int(len(X)/4),0.8)
+grid_search(100,0.99)
