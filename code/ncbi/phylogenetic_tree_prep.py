@@ -1,6 +1,7 @@
 #import dependencies
 import os
 import pandas as pd
+from Bio import SeqIO
 from subprocess import call, run
 
 #read numts df
@@ -47,5 +48,21 @@ mtDNAs=pd.Series(
 #write series into csv file
 mtDNAs.to_csv('../data/mtDNA_ids.csv')
 
+#read in mtDNA ids
+mtDNA_IDs=pd.read_csv('../data/mtDNA_ids.csv',index_col=0)
+mtDNA_IDs.columns=['organism_name']
+
+#declare variables for the original (contains NCBI accessions as headers) and for the corrected (contains organism names as headers) files
+original_file='../data/genomes/mtDNAs_for_phylogenetics.fna'
+corrected_file='../data/genomes/mtDNAs_for_phylogenetics_corr.fna'
+
+#change accession numbers to organism names
+with open(original_file)as infile, open(corrected_file,'w')as outfile:
+    sequences=SeqIO.parse(original_file,'fasta')
+    for record in sequences:
+        record.id=mtDNA_IDs.loc[record.id]['organism_name']
+        record.description=record.id
+        SeqIO.write(record,outfile,'fasta')
+
 #create multiple sequence alignment
-call('clustalo --infile=../data/genomes/mtDNAs_for_phylogenetics.fna --seqtype=DNA --outfile=../results/aligned_mtDNAs.phy',shell=True)
+call('clustalo --infile=../data/genomes/mtDNAs_for_phylogenetics_corr.fna --seqtype=DNA --outfmt=fa --outfile=../results/aligned_mtDNAs.fa',shell=True)

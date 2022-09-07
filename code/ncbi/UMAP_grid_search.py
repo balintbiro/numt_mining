@@ -42,7 +42,7 @@ X_labeled=numts[[
         'genus_label','family_label','order_label','label']]
 
 #sample df
-X_labeled=X_labeled.sample(frac=0.25)
+#X_labeled=X_labeled.sample(frac=0.25)
 
 X_labeled=X_labeled[[
     'score','eg2_value','e_value',#alignment scores
@@ -77,22 +77,21 @@ if os.path.exists('../results/UMAPs/')==False:
     os.mkdir('../results/UMAPs/')
 
 #define function for plotting the result
-def plotter(coloring_label,color_palette,curr_ax,title):
+def plotter(coloring_label,curr_ax,title=None):
     kwargs={'edgecolor':'face'}
-    sns.scatterplot(
+    scatter_plot=curr_ax.scatter(
         x='x',
         y='y',
-        hue=coloring_label,
+        c=coloring_label,
         data=X,
-        palette=color_palette,
-        alpha=.95,
-        ax=curr_ax,
+        #cmap='Paired',
         s=5,
         **kwargs
     )
-    curr_ax.set_title(title)
-    curr_ax.axis('off')
-    curr_ax.get_legend().remove()
+    #curr_ax.axis('off')
+    #scatter_plot.get_legend().remove()
+    scatter_plot.legend_elements(num=len(X['order_label'].unique()))
+    plt.legend()
     plt.tight_layout()
 
 #hyperparameter tuning https://umap-learn.readthedocs.io/en/latest/parameters.html
@@ -107,20 +106,23 @@ def grid_search(n_neighbors,min_dist):
     embedding=reducer.fit_transform(X_scaled,y=X_labeled['order_label'])
     X['x']=embedding[:,0]
     X['y']=embedding[:,1]
-    X['family_label']=X_labeled['family_label']
     X['order_label']=X_labeled['order_label']
-    X['genus_label']=X_labeled['genus_label']
-    X['species_label']=X_labeled['label']
+    output=X[['order_label','x','y']]
+    output.to_csv('../data/coordinates.csv')
     plt.style.use('fivethirtyeight')
-    fig,axs=plt.subplots(2,2,figsize=(10,10))
-    plotter('family_label','tab20',axs[0,0],'family')
-    plotter('order_label','tab20_r',axs[0,1],'order')
-    plotter('genus_label','Paired',axs[1,0],'genus')
-    plotter('species_label','Paired_r',axs[1,1],'species')
-    plt.savefig(f'../results/UMAPs/{n_neighbors}_nn_{min_dist}_md.png',dpi=450)
+    fig,axs=plt.subplots(1,1,figsize=(10,10))
+    plotter('order_label',axs)
+    plt.savefig(f'../results/UMAPs/{n_neighbors}_nn_{min_dist}_md.png',dpi=450,bbox_inches='tight')
 
 #for n_neighbor in [100,200,600,750]:
 #    for min_dist in [0.25,0.5,0.8,0.99]:
 #        grid_search(n_neighbor,min_dist)
 
-grid_search(200,0.9)
+grid_search(400,0.99)
+def get_order(x_min,x_max,y_min,y_max):
+    fil1=coordinates['x']>x_min
+    fil2=coordinates['x']<x_max
+    fil3=coordinates['y']>y_min
+    fil4=coordinates['y']<y_max
+    data=coordinates[fil1][fil2][fil3][fil4]
+    return order_dict[data['order_label'].value_counts().index[0]]
