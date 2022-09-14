@@ -90,8 +90,8 @@ def plotter(coloring_label,curr_ax,title=None):
     )
     #curr_ax.axis('off')
     #scatter_plot.get_legend().remove()
-    scatter_plot.legend_elements(num=len(X['order_label'].unique()))
-    plt.legend()
+    #scatter_plot.legend_elements(num=len(X['order_label'].unique()))
+    #plt.legend()
     plt.tight_layout()
 
 #hyperparameter tuning https://umap-learn.readthedocs.io/en/latest/parameters.html
@@ -107,7 +107,10 @@ def grid_search(n_neighbors,min_dist):
     X['x']=embedding[:,0]
     X['y']=embedding[:,1]
     X['order_label']=X_labeled['order_label']
-    output=X[['order_label','x','y']]
+    X['genus_label']=X_labeled['genus_label']
+    X['family_label']=X_labeled['family_label']
+    X['label']=X_labeled['label']
+    output=X[['order_label','genus_label','family_label','label','x','y']]
     output.to_csv('../data/coordinates.csv')
     plt.style.use('fivethirtyeight')
     fig,axs=plt.subplots(1,1,figsize=(10,10))
