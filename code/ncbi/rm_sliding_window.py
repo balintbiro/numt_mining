@@ -87,7 +87,7 @@ def sliding_window(query_name,window_size):
 		numt_range=set(numt_ranges[query_name])
 		repeat_range=repeat_ranges.loc[query_name]
 		repeat_range=set(repeat_range.loc[repeat_range['repeat_class']==repeat_class]['repeat_range'].tolist()[0])
-		for step in np.linspace(0,5000+list(numt_range)[-1],2500,dtype=int):
+		for step in np.linspace(0,5000+list(numt_range)[-1],10000,dtype=int):
 			window=set(np.arange(step,step+window_size))
 			rm_frequency.append(len(repeat_range&window))
 			numt_frequency.append(len(numt_range&window))
@@ -98,7 +98,7 @@ def sliding_window(query_name,window_size):
 #global variable
 frequencies=[]
 
-pd.Series(numt_ranges.index).apply(sliding_window,args=(50,))
+pd.Series(numt_ranges.index).apply(sliding_window,args=(1000,))
 
 #load sliding windows into a df
 sliding_windows=pd.DataFrame(frequencies)
