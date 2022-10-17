@@ -24,7 +24,7 @@ def repeatmasker(organism_name,output_file):
 		with open('../data/RM_files/RM_input.fa','w')as outfile:
 			subdf.apply(
 					lambda row: outfile.write(
-							f">{row['genomic_id']}_{str(int(row['genomic_start']))}_{str(len(row['upstream_5kb']))}_{str(int(row['mitochondrial_start']))}\n{row['upstream_5kb']}{row['genomic_sequence'].replace('-','')}{row['downstream_5kb']}\n" #header consists of genomic id+flanking length, genomic and mitochondrial starts (to make sure of uniqueness)
+							f">{row['genomic_id']}_{str(int(row['genomic_start']))}_{str(int(row['genomic_length']))}_{str(len(row['upstream_5kb']))}_{str(int(row['mitochondrial_start']))}\n{row['upstream_5kb']}{row['genomic_sequence'].replace('-','')}{row['downstream_5kb']}\n" #header consists of genomic id+flanking length, genomic and mitochondrial starts (to make sure of uniqueness)
 						),
 					axis=1
 				)
