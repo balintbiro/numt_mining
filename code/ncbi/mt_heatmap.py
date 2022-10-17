@@ -47,7 +47,7 @@ def transform_msa(organism_name):
 #function for getting numt_coverages
 def get_numt_coverage(organism_name,output_file):
 	numt_range=pd.Series(numt_ranges[organism_name]).value_counts()
-	numt_range['-']=-1#add minus 1 for gaps
+	numt_range['-']=-1#add np.nan for gaps
 	msa_range=msa.loc[organism_name]
 	numt_coverage=list(numt_range.reindex(msa_range.values).fillna(0).values)
 	numt_coverage=[organism_name]+numt_coverage
@@ -58,9 +58,20 @@ def get_numt_coverage(organism_name,output_file):
 organism_names.apply(transform_msa)
 
 #create empty df
-heatmaps=pd.DataFrame(data=[],columns=np.arange(0,msa.shape[1]))
+heatmap=pd.DataFrame(data=[],columns=np.arange(0,msa.shape[1]))
 #write it to csv
-heatmaps.to_csv('../results/heatmap.csv',index=False)
+heatmap.to_csv('../results/heatmap.csv',index=False)
 
 #transform df to numt coverages
 organism_names.apply(get_numt_coverage,args=('../results/heatmap.csv',))
+
+#read in file
+heatmap_input=pd.read_csv('../results/heatmap.csv')
+
+#visualize results
+mask=heatmap_input<0
+heatmap=sns.clustermap(heatmap_input,cmap='rocket_r',mask=mask)
+ax=heatmap.ax_heatmap
+ax.set_xticks([])
+ax.set_yticks([])
+heatmap.savefig('../results/heatmap.png',dpi=400)
