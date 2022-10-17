@@ -38,30 +38,29 @@ for record in msa:
 msa=pd.DataFrame(msa)
 msa.index=msa_ids
 
-#get numt coverage
+#transform msa-do not show individual nucleotides but their position in mitochondrion
+def transform_msa(organism_name):
+	alignment_range=msa.loc[organism_name]
+	alignment_range[alignment_range!='-']=np.arange(0,len(alignment_range[alignment_range!='-']))
+	msa.loc[organism_name]=alignment_range
+
+#function for getting numt_coverages
 def get_numt_coverage(organism_name,output_file):
-	numt_range=pd.Series(numt_ranges[organism_name]).value_counts()#all the nucleotides that are responsible for numtogenesis (redundant!)
-	numt_coverage=[]
-	#handling gaps and nucleotides
-	nuc_counter=0
-	for index in np.arange(0,len(msa.loc[organism_name])):
-		base=msa.loc[organism_name][index]
-		if base!='-':
-			try:
-				numt_coverage.append(numt_range[index])
-			except KeyError:
-				numt_coverage.append(0)
-			nuc_counter+=1
-		else:
-			numt_coverage.append(0)
-	numt_coverage.append(organism_name)
-	pd.DataFrame([numt_coverage]).to_csv(output_file,mode='a',index=False,header=False)
+	numt_range=pd.Series(numt_ranges[organism_name]).value_counts()
+	numt_range['-']=-1#add minus 1 for gaps
+	msa_range=msa.loc[organism_name]
+	numt_coverage=list(numt_range.reindex(msa_range.values).fillna(0).values)
+	numt_coverage=[organism_name]+numt_coverage
+	numt_coverage=pd.DataFrame([numt_coverage])
+	numt_coverage.to_csv(output_file,mode='a',index=False,header=False)
 
-#create global df and writ it out
-df=pd.DataFrame(data=[],columns=np.arange(0,msa.shape[1]+1))
-df.to_csv('../results/mt_heatmap.csv',index=False)
+#transform msa from alignment to mt positions
+organism_names.apply(transform_msa)
 
-#calculate numt coverages
-numt_coverages=pd.Series(['felis_catus','canis_lupus']).apply(get_numt_coverage,args=('../results/mt_heatmap.csv',))
-numt_coverages.index=['felis_catus','canis_lupus']
-numt_coverages.to_csv('../results/mt_heatmap.csv')
+#create empty df
+heatmaps=pd.DataFrame(data=[],columns=np.arange(0,msa.shape[1]))
+#write it to csv
+heatmaps.to_csv('../results/heatmap.csv',index=False)
+
+#transform df to numt coverages
+organism_names.apply(get_numt_coverage,args=('../results/heatmap.csv',))
