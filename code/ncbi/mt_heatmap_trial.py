@@ -39,7 +39,7 @@ msa=pd.DataFrame(msa)
 msa.index=msa_ids
 
 #get numt coverage
-def get_numt_coverage(organism_name):
+def get_numt_coverage(organism_name,output_file):
 	numt_range=numt_ranges[organism_name]#all the nucleotides that are responsible for numtogenesis (redundant!)
 	numt_coverage=[]
 	#handling gaps and nucleotides
@@ -51,9 +51,12 @@ def get_numt_coverage(organism_name):
 			nuc_counter+=1
 		else:
 			numt_coverage.append(0)
-	return numt_coverage
+	numt_coverage.append(organism_name)
+	pd.DataFrame([numt_coverage]).to_csv(output_file,mode=a,index=False,header=False)
+
+#create global df and writ it out
+df=pd.DataFrame(data=[],columns=np.arange(0,msa.shape[1]+1))
+df.to_csv('../results/mt_heatmap.csv',index=False)
 
 #calculate numt coverages
-numt_coverages=organism_names.apply(get_numt_coverage)
-numt_coverages.index=organism_names
-numt_coverages.to_csv('../results/mt_heatmap.csv')
+pd.Series(['felis_catus','canis_lupus']).apply(get_numt_coverage,args=('../results/mt_heatmap.csv',))
