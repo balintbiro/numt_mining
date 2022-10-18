@@ -70,8 +70,9 @@ heatmap_input=pd.read_csv('../results/heatmap.csv')
 
 #visualize results
 mask=heatmap_input<0
-heatmap=sns.clustermap(heatmap_input,cmap='rocket_r',mask=mask,col_cluster=True,cbar_pos=(-.1, .2, .03, .4))
+#robust means that no outliers are displayed
+heatmap=sns.clustermap(heatmap_input,cmap='rocket_r',mask=mask,robust=True,cbar_pos=(-.1, .2, .03, .4))
 ax=heatmap.ax_heatmap
-ax.set_xticks([])
-ax.set_yticks([])
-heatmap.savefig('../results/heatmap.png',dpi=400)
+cbar=ax.collections[0].colorbar
+cbar.ax.tick_params(labelsize=20)
+heatmap.savefig('../results/heatmap_robust.png',dpi=400)
