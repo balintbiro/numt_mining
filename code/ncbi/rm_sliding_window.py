@@ -17,11 +17,11 @@ def longest_chr(organism_name):
 #desired organism names
 organism_names=pd.Series([
 		'sus_scrofa',
-		'bos_taurus',
-		'mus_musculus',
-		'felis_catus',
-		'rattus_norvegicus',
-		'canis_lupus'
+		#'bos_taurus',
+		#'mus_musculus',
+		#'felis_catus',
+		#'rattus_norvegicus',
+		#'canis_lupus'
 	])
 
 #make the function work
@@ -87,10 +87,10 @@ def sliding_window(query_name,window_size):
 		numt_range=set(numt_ranges[query_name])
 		repeat_range=repeat_ranges.loc[query_name]
 		repeat_range=set(repeat_range.loc[repeat_range['repeat_class']==repeat_class]['repeat_range'].tolist()[0])
-		for step in np.linspace(0,5000+list(numt_range)[-1],10000,dtype=int):
+		for step in np.linspace(0,5000+list(numt_range)[-1],5000,dtype=int):
 			window=set(np.arange(step,step+window_size))
-			rm_frequency.append(len(repeat_range&window))
-			numt_frequency.append(len(numt_range&window))
+			rm_frequency.append(len(repeat_range&window)/window_size)
+			numt_frequency.append(len(numt_range&window)/window_size)
 		frequencies+=[[query_name,repeat_class,'rm',rm_frequency]]
 		if [query_name,repeat_class,'numt',numt_frequency] not in frequencies:
 			frequencies+=[[query_name,'numt','numt',numt_frequency]]
