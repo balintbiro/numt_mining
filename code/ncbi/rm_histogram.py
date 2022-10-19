@@ -60,3 +60,63 @@ repeats=pd.DataFrame(
 repeats.to_csv('../results/repeats.csv',index=False)
 #make the function work for downstream repeats
 organism_names.apply(repeatmasker,args=('../results/repeats.csv',))
+
+#read in repeats
+repeats=pd.read_csv('../results/repeats.csv')
+
+#create column for numt lengths
+repeats['numt_lengths']=repeats['query_name'].apply(lambda query_name: int(query_name.split('_')[-3]))
+
+#get the 40 downstream nucleotides of a given numt plus the 5kb flanking
+repeats['downstream_pos']=repeats.apply(lambda row: (5000+(row['numt_lengths']-40)),axis=1)
+
+#filter downstream repeats - it is different for every numt because of the size variability
+downstream_repeats=repeats[repeats['piq_begin']>repeats['downstream_pos']]
+downstream_repeats['dpiq_begin']=downstream_repeats['piq_begin']-downstream_repeats['numt_lengths']
+
+#function for plotting
+def plot_repeats(repeat_class,bins,minval,maxval):
+    global row_tracker; global column_tracker
+    subdf=repeats.loc[repeats['repeat_class']==repeat_class]
+    subdf=subdf[subdf['piq_begin']<5040]
+    upstream_repeats=subdf['piq_begin']#upstream repeats
+    downstream=downstream_repeats.loc[downstream_repeats['repeat_class']==repeat_class]['dpiq_begin']#downstream repeats
+    full_rep=pd.concat([upstream_repeats,downstream])
+    full_rep=full_rep[(full_rep>minval)&(full_rep<maxval)]
+    kwargs={'edgecolor':'black','lw':0.05}
+    axs[row_tracker,column_tracker].hist(full_rep,bins=bins,density=True,stacked=True,color='orange',**kwargs)
+    axs[row_tracker,column_tracker].fill_between([4960,5040],axs[row_tracker,column_tracker].get_ylim()[0],axs[row_tracker,column_tracker].get_ylim()[1],alpha=.5,color='lightblue')
+    axs[row_tracker,column_tracker].set_ylim(0,0.02)
+    #title begins
+    if '_' in repeat_class:
+        axs[row_tracker,column_tracker].set_title(repeat_class.replace('_','\n'),fontsize=12.5)
+    elif '/' in repeat_class:
+        axs[row_tracker,column_tracker].set_title(repeat_class.replace('/','\n'),fontsize=12.5)
+    else:
+        axs[row_tracker,column_tracker].set_title(repeat_class,fontsize=15)
+    #title ends
+    axs[row_tracker,column_tracker].set_xticks([minval,5000,maxval])
+    axs[row_tracker,column_tracker].set_xticklabels(['-'+str(5000-minval),'numt','+'+str(maxval-5000)],rotation=45,fontsize=12)
+    axs[row_tracker,column_tracker].set_yticks([0,0.005,0.01,0.015,0.02])
+    axs[row_tracker,column_tracker].set_yticklabels([0,'',0.01,'',0.02],fontsize=12)
+    if column_tracker==0:
+        axs[row_tracker,column_tracker].set_ylabel('Density',fontsize=12)
+    column_tracker+=1
+    if column_tracker==4:
+        column_tracker+=(-column_tracker)
+        row_tracker+=1
+
+#the strange repeats
+sig_repeats=pd.Series(['Simple_repeat','Low_complexity', 'SINE/MIR', 'LINE/L2','LTR/ERVL', 'DNA/hAT-Charlie',
+                      'LTR/ERV1','tRNA','LINE/L1','LTR/ERVL-MaLR','SINE/Alu','SINE/B4'])
+
+#visualize results and save the figure
+plt.style.use('ggplot')
+row_tracker=0
+column_tracker=0
+fig,axs=plt.subplots(3,4,figsize=(8,6),sharex=True,sharey=True)
+plt.subplots_adjust(wspace=0.1,
+                    hspace=0.4)
+sig_repeats.apply(plot_repeats,args=(100,4800,5200,))
+plt.tight_layout()
+plt.savefig('../results/rm_densities.png',dpi=400)
