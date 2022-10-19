@@ -18,5 +18,6 @@ sequences <- read.fasta(
 )
 ggseqlogo(
   unlist(sequences),
-  seq_type='dna'
+  seq_type='dna',
+  method='bits'
 )
