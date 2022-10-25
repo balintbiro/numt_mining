@@ -30,16 +30,32 @@ order_seqlogo_vis <- function(order){
     theme(axis.title.x=element_text(size=30),
           axis.title.y=element_text(size=30))
   ggsave(
-    f('../../results/seqlogos/%s.png',order),
+    sprintf('../../results/seqlogos/%s.png',order),
+    device=NULL,
     plot=seqlogo,
     bg='white',
     dpi=300
   )
 }
 
-order_seqlogo_vis('Rodentia')
+order_seqlogo_vis('Monotremata')
 
-lapply(
-  c(unique(seqlogo_input['order'])),
-  order_seqlogo_vis
-)
+repeat_seqlogo_vis <- function(repeatclass){
+  fil <- seqlogo_input[,'u_1st_repeatclass']==repeatclass
+  seqlogo <- ggseqlogo(
+    sequences[fil,]$seq,
+    seq_type='dna',
+    method='bits'
+  )+xlab('Positions')+
+    theme(axis.title.x=element_text(size=30),
+          axis.title.y=element_text(size=30))
+  ggsave(
+    sprintf('../../results/seqlogos/%s.png',gsub('/','_',repeatclass)),
+    device=NULL,
+    plot=seqlogo,
+    bg='white',
+    dpi=300
+  )
+}
+
+repeat_seqlogo_vis('SINE/B4')
