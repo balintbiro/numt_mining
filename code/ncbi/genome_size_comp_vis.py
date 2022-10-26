@@ -65,18 +65,18 @@ plt.savefig('../results/sizes_corr.png',dpi=300)
 GC_input=numts.dropna(subset=['genomic_sequence','mitochondrial_sequence','gDNA_GC','mtDNA_GC'])
 #calculate numt GC and normalize it with the whole genome GC
 gseq_GC=GC_input['genomic_sequence'].apply(lambda seq: (seq.upper().replace('-','').count('G')+seq.upper().replace('-','').count('C'))/len(seq.replace('-','')))
-grel_GC=gseq_GC/GC_input['gDNA_GC']
+grel_GC=(gseq_GC)*100/GC_input['gDNA_GC']
 
 #calculate numt corresponding mt seq GC and normalize it with whole mt GC
 mtseq_GC=GC_input['mitochondrial_sequence'].apply(lambda seq: (seq.upper().replace('-','').count('G')+seq.upper().replace('-','').count('C'))/len(seq.replace('-','')))
-mtrel_GC=mtseq_GC/GC_input['mtDNA_GC']
+mtrel_GC=(mtseq_GC)*100/GC_input['mtDNA_GC']
 
 #visualize results
 fig,axs=plt.subplots(1,1)
-axs.hist(grel_GC,bins=100,color='blue',alpha=.3,label='grelGC')
-axs.hist(mtrel_GC,bins=100,color='green',alpha=.3,label='mtrelGC')
+axs.hist(grel_GC,bins=500,color='blue',alpha=.3,label='grelGC')
+axs.hist(mtrel_GC,bins=500,color='green',alpha=.3,label='mtrelGC')
 plt.legend()
 plt.xlabel('Relative GC content')
 plt.ylabel('Frequency')
 plt.tight_layout()
-plt.savefig('../results/relativeGCs.png',dpi=300)
+plt.savefig('../results/relGCs.png',dpi=300)
