@@ -99,8 +99,8 @@ organisms=numts['organism_name'].drop_duplicates().tolist()
 
 #create classes and apply functions
 for organism in organisms:
-	if os.path.getsize('../data/ml_input_randoms.csv')<10000000000:#size is under 10 GB
-    organism_class=process_DNA(organism,'../data/ml_input_randoms.csv')#instantiation
-    organism_class.get_gDNA()#download and decompress gDNA sequence
-    organism_class.get_random_seq()#create random sequence sample
-    organism_class.clear_folder()#delete the unnecessary files
+    if os.path.getsize('../data/ml_input_randoms.csv')<10000000000:#size is under 10 GB just to make sure we dont have an overflow
+        organism_class=process_DNA(organism,'../data/ml_input_randoms.csv')#instantiation
+        organism_class.get_gDNA()#download and decompress gDNA sequence
+        organism_class.get_random_seq()#create random sequence sample
+        organism_class.clear_folder()#delete the unnecessary files
