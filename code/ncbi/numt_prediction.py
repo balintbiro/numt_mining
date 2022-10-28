@@ -12,6 +12,14 @@ features=pd.read_csv('../data/ml_features.csv')
 #clear features df
 features=features.dropna()
 
+#filter df
+fil=features.apply(lambda row:(row['upstream_size']>4900) and (row['downstream_size']>4900),axis=1)
+features=features[fil]
+features=features[['GC', 'upstream_GC', 'downstream_GC', 'uSW_mean', 'uSW_median',
+       'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median', 'dRMs_count',
+       'dRMs_lengths', 'rel_start', 'entropy', 'upstream_entropy',
+       'downstream_entropy', 'label']]
+
 #separate labels
 X=features.loc[:,features.columns!='label']
 y=features['label']
