@@ -1,5 +1,6 @@
 #import dependencies
 import os
+import numpy as np
 import pandas as pd
 from subprocess import call
 
@@ -109,3 +110,72 @@ output_df=pd.concat([sequences,uRM_features,dRM_features],axis=1)
 
 #write updated repeats 
 output_df.to_csv('../data/randoms_rm.csv',index=False)
+
+#get random sequences and numts
+random_sequences=pd.read_csv('../data/randoms_rm.csv')
+numts=pd.read_csv('../data/ncbi_numts_p26.csv')
+
+#function for getting random sequence samples
+def get_seq(row):
+	sample_start=row['upstream_size']
+	if sample_start<0:
+		sample_start=0
+	sample_end=sample_start+row['sample_size']
+	return row['sequence'][sample_start:sample_end]
+
+#get just the sequences
+random_sequences['genomic_sequence']=random_sequences.apply(get_seq,axis=1)
+
+#function for calculate GC
+def get_GC(sequence):
+	if len(sequence)!=0:
+		sequence=sequence.upper().replace('-','')
+		return (sequence.count('G')+sequence.count('c'))/len(sequence)
+	else:
+		return np.nan
+
+#calculate GC
+random_sequences['GC']=random_sequences['genomic_sequence'].apply(get_GC)
+
+#relative positions
+random_sequences['rel_start']=random_sequences['genomic_start']/random_sequences['genomic_size']
+numts['rel_start']=numts['genomic_start']/numts['genomic_size']
+
+#get infromation entropy
+def information_entropy(seq):
+	if (type(seq)==str) and (len(seq)!=0):
+	    seq=seq.replace('-','').upper()
+	    purine,pyrimidine=('A','G'),('C','T')#1,-1 define bases
+	    pypy,pypu,pupy,pupu=0,0,0,0#variables for transitions
+	    for index in range(0,len(seq)-1):
+	        if (seq[index] in pyrimidine) and (seq[index+1] in pyrimidine):
+	            pypy+=1
+	        elif (seq[index] in pyrimidine) and (seq[index+1] in purine):
+	            pypu+=1
+	        elif (seq[index] in purine) and (seq[index+1] in purine):
+	            pupu+=1
+	        else:
+	            pupy+=1
+	    pyr_trans,pur_trans=(pypy+pypu),(pupu+pypu)
+	    try:
+	        return -(((pypy/pyr_trans)*np.log(pypy/pyr_trans))
+	                +((pypu/pyr_trans)*np.log(pypu/pyr_trans))
+	                +((pupu/pur_trans)*np.log(pupu/pur_trans))
+	                +((pupy/pur_trans)*np.log(pupy/pur_trans)))
+	    except ZeroDivisionError:
+	        return np.nan
+	else:
+		return np.nan
+
+#add information entropies
+random_sequences['entropy']=random_sequences['genomic_sequence'].apply(information_entropy)
+numts['entropy']=numts['genomic_sequence'].apply(information_entropy)
+
+#get flankings of the random sequences
+random_sequences['upstream_sequence']=random_sequences.apply(lambda row:row['sequence'][:row['upstream_size']],axis=1)
+random_sequences['downstream_start']=random_sequences['upstream_size']+random_sequences['sample_size']
+random_sequences['downstream_sequence']=random_sequences.apply(lambda row: row['sequence'][row['downstream_start']:],axis=1)
+
+#add flanking GCs to the random sequences
+random_sequences['upstream_GC']=random_sequences['upstream_sequence'].apply(get_GC)
+random_sequences['downstream_GC']=random_sequences['downstream_sequence'].apply(get_GC)

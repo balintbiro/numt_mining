@@ -32,3 +32,4 @@ code/ncbi/tSNE_feature_search.py
 *.csv
 *.fa
 *.fna
+code/ncbi/trial.py
