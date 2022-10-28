@@ -137,6 +137,15 @@ def get_GC(sequence):
 #calculate GC
 random_sequences['GC']=random_sequences['genomic_sequence'].apply(get_GC)
 
+#get flankings of the random sequences
+random_sequences['upstream_sequence']=random_sequences.apply(lambda row:row['sequence'][:row['upstream_size']],axis=1)
+random_sequences['downstream_start']=random_sequences['upstream_size']+random_sequences['sample_size']
+random_sequences['downstream_sequence']=random_sequences.apply(lambda row: row['sequence'][row['downstream_start']:],axis=1)
+
+#add flanking GCs to the random sequences
+random_sequences['upstream_GC']=random_sequences['upstream_sequence'].apply(get_GC)
+random_sequences['downstream_GC']=random_sequences['downstream_sequence'].apply(get_GC)
+
 #relative positions
 random_sequences['rel_start']=random_sequences['genomic_start']/random_sequences['genomic_size']
 numts['rel_start']=numts['genomic_start']/numts['genomic_size']
@@ -171,11 +180,41 @@ def information_entropy(seq):
 random_sequences['entropy']=random_sequences['genomic_sequence'].apply(information_entropy)
 numts['entropy']=numts['genomic_sequence'].apply(information_entropy)
 
-#get flankings of the random sequences
-random_sequences['upstream_sequence']=random_sequences.apply(lambda row:row['sequence'][:row['upstream_size']],axis=1)
-random_sequences['downstream_start']=random_sequences['upstream_size']+random_sequences['sample_size']
-random_sequences['downstream_sequence']=random_sequences.apply(lambda row: row['sequence'][row['downstream_start']:],axis=1)
+#flankings information entropies
+numts['upstream_entropy']=numts['upstream_5kb'].apply(information_entropy)
+numts['downstream_entropy']=numts['downstream_5kb'].apply(information_entropy)
+random_sequences['upstream_entropy']=random_sequences['upstream_sequence'].apply(information_entropy)
+random_sequences['downstream_entropy']=random_sequences['downstream_sequence'].apply(information_entropy)
 
-#add flanking GCs to the random sequences
-random_sequences['upstream_GC']=random_sequences['upstream_sequence'].apply(get_GC)
-random_sequences['downstream_GC']=random_sequences['downstream_sequence'].apply(get_GC)
+#add labels
+numts['label']=len(numts)*[1]
+random_sequences['label']=len(random_sequences)*[0]
+
+#rename numts GC
+numts['GC']=numts['numt_GC']
+
+#select subset dfs
+positives=numts[['GC','upstream_GC','downstream_GC','uSW_mean',
+       'uSW_median', 'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median',
+       'dRMs_count', 'dRMs_lengths','rel_start', 'entropy', 'upstream_entropy',
+       'downstream_entropy','label','upstream_5kb','genomic_sequence','downstream_5kb']]
+
+negatives=random_sequences[['GC','upstream_GC','downstream_GC','uSW_mean',
+       'uSW_median', 'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median',
+       'dRMs_count', 'dRMs_lengths','rel_start', 'entropy', 'upstream_entropy',
+       'downstream_entropy','label','upstream_sequence','genomic_sequence','downstream_sequence']]
+
+#change column names
+positives.columns=negatives.columns
+
+features=pd.concat([negatives,positives])
+
+#add sequence sizes
+features['upstream_size']=features['upstream_sequence'].apply(lambda seq:len(seq) if type(seq)==str else np.nan)
+features['downstream_size']=features['downstream_sequence'].apply(lambda seq:len(seq) if type(seq)==str else np.nan)
+
+features=features[['GC','upstream_GC','downstream_GC','uSW_mean',
+       'uSW_median', 'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median',
+       'dRMs_count', 'dRMs_lengths','rel_start', 'entropy', 'upstream_entropy',
+       'downstream_entropy','label','upstream_size','downstream_size']]
+features.to_csv('../data/ml_features.csv',index=False)

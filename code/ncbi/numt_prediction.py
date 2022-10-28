@@ -35,8 +35,8 @@ rfc.fit(X_train,y_train)
 
 #setting parameters
 param_grid = {
-    'bootstrap': [True],
-    'max_depth': np.linspace(1,100,3,dtype=int),
+    'bootstrap': [True,False],
+    'max_depth': np.linspace(1,10,5,dtype=int),
     'max_features': [1,3,5],
     'min_samples_leaf': np.linspace(1,10,3,dtype=int),
     'min_samples_split': np.linspace(1,100,3,dtype=int),
