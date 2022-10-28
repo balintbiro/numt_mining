@@ -35,17 +35,21 @@ rfc.fit(X_train,y_train)
 
 #setting parameters
 param_grid = {
-    'bootstrap': [True,False],
-    'max_depth': np.linspace(1,100,5,dtype=int),
-    'max_features': [1,2,3,4,5],
-    'min_samples_leaf': np.linspace(1,10,5,dtype=int),
-    'min_samples_split': np.linspace(1,100,5,dtype=int),
-    'n_estimators': np.linspace(10,1000,5,dtype=int)
+    'bootstrap': [True],
+    'max_depth': np.linspace(1,100,3,dtype=int),
+    'max_features': [1,3,5],
+    'min_samples_leaf': np.linspace(1,10,3,dtype=int),
+    'min_samples_split': np.linspace(1,100,3,dtype=int),
+    'n_estimators': np.linspace(10,1000,3,dtype=int)
 }
 
 #setting grid search for hyperparameter optimisation
 grid_search = GridSearchCV(estimator = rfc, param_grid = param_grid, 
-                          cv = 3, n_jobs = -1, verbose = 2)
+                          cv = 5, n_jobs = -1, verbose = 2,scoring='roc_auc')
 
 #grid search for hyperparameter optimisation
 grid_search.fit(X_train, y_train)
+
+#transform the reults and save them
+gsCV_results=pd.DataFrame.from_dict(grid_search.cv_results_)
+gsCV_results.to_csv('../results/gsCV_results.csv')
