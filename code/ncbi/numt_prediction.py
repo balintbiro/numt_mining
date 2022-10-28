@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split,GridSearchCV
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report,roc_curve
 
 #import features
@@ -28,18 +28,24 @@ y=features['label']
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 
 #initialize model
-model = RandomForestClassifier()
+rfc = RandomForestClassifier()
 
 #train model
-model.fit(X_train,y_train)
+rfc.fit(X_train,y_train)
 
-#prediction on test set
-y_pred_test=model.predict(X_test)
+#setting parameters
+param_grid = {
+    'bootstrap': [True,False],
+    'max_depth': np.linspace(1,100,5,dtype=int),
+    'max_features': [1,2,3,4,5],
+    'min_samples_leaf': np.linspace(1,10,5,dtype=int),
+    'min_samples_split': np.linspace(1,100,5,dtype=int),
+    'n_estimators': np.linspace(10,1000,5,dtype=int)
+}
 
-print(f'Accuracy score is {accuracy_score(y_test, y_pred_test)}!')
+#setting grid search for hyperparameter optimisation
+grid_search = GridSearchCV(estimator = rfc, param_grid = param_grid, 
+                          cv = 3, n_jobs = -1, verbose = 2)
 
-#dataprep for ROC curve
-fpr, tpr, _ = roc_curve(y_test,  y_pred_test)
-fig,axs=plt.subplots(1,1)
-axs.plot(fpr,tpr)
-plt.savefig('../results/numt_rf_roc.png',dpi=200)
+#grid search for hyperparameter optimisation
+grid_search.fit(X_train, y_train)
