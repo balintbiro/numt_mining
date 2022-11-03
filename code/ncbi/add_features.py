@@ -3,6 +3,8 @@ import os
 import numpy as np
 import pandas as pd
 from subprocess import call
+from Bio.SeqUtils import CheckSum
+from Bio.SeqUtils import MeltingTemp as mt
 
 #reading in randomly selected sequences
 randoms=pd.read_csv('../data/ml_input_randoms.csv')
@@ -186,6 +188,55 @@ numts['downstream_entropy']=numts['downstream_5kb'].apply(information_entropy)
 random_sequences['upstream_entropy']=random_sequences['upstream_sequence'].apply(information_entropy)
 random_sequences['downstream_entropy']=random_sequences['downstream_sequence'].apply(information_entropy)
 
+#function to add Tms
+def melting_temp(seq):
+	try:
+	    return [
+	        mt.Tm_GC(seq,strict=False),#GC Tm
+	        mt.Tm_NN(seq,strict=False),#Nearest Neighbor Tm
+	        mt.Tm_Wallace(seq,strict=False)
+	    ]
+	except:
+		return 3*[np.nan]
+
+#numt upstream melting temperatures
+numt_u_tms=pd.DataFrame(
+		data=numts['upstream_5kb'].apply(melting_temp).tolist(),
+		columns=['u_TmGC','u_TmNN','u_TmW']
+	)
+#numts melting temperatures
+numt_tms=pd.DataFrame(
+		data=numts['genomic_sequence'].apply(melting_temp).tolist(),
+		columns=['TmGC','TmNN','TmW']
+	)
+#numt downstream melting temperatures
+numt_d_tms=pd.DataFrame(
+		data=numts['downstream_5kb'].apply(melting_temp).tolist(),
+		columns=['d_TmGC','d_TmNN','d_TmW']
+	)
+
+#upstream random sequence melting temperature
+random_u_tms=pd.DataFrame(
+		data=random_sequences['upstream_sequence'].apply(melting_temp).tolist(),
+		columns=['u_TmGC','u_TmNN','u_TmW']
+	)
+
+random_tms=pd.DataFrame(
+		data=random_sequences['sequence'].apply(melting_temp).tolist(),
+		columns=['TmGC','TmNN','TmW']
+	)
+
+random_d_tms=pd.DataFrame(
+		data=random_sequences['downstream_sequence'].apply(melting_temp).tolist(),
+		columns=['d_TmGC','d_TmNN','d_TmW']
+	)
+
+#merge tms to numt df
+numts=pd.concat([numts,numt_u_tms,numt_tms,numt_d_tms],axis=1)
+
+#merge tms to randoms df
+random_sequences=pd.concat([random_sequences,random_u_tms,random_tms,random_d_tms],axis=1)
+
 #add labels
 numts['label']=len(numts)*[1]
 random_sequences['label']=len(random_sequences)*[0]
@@ -197,12 +248,14 @@ numts['GC']=numts['numt_GC']
 positives=numts[['GC','upstream_GC','downstream_GC','uSW_mean',
        'uSW_median', 'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median',
        'dRMs_count', 'dRMs_lengths','rel_start', 'entropy', 'upstream_entropy',
-       'downstream_entropy','label','upstream_5kb','genomic_sequence','downstream_5kb']]
+       'downstream_entropy','label','upstream_5kb','genomic_sequence','downstream_5kb',
+       'u_TmGC','u_TmNN','u_TmW','TmGC','TmNN','TmW','d_TmGC','d_TmNN','d_TmW']]
 
 negatives=random_sequences[['GC','upstream_GC','downstream_GC','uSW_mean',
        'uSW_median', 'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median',
        'dRMs_count', 'dRMs_lengths','rel_start', 'entropy', 'upstream_entropy',
-       'downstream_entropy','label','upstream_sequence','genomic_sequence','downstream_sequence']]
+       'downstream_entropy','label','upstream_sequence','genomic_sequence','downstream_sequence',
+       'u_TmGC','u_TmNN','u_TmW','TmGC','TmNN','TmW','d_TmGC','d_TmNN','d_TmW']]
 
 #change column names
 positives.columns=negatives.columns
@@ -216,5 +269,6 @@ features['downstream_size']=features['downstream_sequence'].apply(lambda seq:len
 features=features[['GC','upstream_GC','downstream_GC','uSW_mean',
        'uSW_median', 'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median',
        'dRMs_count', 'dRMs_lengths','rel_start', 'entropy', 'upstream_entropy',
-       'downstream_entropy','label','upstream_size','downstream_size']]
+       'downstream_entropy','label','upstream_size','downstream_size',
+       'u_TmGC','u_TmNN','u_TmW','TmGC','TmNN','TmW','d_TmGC','d_TmNN','d_TmW']]
 features.to_csv('../data/ml_features.csv',index=False)
