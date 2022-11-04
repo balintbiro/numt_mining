@@ -47,14 +47,14 @@ rfc.fit(X_train,y_train)
 param_grid = {
     'max_depth': np.linspace(1,100,10,dtype=int),#max depth of a tree
     'max_features': np.linspace(1,len(X.columns),10,dtype=int),#The number of features to consider when looking for the best split:
-    'min_samples_leaf': np.linspace(1,10,3,dtype=int),#The minimum number of samples required to be at a leaf node
+    'min_samples_leaf': np.linspace(1,10,10,dtype=int),#The minimum number of samples required to be at a leaf node
     'min_samples_split': np.linspace(1,100,10,dtype=int),#The minimum number of samples required to split an internal node
     'n_estimators': np.linspace(10,1000,10,dtype=int)#number of trees
 }
 
 #setting grid search for hyperparameter optimisation
 grid_search = GridSearchCV(estimator = rfc, param_grid = param_grid, 
-                          cv = 5, n_jobs = -1, verbose = 2,scoring='roc_auc')
+                          cv=10,n_jobs = -1, verbose = 2,scoring='roc_auc')
 
 #grid search for hyperparameter optimisation
 grid_search.fit(X_train, y_train)
