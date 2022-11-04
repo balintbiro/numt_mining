@@ -1,9 +1,11 @@
 #import dependencies
 import numpy as np
 import pandas as pd
+from sklearn.svm import SVC
 import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split,GridSearchCV
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report,roc_curve,auc,RocCurveDisplay
 
@@ -22,8 +24,11 @@ features=features[['GC', 'upstream_GC', 'downstream_GC', 'uSW_mean', 'uSW_median
        'downstream_entropy', 'label','u_TmGC', 'u_TmNN', 'u_TmW', 'TmGC', 'TmNN', 'TmW', 'd_TmGC', 'd_TmNN',
        'd_TmW']]
 
-#just the sequence itself
-#features=features[['GC', 'rel_start', 'entropy', 'label','TmGC', 'TmNN', 'TmW',]]
+#avoid imbalance-sample randomly
+features=pd.concat([
+    features[features['label']==1].sample(n=len(features[features['label']==0]),replace=False),
+    features[features['label']==0]
+    ])
 
 #separate labels
 X=features.loc[:,features.columns!='label']
@@ -32,35 +37,10 @@ y=features['label']
 #split training and test set
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 
-#initialize model
-rfc = RandomForestClassifier()
-
-#train model
-rfc.fit(X_train,y_train)
-
-#setting parameters
-#param_grid = {
-#    'bootstrap': [True,False],
-#    'max_depth': np.linspace(1,10,5,dtype=int),
-#    'max_features': [1,3,5],
-#    'min_samples_leaf': np.linspace(1,10,3,dtype=int),
-#    'min_samples_split': np.linspace(1,100,3,dtype=int),
-#    'n_estimators': np.linspace(10,1000,3,dtype=int)
-#}
-
-#setting grid search for hyperparameter optimisation
-#grid_search = GridSearchCV(estimator = rfc, param_grid = param_grid, 
-#                          cv = 5, n_jobs = -1, verbose = 2,scoring='roc_auc')
-
-#grid search for hyperparameter optimisation
-#grid_search.fit(X_train, y_train)
-
-#transform the reults and save them
-#gsCV_results=pd.DataFrame.from_dict(grid_search.cv_results_)
-#gsCV_results.to_csv('../results/gsCV_results.csv')
 cv = StratifiedKFold(n_splits=10)
-classifier=RandomForestClassifier(random_state=1)
+classifier=RandomForestClassifier(random_state=1,n_estimators=5,max_depth=3)
 
+#true positives and aucss
 tprs = []
 aucs = []
 mean_fpr = np.linspace(0, 1, 100)
@@ -110,7 +90,26 @@ ax.fill_between(
 
 ax.set(
     xlim=[-0.05, 1.05],
-    ylim=[-0.05, 1.05]
+    ylim=[-0.05, 1.05],
+    xlabel='TPR',
+    ylabel='FPR'
 )
+ax.plot([0,1],[0,1],'--',lw=2,label='random')
+
+ax.set_xlabel('FPR'),
+ax.set_ylabel('TPR')
 
 ax.legend(loc="lower right")
+
+plt.savefig('../results/cvrocs.png',dpi=200)
+
+#export feature importances
+feature_importances=pd.Series(classifier.feature_importances_)
+feature_importances.index=X_train.columns
+
+fig, axs = plt.subplots()
+axs.barh(feature_importances.index,feature_importances)
+plt.xlabel('Feature importance')
+plt.ylabel('Features')
+plt.tight_layout()
+plt.savefig('../results/feature_importances.png',dpi=200)
