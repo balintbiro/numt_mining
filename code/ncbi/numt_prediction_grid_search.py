@@ -10,18 +10,25 @@ from sklearn.model_selection import train_test_split,GridSearchCV
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report,roc_curve,auc,RocCurveDisplay
 
 #import features
-features=pd.read_csv('../data/ml_features.csv')
+data=pd.read_csv('../data/ml_features.csv')
 
 #clear features df
-features=features.dropna()
+data=data.dropna()
 
 #filter df
-fil=features.apply(lambda row:(row['upstream_size']>4900) and (row['downstream_size']>4900),axis=1)
-features=features[fil]
-features=features[['GC', 'upstream_GC', 'downstream_GC', 'uSW_mean', 'uSW_median',
+fil=data.apply(lambda row:(row['upstream_size']>4900) and (row['downstream_size']>4900),axis=1)
+data=data[fil]
+features=data[['GC', 'upstream_GC', 'downstream_GC', 'uSW_mean', 'uSW_median',
        'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median', 'dRMs_count',
        'dRMs_lengths', 'rel_start', 'entropy', 'upstream_entropy',
        'downstream_entropy', 'label','u_TmGC', 'u_TmNN', 'u_TmW', 'TmGC', 'TmNN', 'TmW', 'd_TmGC', 'd_TmNN',
+       'd_TmW']]
+
+#just flanking features
+features=data[['upstream_GC', 'downstream_GC', 'uSW_mean', 'uSW_median',
+       'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median', 'dRMs_count',
+       'dRMs_lengths', 'rel_start', 'upstream_entropy',
+       'downstream_entropy', 'label','u_TmGC', 'u_TmNN', 'u_TmW', 'd_TmGC', 'd_TmNN',
        'd_TmW']]
 
 #avoid imbalance-sample randomly
@@ -38,16 +45,16 @@ y=features['label']
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 
 #initialize model
-rfc = RandomForestClassifier()
+rfc = RandomForestClassifier(n_estimators=20,max_depth=5)
 
 #train model
 rfc.fit(X_train,y_train)
 
 #setting parameters
 param_grid = {
-    'max_depth': np.linspace(1,100,10,dtype=int),#max depth of a tree
-    'max_features': np.linspace(1,len(X.columns),10,dtype=int),#The number of features to consider when looking for the best split:
-    'min_samples_leaf': np.linspace(1,10,10,dtype=int),#The minimum number of samples required to be at a leaf node
+    'max_depth': np.linspace(1,10,5,dtype=int),#max depth of a tree
+    'max_features': np.linspace(1,len(X.columns),5,dtype=int),#The number of features to consider when looking for the best split:
+    'min_samples_leaf': np.linspace(1,10,5,dtype=int),#The minimum number of samples required to be at a leaf node
     'min_samples_split': np.linspace(1,100,10,dtype=int),#The minimum number of samples required to split an internal node
     'n_estimators': np.linspace(10,1000,10,dtype=int)#number of trees
 }
