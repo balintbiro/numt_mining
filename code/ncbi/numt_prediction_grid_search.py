@@ -69,9 +69,6 @@ grid_search.fit(X_train, y_train)
 #transform the reults and save them
 gsCV_results=pd.DataFrame.from_dict(grid_search.cv_results_)
 
-#select parameters and test score
-fil=pd.Series(gsCV_results).str.contains('param_m|param_n|mean_test_score').tolist()
-
 #visualize result
 fig,axs=plt.subplots(1,1)
 plt.style.use('ggplot')
@@ -81,7 +78,7 @@ sns.scatterplot(x='param_max_depth',
                 size='param_min_samples_leaf',
                 style='param_n_estimators',
                 palette='tab10',
-               data=cv_res.loc[:,fil].dropna(),
+               data=gsCV_results.dropna(),
                ax=axs)
 plt.xlabel('Max depth (log)',fontsize=20)
 plt.ylabel('Test AUC',fontsize=20)
