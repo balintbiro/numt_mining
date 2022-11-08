@@ -52,7 +52,7 @@ rfc.fit(X_train,y_train)
 
 #setting parameters
 param_grid = {
-    'max_depth': np.linspace(2,10,5,dtype=int),#max depth of a tree
+    'max_depth': np.linspace(2,8,5,dtype=int),#max depth of a tree
     'max_features': np.linspace(2,len(X.columns),5,dtype=int),#The number of features to consider when looking for the best split:
     'min_samples_leaf': np.linspace(2,10,5,dtype=int),#The minimum number of samples required to be at a leaf node
     'min_samples_split': np.linspace(2,100,5,dtype=int),#The minimum number of samples required to split an internal node
