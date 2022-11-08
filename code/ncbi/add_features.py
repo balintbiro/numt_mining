@@ -244,42 +244,6 @@ random_sequences['label']=len(random_sequences)*[0]
 #rename numts GC
 numts['GC']=numts['numt_GC']
 
-#read in random repeats
-random_repeats=pd.read_csv('../data/random_repeats.csv')
-
-#function for adding repeatranks 
-def add_RMranks(row,seq_type):
-	try:
-		query_name=row['genomic_id']+'_'+str(row.name)
-		subdf=random_repeats.loc[random_repeats['query_name']==query_name]
-		repeatranks=[]
-		if len(subdf)!=0:
-			ufil=subdf['piq_begin']<row['upstream_size']
-			dfil=subdf['piq_begin']>(row['upstream_size']+row['sample_size'])
-			if seq_type=='upstream' and len(subdf[ufil])!=0:
-				u_1st_repeat=subdf[ufil]['repeat'].value_counts().index[0]
-				u_1st_repeatc=subdf[ufil]['repeat_class'].value_counts().index[0]
-				repeatranks+=[u_1st_repeat,u_1st_repeatc]
-			elif seq_type=='downstream' and len(subdf[dfil])!=0:
-				d_1st_repeat=subdf[dfil]['repeat'].value_counts().index[0]
-				d_1st_repeatc=subdf[dfil]['repeat_class'].value_counts().index[0]
-				repeatranks+=[d_1st_repeat,d_1st_repeatc]
-			else:
-				repeatranks+=2*[np.nan]
-		else:
-			repeatranks+=2*[np.nan]
-		return repeatranks
-	except:
-		return 2*[np.nan]
-
-random_urepeats=pd.DataFrame(data=random_sequences.sample(100).apply(add_RMranks,args=('upstream',),axis=1).tolist(),columns=['u_1st_repeat','u_1st_repeatc'])
-random_drepeats=pd.DataFrame(data=random_sequences.sample(100).apply(add_RMranks,args=('downstream',),axis=1).tolist(),columns=['d_1st_repeat','d_1st_repeatc'])
-
-#add random repeats to random sequences
-random_sequences=pd.concat([random_sequences,random_urepeats,random_drepeats])
-
-random_sequences[['u_1st_repeat','u_1st_repeatc','d_1st_repeat','d_1st_repeatc']].to_csv('../results/random_rm_ranks.csv')
-
 #select subset dfs
 positives=numts[['GC','upstream_GC','downstream_GC','uSW_mean',
        'uSW_median', 'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median',
