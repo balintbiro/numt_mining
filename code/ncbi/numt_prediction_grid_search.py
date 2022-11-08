@@ -25,7 +25,7 @@ features=data[['GC', 'upstream_GC', 'downstream_GC', 'uSW_mean', 'uSW_median',
        'd_TmW']]
 
 #just flanking features
-features=data[['upstream_GC', 'downstream_GC', 'uSW_mean', 'uSW_median',
+features=data[['uSW_mean', 'uSW_median',
        'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median', 'dRMs_count',
        'dRMs_lengths', 'rel_start', 'upstream_entropy',
        'downstream_entropy', 'label','u_TmGC', 'u_TmNN', 'u_TmW', 'd_TmGC', 'd_TmNN',
