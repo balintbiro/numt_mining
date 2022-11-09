@@ -65,6 +65,11 @@ heatmap.to_csv('../results/heatmap.csv',index=False)
 #transform df to numt coverages
 organism_names.apply(get_numt_coverage,args=('../results/heatmap.csv',))
 
+####################################################################################################
+#                                       visualisation                                              #
+#                        for just the visualization, copy the code from here                       #
+####################################################################################################
+
 #read in file
 heatmap_input=pd.read_csv('../results/heatmap.csv')
 
