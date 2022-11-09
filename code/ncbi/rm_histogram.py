@@ -100,8 +100,6 @@ def plot_repeats(repeat_class,bins,minval,maxval):
     axs[row_tracker,column_tracker].set_xticklabels(['-'+str(5000-minval),'numt','+'+str(maxval-5000)],rotation=45,fontsize=12)
     axs[row_tracker,column_tracker].set_yticks([0,0.005,0.01,0.015,0.02])
     axs[row_tracker,column_tracker].set_yticklabels([0,'',0.01,'',0.02],fontsize=12)
-    if column_tracker==0:
-        axs[row_tracker,column_tracker].set_ylabel('Density',fontsize=12)
     column_tracker+=1
     if column_tracker==4:
         column_tracker+=(-column_tracker)
@@ -121,4 +119,5 @@ plt.subplots_adjust(wspace=0.1,
                     hspace=0.4)
 sig_repeats.apply(plot_repeats,args=(100,4800,5200,))
 plt.tight_layout(pad=1, w_pad=0.0001, h_pad=.1)
+plt.text(-.55,-.55,'Density',fontsize=16,transform=ax[1,0].transAxes,rotation=90)
 plt.savefig('../results/rm_densities.png',bbox_inches='tight',dpi=400)
