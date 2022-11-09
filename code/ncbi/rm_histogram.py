@@ -2,6 +2,7 @@
 import os
 import pandas as pd
 from subprocess import call
+import matplotlib.pyplot as plt
 
 #reading in merged numts df
 numts=pd.read_csv('../data/ncbi_numts_p26.csv')
@@ -119,5 +120,5 @@ fig,axs=plt.subplots(4,4,figsize=(8,6),sharex=True,sharey=True)
 plt.subplots_adjust(wspace=0.1,
                     hspace=0.4)
 sig_repeats.apply(plot_repeats,args=(100,4800,5200,))
-plt.tight_layout()
-plt.savefig('../results/rm_densities.png',dpi=400)
+plt.tight_layout(pad=1, w_pad=0.0001, h_pad=.1)
+plt.savefig('../results/rm_densities.png',bbox_inches='tight',dpi=400)
