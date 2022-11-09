@@ -53,7 +53,7 @@ rfc.fit(X_train,y_train)
 
 #setting parameters
 param_grid = {
-    'max_depth': np.linspace(2,8,5,dtype=int),#max depth of a tree
+    'max_depth': [2,3,4,5],#max depth of a tree
     'max_features': np.linspace(2,len(X.columns),5,dtype=int),#The number of features to consider when looking for the best split:
     'min_samples_leaf': np.linspace(2,10,5,dtype=int),#The minimum number of samples required to be at a leaf node
     'min_samples_split': np.linspace(2,100,5,dtype=int),#The minimum number of samples required to split an internal node
@@ -69,6 +69,8 @@ grid_search.fit(X_train, y_train)
 
 #transform the reults and save them
 gsCV_results=pd.DataFrame.from_dict(grid_search.cv_results_)
+
+gsCV_results.to_csv('../results/gsCV_results.csv')
 
 #visualize result
 fig,axs=plt.subplots(1,1)

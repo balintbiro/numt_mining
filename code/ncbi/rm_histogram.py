@@ -107,14 +107,15 @@ def plot_repeats(repeat_class,bins,minval,maxval):
         row_tracker+=1
 
 #the strange repeats
-sig_repeats=pd.Series(['Simple_repeat','Low_complexity', 'SINE/MIR', 'LINE/L2','LTR/ERVL', 'DNA/hAT-Charlie',
-                      'LTR/ERV1','tRNA','LINE/L1','LTR/ERVL-MaLR','SINE/Alu','SINE/B4'])
+sig_repeats=pd.Series(['Simple_repeat','Low_complexity', 'SINE/MIR','LINE/L2',
+                       'LTR/ERVL', 'DNA/hAT-Charlie', 'LTR/ERV1','tRNA',
+                       'LINE/L1','LTR/ERVL-MaLR','SINE/Alu','SINE/B4',
+                      'DNA/hAT-Tip100','LINE/CR1','LTR/ERVK','SINE/B2'])
 
 #visualize results and save the figure
-plt.style.use('ggplot')
 row_tracker=0
 column_tracker=0
-fig,axs=plt.subplots(3,4,figsize=(8,6),sharex=True,sharey=True)
+fig,axs=plt.subplots(4,4,figsize=(8,6),sharex=True,sharey=True)
 plt.subplots_adjust(wspace=0.1,
                     hspace=0.4)
 sig_repeats.apply(plot_repeats,args=(100,4800,5200,))
