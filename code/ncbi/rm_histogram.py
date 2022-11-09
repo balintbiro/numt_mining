@@ -83,24 +83,24 @@ def plot_repeats(repeat_class,bins,minval,maxval):
     global row_tracker; global column_tracker
     subdf=repeats.loc[repeats['repeat_class']==repeat_class]
     subdf=subdf[subdf['piq_begin']<5040]
-    upstream_repeats=subdf['piq_begin']#upstream repeats
-    downstream=downstream_repeats.loc[downstream_repeats['repeat_class']==repeat_class]['dpiq_begin']#downstream repeats
+    upstream_repeats=subdf['piq_begin']
+    downstream=downstream_repeats.loc[downstream_repeats['repeat_class']==repeat_class]['dpiq_begin']
     full_rep=pd.concat([upstream_repeats,downstream])
     full_rep=full_rep[(full_rep>minval)&(full_rep<maxval)]
     kwargs={'edgecolor':'black','lw':0.05}
-    axs[row_tracker,column_tracker].hist(full_rep,bins=bins,density=True,stacked=True,color='orange',**kwargs)
-    axs[row_tracker,column_tracker].fill_between([4960,5040],axs[row_tracker,column_tracker].get_ylim()[0],axs[row_tracker,column_tracker].get_ylim()[1],alpha=.5,color='lightblue')
-    axs[row_tracker,column_tracker].set_ylim(0,0.02)
-    if '_' in repeat_class:#title begins
-        axs[row_tracker,column_tracker].set_title(repeat_class.replace('_','\n'),fontsize=12.5)
+    ax[row_tracker,column_tracker].hist(full_rep,bins=bins,density=True,stacked=True,color='orange',**kwargs)
+    ax[row_tracker,column_tracker].fill_between([4960,5040],ax[row_tracker,column_tracker].get_ylim()[0],ax[row_tracker,column_tracker].get_ylim()[1],alpha=.5,color='lightblue')
+    ax[row_tracker,column_tracker].set_ylim(0,0.02)
+    if '_' in repeat_class:
+        ax[row_tracker,column_tracker].set_title(repeat_class.replace('_','\n'),fontsize=12.5)
     elif '/' in repeat_class:
-        axs[row_tracker,column_tracker].set_title(repeat_class.replace('/','\n'),fontsize=12.5)
+        ax[row_tracker,column_tracker].set_title(repeat_class.replace('/','\n'),fontsize=12.5)
     else:
-        axs[row_tracker,column_tracker].set_title(repeat_class,fontsize=15)#title ends
-    axs[row_tracker,column_tracker].set_xticks([minval,5000,maxval])
-    axs[row_tracker,column_tracker].set_xticklabels(['-'+str(5000-minval),'numt','+'+str(maxval-5000)],rotation=45,fontsize=12)
-    axs[row_tracker,column_tracker].set_yticks([0,0.005,0.01,0.015,0.02])
-    axs[row_tracker,column_tracker].set_yticklabels([0,'',0.01,'',0.02],fontsize=12)
+        ax[row_tracker,column_tracker].set_title(repeat_class,fontsize=12.5)
+    ax[row_tracker,column_tracker].set_xticks([minval,5000,maxval])
+    ax[row_tracker,column_tracker].set_xticklabels(['-'+str(5000-minval),'numt','+'+str(maxval-5000)],rotation=45,fontsize=12)
+    ax[row_tracker,column_tracker].set_yticks([0,0.005,0.01,0.015,0.02])
+    ax[row_tracker,column_tracker].set_yticklabels([0,'',0.01,'',0.02],fontsize=12)
     column_tracker+=1
     if column_tracker==4:
         column_tracker+=(-column_tracker)
