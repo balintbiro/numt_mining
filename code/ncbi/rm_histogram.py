@@ -61,7 +61,10 @@ repeats=pd.DataFrame(
 repeats.to_csv('../results/repeats.csv',index=False)
 #make the function work for downstream repeats
 organism_names.apply(repeatmasker,args=('../results/repeats.csv',))
-
+####################################################################################################
+#                                       visualisation                                              #
+#                        for just the visualization, copy the from here                            #
+####################################################################################################
 #read in repeats
 repeats=pd.read_csv('../results/repeats.csv')
 
