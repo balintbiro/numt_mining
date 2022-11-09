@@ -68,7 +68,7 @@ organism_names.apply(get_numt_coverage,args=('../results/heatmap.csv',))
 
 ####################################################################################################
 #                                       visualisation                                              #
-#                        for just the visualization, copy the code from here                       #
+#           for just the visualization, copy the code from here plus the dependencies              #
 ####################################################################################################
 
 #read in file

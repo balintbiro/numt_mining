@@ -63,7 +63,7 @@ repeats.to_csv('../results/repeats.csv',index=False)
 organism_names.apply(repeatmasker,args=('../results/repeats.csv',))
 ####################################################################################################
 #                                       visualisation                                              #
-#                        for just the visualization, copy the code from here                       #
+#           for just the visualization, copy the code from here plus the dependencies              #
 ####################################################################################################
 #read in repeats
 repeats=pd.read_csv('../results/repeats.csv')
