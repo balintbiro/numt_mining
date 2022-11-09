@@ -94,7 +94,7 @@ colors=pd.Series(
 order_colors=colors.reindex(orders.values).tolist()
 
 #robust means that no outliers are displayed
-heatmap=sns.clustermap(heatmap_input,cmap='rocket_r',mask=mask,robust=True,row_colors=order_colors,cbar_pos=(-.1, .2, .03, .4))
+heatmap=sns.clustermap(heatmap_input,cmap='rocket_r',mask=mask,row_colors=order_colors,cbar_pos=(-.1, .2, .03, .4))
 ax=heatmap.ax_heatmap
 cbar=ax.collections[0].colorbar
 cbar.ax.tick_params(labelsize=20)
