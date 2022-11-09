@@ -91,14 +91,12 @@ def plot_repeats(repeat_class,bins,minval,maxval):
     axs[row_tracker,column_tracker].hist(full_rep,bins=bins,density=True,stacked=True,color='orange',**kwargs)
     axs[row_tracker,column_tracker].fill_between([4960,5040],axs[row_tracker,column_tracker].get_ylim()[0],axs[row_tracker,column_tracker].get_ylim()[1],alpha=.5,color='lightblue')
     axs[row_tracker,column_tracker].set_ylim(0,0.02)
-    #title begins
-    if '_' in repeat_class:
+    if '_' in repeat_class:#title begins
         axs[row_tracker,column_tracker].set_title(repeat_class.replace('_','\n'),fontsize=12.5)
     elif '/' in repeat_class:
         axs[row_tracker,column_tracker].set_title(repeat_class.replace('/','\n'),fontsize=12.5)
     else:
-        axs[row_tracker,column_tracker].set_title(repeat_class,fontsize=15)
-    #title ends
+        axs[row_tracker,column_tracker].set_title(repeat_class,fontsize=15)#title ends
     axs[row_tracker,column_tracker].set_xticks([minval,5000,maxval])
     axs[row_tracker,column_tracker].set_xticklabels(['-'+str(5000-minval),'numt','+'+str(maxval-5000)],rotation=45,fontsize=12)
     axs[row_tracker,column_tracker].set_yticks([0,0.005,0.01,0.015,0.02])
@@ -117,7 +115,7 @@ sig_repeats=pd.Series(['Simple_repeat','Low_complexity', 'SINE/MIR','LINE/L2',
 #visualize results and save the figure
 row_tracker=0
 column_tracker=0
-fig,axs=plt.subplots(4,4,figsize=(8,6),sharex=True,sharey=True)
+fig,ax=plt.subplots(4,4,figsize=(8,6),sharex=True,sharey=True)
 plt.subplots_adjust(wspace=0.1,
                     hspace=0.4)
 sig_repeats.apply(plot_repeats,args=(100,4800,5200,))
