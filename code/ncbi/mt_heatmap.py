@@ -1,6 +1,7 @@
 #import dependencies
 import numpy as np
 import pandas as pd
+import seaborn as sns
 from Bio import AlignIO
 
 #read in numts
