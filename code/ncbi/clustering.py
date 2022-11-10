@@ -44,6 +44,8 @@ X_labeled=numts[[
     'gDNA_size (Mb)','mtDNA_size (Mb)',
         'genus_label','family_label','order','order_label','label']].dropna()
 
+X_labeled=X_labeled.sample(n=int(len(X_labeled)/10))
+
 #remove labels
 X=X_labeled.loc[:,~X_labeled.columns.isin(['order','order_label'])]
 
@@ -79,29 +81,42 @@ fig.savefig('../results/PCA.png',dpi=400)
 
 #visualize DBSCAN clustered UMAP
 fig,axs=plt.subplots(1,1)
-sns.scatterplot(x=numt_umap[~clustered,0],y=numt_umap[~clustered,1],hue=len(numt_umap[~clustered,1])*['black'],palette=['black'],legend=False,ax=axs,**kwargs)
-sns.scatterplot(x=numt_umap[clustered,0],y=numt_umap[clustered,1],hue=X_labeled['order'][clustered],ax=axs,palette='tab20',**kwargs)
+sns.scatterplot(x=numt_umap[~clustered,0],y=numt_umap[~clustered,1],size=len(numt_umap[~clustered,1]),sizes=(10,20),hue=len(numt_umap[~clustered,1])*['black'],palette=['black'],legend=False,ax=axs,**kwargs)
+sns.scatterplot(x=numt_umap[clustered,0],y=numt_umap[clustered,1],size=len(numt_umap[clustered,1]),sizes=(100,200),hue=X_labeled['order'][clustered],ax=axs,palette='tab20',**kwargs)
 plt.legend(title='Order',bbox_to_anchor=(1.05,1),fontsize=10)
 plt.tight_layout()
 fig.savefig('../results/DBSCAN.png',dpi=400)
 
-#grid search for DBSCAN
-epsilons=np.linspace(.5,100,2)
-min_samples=epsilons*10
-
-grid_search_results=[]
-
-for eps in epsilons:
-	for min_sample in min_samples:
-		dbscan_labels=DBSCAN(eps=eps,min_samples=min_sample,n_jobs=-1).fit_predict(numt_pca)
-		clustered=dbscan_labels>-1
-		res1=adjusted_mutual_info_score(X_labeled['order'],dbscan_labels)
-		res2=adjusted_mutual_info_score(X_labeled['order'][clustered],dbscan_labels[clustered])
-		grid_search_results.append([eps,min_sample,res1,res2])
+#grid search for UMAP and DBSCAN
+min_distances=[0.1, 0.25, 0.5, 0.8, 0.99]
+n_neighbors=np.linspace(2,200,5,dtype=int)
+epsilons=np.round(np.linspace(.25,2,10),2)
+min_samples=np.linspace(2,15,10,dtype=int)
 
 grid_search_results=pd.DataFrame(
-		data=grid_search_results,
-		columns=['eps','min_sample','ami','ami_clus']
+		data=[],
+		columns=['mn_dst','n_nghbrs','eps','mn_smpl','ami_cls','snr','ami']
 	)
 
-grid_search_results.to_csv('../results/DBSCAN_results.csv')
+grid_search_results.to_csv('../results/DBSCAN_results.csv',index=False)
+
+for min_distance in min_distances:
+	for n_neighbor in n_neighbors:
+		for eps in epsilons:
+			for min_sample in min_samples:
+				numt_umap=umap.UMAP(random_state=0,min_dist=min_distance,n_neighbors=n_neighbor).fit_transform(X)
+				dbscan_labels=DBSCAN(eps=eps,min_samples=min_sample,n_jobs=-1).fit_predict(numt_pca)
+				clustered=dbscan_labels>-1
+				res1=adjusted_mutual_info_score(X_labeled['order'],dbscan_labels)
+				res2=adjusted_mutual_info_score(X_labeled['order'][clustered],dbscan_labels[clustered])
+				snr=len(X_labeled['order'][clustered])/len(X_labeled['order'])
+				result=pd.DataFrame([[min_distance,n_neighbor,eps,min_sample,res2,snr,res1]])
+				result.to_csv('../results/DBSCAN_results.csv',mode='a',index=False,header=False)
+
+
+
+
+
+
+
+
