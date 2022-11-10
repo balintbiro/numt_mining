@@ -33,7 +33,7 @@ ax1.set_xticklabels([])
 ax1.set_ylabel('numt size (bp)')
 ax1.set_title('Abs. numt size')
 plt.tight_layout()
-plt.savefig('../results/numt_lengths.png',dpi=300)
+plt.savefig('../results/numt_lengths.png',dpi=400)
 ########################################################################
 
 #numt content correlations
@@ -58,7 +58,7 @@ axs[1].plot(gid_sizes,a1*gid_sizes+b1,color='red',lw=1)
 axs[1].set_xlabel('Size (Mb)')
 axs[1].set_ylabel('numt bps (kb)')
 plt.tight_layout()
-plt.savefig('../results/sizes_corr.png',dpi=300)
+plt.savefig('../results/sizes_corr.png',dpi=400)
 ########################################################################
 
 #relative GCs
@@ -79,4 +79,4 @@ plt.legend()
 plt.xlabel('Relative GC content')
 plt.ylabel('Frequency')
 plt.tight_layout()
-plt.savefig('../results/relGCs.png',dpi=300)
+plt.savefig('../results/relGCs.png',dpi=400)
