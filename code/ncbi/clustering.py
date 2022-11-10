@@ -93,7 +93,7 @@ grid_search_results=[]
 
 for eps in epsilons:
 	for min_sample in min_samples:
-		dbscan_labels=DBSCAN().fit_predict(numt_pca)
+		dbscan_labels=DBSCAN(eps=eps,min_samples=min_sample,n_jobs=-1).fit_predict(numt_pca)
 		clustered=dbscan_labels>-1
 		res1=adjusted_mutual_info_score(X_labeled['order'],dbscan_labels)
 		res2=adjusted_mutual_info_score(X_labeled['order'][clustered],dbscan_labels[clustered])
