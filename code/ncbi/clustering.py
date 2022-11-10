@@ -57,7 +57,7 @@ X_scaled=StandardScaler().fit_transform(X)
 numt_pca=PCA(n_components=.95).fit_transform(X_scaled)
 
 #get dbscan labels
-dbscan_labels=DBSCAN().fit_predict(numt_pca)
+dbscan_labels=DBSCAN(n_jobs=-1).fit_predict(numt_pca)
 
 #get the datapoints that have been clustered
 clustered=dbscan_labels>-1
@@ -86,7 +86,7 @@ plt.tight_layout()
 fig.savefig('../results/DBSCAN.png',dpi=400)
 
 #grid search for DBSCAN
-epsilons=np.linspace(.5,100,2,dtype=int)
+epsilons=np.linspace(.5,100,2)
 min_samples=epsilons*10
 
 grid_search_results=[]
