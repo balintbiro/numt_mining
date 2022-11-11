@@ -33,65 +33,26 @@ distance_matrix <- dist.alignment(
 #create the actual tree
 nj_tree <- nj(distance_matrix)
 
-#visualize nj tree
+#function for bootstrapping a neighbor joining tree with JC method
+fun <- function(x) nj(dist.ml(x,model='JC69'))
+
+#actual bootstrapping 100 times
+bs_tree <- bootstrap.phyDat(as.phyDat(alignment),bs=100,fun)
+
+#visualize the consensus tree
 tree <- ggtree(
-  nj_tree,
-  layout='fan',#other options are circular, roundrect, ellipse, slanted, unrooted
-  branch.length='none',
-  size=0.1,
-  color='black',
-  alpha=1,
-  ,open.angle=90
+  consensus(bs_tree),#the consensus tree
+  layout='circular',#style,other options are daylight, fan, circular, roundrect, ellipse, slanted, unrooted
+  branch.length='none',#no branch length
+  size=0.1,#width of the branches
+  color='black',#color
+  alpha=1,#transparency
+  open.angle=90#where to have a gap
 )
 
 #add points to the ends of branches
 tree+geom_tippoint(
-    size=.15,
-    color='black',
-    alpha=.5
-  )
-
-#modify background
-tree+theme(
-    plot.background = element_rect(
-      fill='transparent',
-      color=NA
-    ),
-    panel.background = element_rect(
-      fill='transparent',
-      color=NA
-    )
-  )
-
-#add organism names-it is going to be messy since we have too much names
-tree+geom_tiplab(
-    hjust=.4
-  )
-
-#save nj tree
-ggsave(
-  '../../results/nj_tree.png',
-  plot=last_plot(),
-  dpi=400,units='cm',
-  width=14,
-  height=14,
-  bg='transparent'
-)
-###############################################################add node numbers
-#visualize nj tree
-tree <- ggtree(
-  nj_tree,
-  layout='fan',#other options are circular, roundrect, ellipse, slanted, unrooted
-  branch.length='none',
-  size=0.1,
-  color='black',
-  alpha=1,
-  ,open.angle=90
-)
-
-#add points to the ends of branches
-tree+geom_tippoint(
-  size=.15,
+  size=.4,
   color='black',
   alpha=.5
 )
@@ -110,7 +71,8 @@ tree+theme(
 
 #add organism names-it is going to be messy since we have too much names
 tree+geom_tiplab(
-  hjust=.4
+  hjust=-.1,#distance from the tip
+  size=2#size of the text
 )
 
 #add node numbers
@@ -120,44 +82,27 @@ tree+geom_text2(
 
 #add nodelabel as a stick
 tree+geom_cladelabel(
-  node=158,label='test label',color='green',fontsize=8,angle=45,barsize=3
+  node=214,#node number
+  label='test label',#text for highlighting
+  color='green',#color to fill with
+  fontsize=8,#size of the text
+  angle=45,
+  barsize=3#thickness of bar
 )
 
 #highlight node with box
 tree+geom_highlight(
-  node=161, fill='steelblue',alpha=.3
+  node=179,#node number
+  fill='#000080',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
 )
 
-
-###############################################################UPGMA Tree
-
-#read alignment
-alignment <- read.phyDat(
-  '../../data/aligned_mtDNAs.fa',
-  format='fasta'
+#save nj tree
+ggsave(
+  '../../results/nj_tree.png',
+  plot=last_plot(),
+  dpi=400,
+  units='cm',
+  width=14,
+  height=14,
+  bg='transparent'
 )
-
-#create distance matrix
-distance_matrix <- dist.ml(alignment)
-
-#create the tree itself
-upgma_tree <- upgma(distance_matrix)
-
-#visualize tree
-ggtree(
-  upgma_tree,
-  layout='fan',
-  branch.length='none',
-  size=1.8,
-  color='black',
-  alpha=1
-)+#,open.angle=180 can be used together with fan layout
-  geom_tippoint(
-    size=.5,
-    color='black',
-    alpha=.5
-  )+geom_highlight(
-    node=1,
-    fill='purple',
-    alpha=.9
-  )

@@ -33,3 +33,4 @@ code/ncbi/tSNE_feature_search.py
 *.fa
 *.fna
 code/ncbi/trial.py
+data/bsnj_tree.txt
