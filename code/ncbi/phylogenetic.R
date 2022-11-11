@@ -1,3 +1,5 @@
+#get node numbers https://bioconductor.statistik.tu-dortmund.de/packages/3.8/bioc/vignettes/ggtree/inst/doc/treeManipulation.html#internal-node-number
+#clade annotations https://bioconductor.statistik.tu-dortmund.de/packages/3.8/bioc/vignettes/ggtree/inst/doc/treeAnnotation.html
 #loading dependencies
 library(seqinr)
 library(adegenet)
@@ -30,20 +32,25 @@ distance_matrix <- dist.alignment(
 nj_tree <- nj(distance_matrix)
 
 #visualize nj tree
-ggtree(
+tree <- ggtree(
   nj_tree,
-  layout='fan',
+  layout='fan',#other options are circular, roundrect, ellipse, slanted, unrooted
   branch.length='none',
   size=0.1,
   color='black',
   alpha=1,
   ,open.angle=90
-)+
-  geom_tippoint(
+)
+
+#add points to the ends of branches
+tree+geom_tippoint(
     size=.15,
     color='black',
     alpha=.5
-  )+theme(
+  )
+
+#modify background
+tree+theme(
     plot.background = element_rect(
       fill='transparent',
       color=NA
@@ -52,9 +59,12 @@ ggtree(
       fill='transparent',
       color=NA
     )
-  )+geom_tiplab(
+  )
+
+#add organism names-it is going to be messy since we have too much names
+tree+geom_tiplab(
     hjust=.4
-  )#+geom_highlight(node=1,fill='purple',alpha=.9)
+  )
 
 #save nj tree
 ggsave(
@@ -65,6 +75,57 @@ ggsave(
   height=14,
   bg='transparent'
 )
+###############################################################add node numbers
+#visualize nj tree
+tree <- ggtree(
+  nj_tree,
+  layout='fan',#other options are circular, roundrect, ellipse, slanted, unrooted
+  branch.length='none',
+  size=0.1,
+  color='black',
+  alpha=1,
+  ,open.angle=90
+)
+
+#add points to the ends of branches
+tree+geom_tippoint(
+  size=.15,
+  color='black',
+  alpha=.5
+)
+
+#modify background
+tree+theme(
+  plot.background = element_rect(
+    fill='transparent',
+    color=NA
+  ),
+  panel.background = element_rect(
+    fill='transparent',
+    color=NA
+  )
+)
+
+#add organism names-it is going to be messy since we have too much names
+tree+geom_tiplab(
+  hjust=.4
+)
+
+#add node numbers
+tree+geom_text2(
+  aes(subset=!isTip,label=node)
+)
+
+#add nodelabel as a stick
+tree+geom_cladelabel(
+  node=158,label='test label',color='green',fontsize=8,angle=45,barsize=3
+)
+
+#highlight node with box
+tree+geom_highlight(
+  node=161, fill='steelblue',alpha=.3
+)
+
 
 ###############################################################UPGMA Tree
 
