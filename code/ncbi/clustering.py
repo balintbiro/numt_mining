@@ -89,7 +89,7 @@ fig.savefig('../results/DBSCAN.png',dpi=400)
 
 #grid search for UMAP and DBSCAN
 min_distances=[0.1, 0.25, 0.5, 0.8, 0.99]
-n_neighbors=np.linspace(2,200,5,dtype=int)
+n_neighbors=np.linspace(555,1620,5,dtype=int)
 epsilons=np.round(np.linspace(.25,2,10),2)
 min_samples=np.linspace(2,15,10,dtype=int)
 
