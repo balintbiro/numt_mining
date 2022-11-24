@@ -88,9 +88,9 @@ plt.tight_layout()
 fig.savefig('../results/DBSCAN.png',dpi=400)
 
 #grid search for UMAP and DBSCAN
-min_distances=[0.1, 0.25, 0.5, 0.8, 0.99]
-n_neighbors=np.linspace(555,1620,5,dtype=int)
-epsilons=np.round(np.linspace(.25,2,10),2)
+min_distances=[1.25,1.5,2]
+n_neighbors=[np.linspace(555,1620,5,dtype=int)]
+epsilons=np.round(np.linspace(.25,20,10),2)
 min_samples=np.linspace(2,15,10,dtype=int)
 
 grid_search_results=pd.DataFrame(
@@ -114,9 +114,27 @@ for min_distance in min_distances:
 				result.to_csv('../results/DBSCAN_results.csv',mode='a',index=False,header=False)
 
 
+#import plotly.express as px
+#fig=px.parallel_coordinates(
+#		cv_res,
+#		color='ami'
+#	)
+#fig.update_layout(
+#		height=400,
+#		font=dict(
+#				family='Arial',
+#				size=20,
+#				color='#000000'
+#			)
+#	)
 
-
-
+#fig.write_image(
+#		'../results/DBSCAN_grid_search.png',
+#		validate=True,
+#		width=600,
+#		height=400,
+#		scale=3
+#	)
 
 
 

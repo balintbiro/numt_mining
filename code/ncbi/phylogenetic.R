@@ -42,7 +42,7 @@ bs_tree <- bootstrap.phyDat(as.phyDat(alignment),bs=100,fun)
 #visualize the consensus tree
 tree <- ggtree(
   consensus(bs_tree),#the consensus tree
-  layout='circular',#style,other options are daylight, fan, circular, roundrect, ellipse, slanted, unrooted
+  layout='circular',#style,other options are daylight, equal_angle, fan, circular, roundrect, ellipse, slanted, unrooted
   branch.length='none',#no branch length
   size=0.1,#width of the branches
   color='black',#color
