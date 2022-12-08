@@ -82,7 +82,7 @@ fig.savefig('../results/PCA.png',dpi=400)
 #visualize DBSCAN clustered UMAP
 fig,axs=plt.subplots(1,1)
 sns.scatterplot(x=numt_umap[~clustered,0],y=numt_umap[~clustered,1],size=len(numt_umap[~clustered,1]),sizes=(10,20),hue=len(numt_umap[~clustered,1])*['black'],palette=['black'],legend=False,ax=axs,**kwargs)
-sns.scatterplot(x=numt_umap[clustered,0],y=numt_umap[clustered,1],size=len(numt_umap[clustered,1]),sizes=(100,200),hue=X_labeled['order'][clustered],ax=axs,palette='tab20',**kwargs)
+sns.scatterplot(x=numt_umap[clustered,0],y=numt_umap[clustered,1],size=len(numt_umap[clustered,1]),sizes=(10,20),hue=X_labeled['order'][clustered],ax=axs,palette='tab20',**kwargs)
 plt.legend(title='Order',bbox_to_anchor=(1.05,1),fontsize=10)
 plt.tight_layout()
 fig.savefig('../results/DBSCAN.png',dpi=400)
