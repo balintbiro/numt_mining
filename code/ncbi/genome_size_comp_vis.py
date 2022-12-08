@@ -7,9 +7,6 @@ import matplotlib.pyplot as plt
 #load dataframe
 numts=pd.read_csv('../data/ncbi_numts_p26.csv')
 
-#set style
-plt.style.use('fivethirtyeight')
-
 ########################################################################
 #numt sizes
 #calculate relative (to mt size) numt size

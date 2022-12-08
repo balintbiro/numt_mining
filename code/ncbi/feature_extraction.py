@@ -6,14 +6,15 @@ from subprocess import call
 
 #read in numts and random sequences
 numts=pd.read_csv('../data/ncbi_numts_p26.csv')
-randoms=pd.read_csv('../data/ml_input_randoms.csv')
+#randoms=pd.read_csv('../data/ml_input_randoms.csv')
 
 #get just the sequences and genomic ids
 numt_sequences=numts[['genomic_id','genomic_sequence']]
-random_sequences=randoms[['genomic_id','genomic_sequence']]
+#random_sequences=randoms[['genomic_id','sequence']]
 
 #download the parameter file
-call('wget --directory-prefix=../data/ https://github.com/Superzchen/iFeatureOmega-CLI/tree/main/parameters/DNA_parameters_setting.json',shell=True)
+if os.path.exists('../data/DNA_parameters_setting.json')==False:
+	call('wget --directory-prefix=../data/ https://github.com/Superzchen/iFeatureOmega-CLI/tree/main/parameters/DNA_parameters_setting.json',shell=True)
 
 #write just the sequences
 with open('../data/numt_sequences.fasta','w')as outfile:
@@ -21,10 +22,10 @@ with open('../data/numt_sequences.fasta','w')as outfile:
 			f">{row['genomic_id']}_{row.name}\n{row['genomic_sequence'].upper().replace('-','')}\n",
 		),axis=1)
 
-with open('../data/random_sequences.fasta','w')as outfile:
-	random_sequences.apply(lambda row: outfile.write(
-			f">{row['genomic_id']}_{row.name}\n{row['genomic_sequence'].upper().replace('-','')}\n",
-		),axis=1)
+#with open('../data/random_sequences.fasta','w')as outfile:
+#	random_sequences.apply(lambda row: outfile.write(
+#			f">{row['genomic_id']}_{row.name}\n{row['sequence'].upper().replace('-','')}\n",
+#		),axis=1)
 
 #create folder for descriptor dataframes
 if os.path.exists('../data/features/')==False:
@@ -51,8 +52,8 @@ def get_desc(descriptor,sequence_type):
 	dna.import_parameters('../data/DNA_parameters_setting.json')
 	dna.get_descriptor(descriptor)
 	if dna.encodings is not None:
-		dna.to_csv(f'../data/features/{sequence_type}_{descriptor.replace(' ','')}.csv',index=False,header=True)
+		dna.to_csv(f"../data/features/{sequence_type}_{descriptor.replace(' ','')}.csv",index=False,header=True)
 
 #make the function work
 descriptors.apply(get_desc,args=('numt',))
-descriptors.apply(get_desc,args=('random',))
+#descriptors.apply(get_desc,args=('random',))
