@@ -92,9 +92,9 @@ def plot_repeats(repeat_class,bins,minval,maxval):
     ax[row_tracker,column_tracker].fill_between([4960,5040],ax[row_tracker,column_tracker].get_ylim()[0],ax[row_tracker,column_tracker].get_ylim()[1],alpha=.5,color='lightblue')
     ax[row_tracker,column_tracker].set_ylim(0,0.02)
     if '_' in repeat_class:
-        ax[row_tracker,column_tracker].set_title(repeat_class.replace('_','\n'),fontsize=12.5)
+        ax[row_tracker,column_tracker].set_title(repeat_class.replace('_',"""\n"""),fontsize=12.5)
     elif '/' in repeat_class:
-        ax[row_tracker,column_tracker].set_title(repeat_class.replace('/','\n'),fontsize=12.5)
+        ax[row_tracker,column_tracker].set_title(repeat_class.replace('/',"""\n"""),fontsize=12.5)
     else:
         ax[row_tracker,column_tracker].set_title(repeat_class,fontsize=12.5)
     ax[row_tracker,column_tracker].set_xticks([minval,5000,maxval])

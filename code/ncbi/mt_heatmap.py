@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from Bio import AlignIO
+import matplotlib.pyplot as plt
 
 #read in numts
 numts=pd.read_csv('../data/ncbi_numts_p26.csv')
@@ -76,6 +77,7 @@ heatmap_input=pd.read_csv('../results/heatmap.csv')
 
 #visualize results
 mask=heatmap_input<0
+plt.style.use('classic')
 
 #create color codes
 taxonomy_data=pd.read_csv('../data/taxonomy_data.csv',index_col=0)
