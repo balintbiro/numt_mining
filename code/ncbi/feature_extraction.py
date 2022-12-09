@@ -10,7 +10,10 @@ randoms=pd.read_csv('../data/ml_input_randoms.csv')
 
 #get just the sequences and genomic ids
 numt_sequences=numts[['genomic_id','genomic_sequence']]
-random_sequences=randoms[['genomic_id','sequence']].sample(n=len(numt_sequences),replace=False)
+randoms=randoms[['genomic_id','upstream_size','sample_size','sequence']].sample(n=len(numt_sequences),replace=False)
+#removing flankings
+randoms['genomic_sequence']=random_sequences.apply(lambda row: row['sequence'][row['upstream_size']:(row['upstream_size']+row['sample_size'])],axis=1)
+random_sequences=randoms[['genomic_id','genomic_sequence']]
 
 #download the parameter file
 if os.path.exists('../data/DNA_parameters_setting.json')==False:
@@ -24,7 +27,7 @@ if os.path.exists('../data/DNA_parameters_setting.json')==False:
 
 with open('../data/random_sequences.fasta','w')as outfile:
 	random_sequences.apply(lambda row: outfile.write(
-			f">{row['genomic_id']}_{row.name}\n{row['sequence'].upper().replace('-','')}\n",
+			f">{row['genomic_id']}_{row.name}\n{row['genomic_sequence'].upper().replace('-','')}\n",
 		),axis=1)
 
 #create folder for descriptor dataframes
@@ -34,12 +37,12 @@ if os.path.exists('../data/features/')==False:
 #define descriptor types already done 
 #subsequence just eats way too much memory
 descriptors=pd.Series([
-	'Kmer type 1','Kmer type 2','RCKmer type 1','RCKmer type 2','Mismatch','NAC','Z_curve_9bit','Z_curve_12bit','Z_curve_36bit','Z_curve_48bit','Z_curve_144bit','CKSNAP type 1','CKSNAP type 2','MMI','NMBroto','ASDC',
-		'ANF','ENAC','binary','PS2','PS3','PS4','NCP','EIIP','PseEIIP',
-		'DBE','LPDF','DPCP','DPCP type2','TPCP','TPCP type2','Moran','Geary','DAC','DCC','DACC',
-		'TAC','TCC','TACC','PseDNC','PseKNC','PCPseDNC','PCPseTNC','SCPseDNC','SCPseTNC','PSTNPss',
-		'PSTNPds','KNN'
+	'NAC','Kmer type 1','Kmer type 2','RCKmer type 1','RCKmer type 2','Mismatch','Z_curve_9bit','Z_curve_12bit','Z_curve_36bit','Z_curve_48bit','Z_curve_144bit','CKSNAP type 1','CKSNAP type 2','MMI','NMBroto','ASDC',
 	])
+#'ANF','ENAC','binary','PS2','PS3','PS4','NCP','EIIP','PseEIIP',
+#		'DBE','LPDF','DPCP','DPCP type2','TPCP','TPCP type2','Moran','Geary','DAC','DCC','DACC',
+#		'TAC','TCC','TACC','PseDNC','PseKNC','PCPseDNC','PCPseTNC','SCPseDNC','SCPseTNC','PSTNPss',
+#		'PSTNPds','KNN'
 
 #function for getting descriptors
 def get_desc(descriptor,sequence_type):
