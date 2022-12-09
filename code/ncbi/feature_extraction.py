@@ -17,10 +17,10 @@ if os.path.exists('../data/DNA_parameters_setting.json')==False:
 	call('wget --directory-prefix=../data/ https://github.com/Superzchen/iFeatureOmega-CLI/tree/main/parameters/DNA_parameters_setting.json',shell=True)
 
 #write just the sequences
-with open('../data/numt_sequences.fasta','w')as outfile:
-	numt_sequences.apply(lambda row: outfile.write(
-			f">{row['genomic_id']}_{row.name}\n{row['genomic_sequence'].upper().replace('-','')}\n",
-		),axis=1)
+#with open('../data/numt_sequences.fasta','w')as outfile:
+#	numt_sequences.apply(lambda row: outfile.write(
+#			f">{row['genomic_id']}_{row.name}\n{row['genomic_sequence'].upper().replace('-','')}\n",
+#		),axis=1)
 
 with open('../data/random_sequences.fasta','w')as outfile:
 	random_sequences.apply(lambda row: outfile.write(
