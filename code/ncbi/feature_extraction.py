@@ -34,10 +34,10 @@ with open('../data/random_sequences.fasta','w')as outfile:
 if os.path.exists('../data/features/')==False:
 	os.mkdir('../data/features/')
 
-#define descriptor types already done 
+#define descriptor types; already done 'NAC','Kmer type 1',
 #subsequence just eats way too much memory
 descriptors=pd.Series([
-	'NAC','Kmer type 1','Kmer type 2','RCKmer type 1','RCKmer type 2','Mismatch','Z_curve_9bit','Z_curve_12bit','Z_curve_36bit','Z_curve_48bit','Z_curve_144bit','CKSNAP type 1','CKSNAP type 2','MMI','NMBroto','ASDC',
+	'RCKmer type 1','RCKmer type 2','Mismatch','Z_curve_9bit','Z_curve_12bit','Z_curve_36bit','Z_curve_48bit','Z_curve_144bit','CKSNAP type 1','CKSNAP type 2','MMI','NMBroto','ASDC','Kmer type 2',
 	])
 #'ANF','ENAC','binary','PS2','PS3','PS4','NCP','EIIP','PseEIIP',
 #		'DBE','LPDF','DPCP','DPCP type2','TPCP','TPCP type2','Moran','Geary','DAC','DCC','DACC',
