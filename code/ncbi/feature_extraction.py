@@ -12,7 +12,7 @@ randoms=pd.read_csv('../data/ml_input_randoms.csv')
 numt_sequences=numts[['genomic_id','genomic_sequence']]
 randoms=randoms[['genomic_id','upstream_size','sample_size','sequence']].sample(n=len(numt_sequences),replace=False)
 #removing flankings
-randoms['genomic_sequence']=random_sequences.apply(lambda row: row['sequence'][row['upstream_size']:(row['upstream_size']+row['sample_size'])],axis=1)
+randoms['genomic_sequence']=randoms.apply(lambda row: row['sequence'][row['upstream_size']:(row['upstream_size']+row['sample_size'])],axis=1)
 random_sequences=randoms[['genomic_id','genomic_sequence']]
 
 #download the parameter file
