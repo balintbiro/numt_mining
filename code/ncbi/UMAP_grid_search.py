@@ -15,19 +15,23 @@ label_dict=pd.Series(['NUMT','random'])
 label_dict.index=[1,0]
 features['label_name']=label_dict[features['label']].values
 
+#for order UMAP
+features=features.loc[features['order_label']!=-1].dropna()
+
 #sample df
 #features=features.sample(n=int(len(features)/40),replace=False)
 
 X=features.drop(['label','order','order_label','label_name'],axis=1)
 
 #define function for plotting the result
-def plotter(curr_ax):
+def plotter(curr_ax,title=None):
     kwargs={'edgecolor':'face'}
-    scplot=sns.scatterplot(x='x',y='y',hue='label_name',data=features,s=10,palette='Dark2',alpha=0.1,**kwargs)
+    scplot=sns.scatterplot(x='x',y='y',hue='order',data=features,s=10,palette='tab20',alpha=0.025,**kwargs)
     curr_ax.set(xticklabels=[],yticklabels=[])
-    scplot.legend(title='Sequence',fontsize=15,title_fontsize=15)
+    #scplot.legend(title='Sequence',fontsize=15,title_fontsize=15)#this is for the numt vs random umap
     curr_ax.set_xlabel('UMAP1',fontsize=20)
     curr_ax.set_ylabel('UMAP2',fontsize=20)
+    curr_ax.legend(bbox_to_anchor=(1,.95),prop={'size': 14})#this is for the order umap
     plt.tight_layout()
 
 #hyperparameter tuning https://umap-learn.readthedocs.io/en/latest/parameters.html
@@ -39,7 +43,7 @@ def grid_search(n_neighbors,min_dist):
             min_dist=min_dist,
             n_neighbors=n_neighbors
         )
-    embedding=reducer.fit_transform(X_scaled,y=features['label'])
+    embedding=reducer.fit_transform(X_scaled,y=features['order_label'])
     features['x'],features['y']=embedding[:,0],embedding[:,1]
     fig,axs=plt.subplots(1,1,figsize=(6.5,6.5))
     plotter(axs)
@@ -53,3 +57,5 @@ def grid_search(n_neighbors,min_dist):
 #        grid_search(i,j)
 
 grid_search(200,.9)
+
+features[['order','x','y']].to_csv('../data/order_umap.csv')
