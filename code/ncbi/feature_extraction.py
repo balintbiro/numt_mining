@@ -16,8 +16,8 @@ randoms['genomic_sequence']=randoms.apply(lambda row: row['sequence'][row['upstr
 random_sequences=randoms[['genomic_id','genomic_sequence']]
 
 #download the parameter file
-if os.path.exists('../data/DNA_parameters_setting.json')==False:
-	call('wget --directory-prefix=../data/ https://github.com/Superzchen/iFeatureOmega-CLI/tree/main/parameters/DNA_parameters_setting.json',shell=True)
+#if os.path.exists('../data/DNA_parameters_setting.json')==False:
+#	call('wget --directory-prefix=../data/ https://github.com/Superzchen/iFeatureOmega-CLI/tree/main/parameters/DNA_parameters_setting.json',shell=True)
 
 #write just the sequences
 #with open('../data/numt_sequences.fasta','w')as outfile:
@@ -37,8 +37,10 @@ if os.path.exists('../data/features/')==False:
 #define descriptor types; already done 'NAC','Kmer type 1',
 #subsequence just eats way too much memory
 descriptors=pd.Series([
-	'RCKmer type 1','RCKmer type 2','Mismatch','Z_curve_9bit','Z_curve_12bit','Z_curve_36bit','Z_curve_48bit','Z_curve_144bit','CKSNAP type 1','CKSNAP type 2','MMI','NMBroto','ASDC','Kmer type 2',
+	'Z_curve_12bit'
+	#'MMI','ASDC','Z_curve_12bit','Z_curve_36bit','Z_curve_48bit','Z_curve_144bit','CKSNAP type 1','CKSNAP type 2',
 	])
+#'RCKmer type 1','RCKmer type 2','Mismatch','Z_curve_9bit','Z_curve_12bit','Z_curve_36bit','Z_curve_48bit','Z_curve_144bit','CKSNAP type 1','CKSNAP type 2','MMI','NMBroto','ASDC','Kmer type 2',
 #'ANF','ENAC','binary','PS2','PS3','PS4','NCP','EIIP','PseEIIP',
 #		'DBE','LPDF','DPCP','DPCP type2','TPCP','TPCP type2','Moran','Geary','DAC','DCC','DACC',
 #		'TAC','TCC','TACC','PseDNC','PseKNC','PCPseDNC','PCPseTNC','SCPseDNC','SCPseTNC','PSTNPss',
@@ -63,3 +65,14 @@ def get_desc(descriptor,sequence_type):
 #make the function work
 #descriptors.apply(get_desc,args=('numt',))
 descriptors.apply(get_desc,args=('random',))
+
+#get the features
+fil=pd.Series(os.listdir('../data/features/')).apply(lambda name: 'random' in name)
+random_features=pd.concat(files[fil].apply(lambda name: pd.read_csv(f"../data/features/{name}")).tolist(),axis=1)
+numt_features=pd.concat(files[fil].apply(lambda name: pd.read_csv(f"""../data/features/{name.replace('random','numt')}""")).tolist(),axis=1)
+
+#add labels
+random_features['label'],numt_features['label']=len(random_features)*[0],len(numt_features)*[1]
+
+#merge features
+features=pd.concat([random_features,numt_features])

@@ -36,9 +36,10 @@ class process_DNA():
             numt_number=len(alignments)
             #get min and max lengths of numts
             numt_range=alignments['genomic_length']
+            #get the available genomic ids
             record_dict=SeqIO.to_dict(SeqIO.parse("../data/genomes/gDNA.fna", "fasta"))
             genomic_ids=pd.Series(record_dict.keys())
-            #random sampling of genomic ids
+            #random sampling of genomic ids; 1.5 times bigger than numt number
             np.random.seed(0)
             genomic_ids=pd.Series(np.random.choice(genomic_ids,size=int(numt_number*1.5),replace=True))
             #get the corresponding sequences
