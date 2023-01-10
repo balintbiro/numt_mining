@@ -1,5 +1,6 @@
 #import dependencies
 import os
+import numpy as np
 import pandas as pd
 import iFeatureOmegaCLI
 from subprocess import call
@@ -72,7 +73,7 @@ random_features=pd.concat(files[fil].apply(lambda name: pd.read_csv(f"../data/fe
 numt_features=pd.concat(files[fil].apply(lambda name: pd.read_csv(f"""../data/features/{name.replace('random','numt')}""")).tolist(),axis=1)
 
 #add labels
-random_features['label'],numt_features['label'],numt_features['order_label'],random_features['order_label']=len(random_features)*[0],len(numt_features)*[1],numts['order_label'].tolist(),len(random_features)*[-1]
+random_features['label'],numt_features['label'],numt_features['order_label'],random_features['order_label'],numt_features['order'],random_features['order']=len(random_features)*[0],len(numt_features)*[1],numts['order_label'].tolist(),len(random_features)*[-1],numts['order'],len(random_features)*[np.nan]
 
 #merge features
 features=pd.concat([random_features,numt_features])
