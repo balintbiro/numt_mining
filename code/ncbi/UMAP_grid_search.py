@@ -31,7 +31,7 @@ def plotter(curr_ax,title=None):
     #scplot.legend(title='Sequence',fontsize=15,title_fontsize=15)#this is for the numt vs random umap
     curr_ax.set_xlabel('UMAP1',fontsize=20)
     curr_ax.set_ylabel('UMAP2',fontsize=20)
-    curr_ax.legend(bbox_to_anchor=(1,.9),prop={'size': 12})#this is for the order umap
+    curr_ax.legend(bbox_to_anchor=(1,.9),title='Orders',prop={'size': 12})#this is for the order umap
     plt.tight_layout()
 
 #hyperparameter tuning https://umap-learn.readthedocs.io/en/latest/parameters.html
