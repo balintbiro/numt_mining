@@ -36,8 +36,8 @@ param_grid = {
 }
 
 #setting grid search for hyperparameter optimisation
-grid_search = GridSearchCV(estimator = rfc, param_grid = param_grid, 
-                          n_jobs = -2, verbose = 0,scoring='roc_auc')
+grid_search = GridSearchCV(estimator = rfc, param_grid = param_grid,
+                          verbose = 0,scoring='roc_auc')
 
 #grid search for hyperparameter optimisation
 grid_search.fit(X_train, y_train)
