@@ -11,45 +11,19 @@ from sklearn.model_selection import train_test_split,GridSearchCV
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report,roc_curve,auc,RocCurveDisplay
 
 #import features
-data=pd.read_csv('../data/ml_features.csv')
-
-#clear features df
-data=data.dropna()
-
-#filter df
-fil=data.apply(lambda row:(row['upstream_size']>4900) and (row['downstream_size']>4900),axis=1)
-data=data[fil]
-features=data[['GC', 'upstream_GC', 'downstream_GC', 'uSW_mean', 'uSW_median',
-       'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median', 'dRMs_count',
-       'dRMs_lengths', 'rel_start', 'entropy', 'upstream_entropy',
-       'downstream_entropy', 'label','u_TmGC', 'u_TmNN', 'u_TmW', 'TmGC', 'TmNN', 'TmW', 'd_TmGC', 'd_TmNN',
-       'd_TmW']]
-
-#just flanking features
-features=data[['uSW_mean', 'uSW_median',
-       'uRMs_count', 'uRMs_lengths', 'dSW_mean', 'dSW_median', 'dRMs_count',
-       'dRMs_lengths', 'rel_start', 'upstream_entropy',
-       'downstream_entropy', 'label','u_TmGC', 'u_TmNN', 'u_TmW', 'd_TmGC', 'd_TmNN',
-       'd_TmW']]
-
-#avoid imbalance-sample randomly
-features=pd.concat([
-    features[features['label']==1].sample(n=len(features[features['label']==0]),replace=False),
-    features[features['label']==0]
-    ])
+features=pd.read_csv('../data/iFeatureOmegaCLI_features.csv',index_col=0)
 
 #separate labels
-X=features.loc[:,features.columns!='label']
-y=features['label']
+X,y=features.drop(['label','order','order_label'],axis=1),features['label']
+
+#scale X
+X_scaled=StandardScaler().fit_transform(X)
 
 #split training and test set
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, random_state=0)
 
 #initialize model
-rfc = RandomForestClassifier(n_estimators=20,max_depth=5)
-
-#train model
-rfc.fit(X_train,y_train)
+rfc = RandomForestClassifier(random_state=0)
 
 #setting parameters
 param_grid = {
@@ -69,23 +43,4 @@ grid_search.fit(X_train, y_train)
 
 #transform the reults and save them
 gsCV_results=pd.DataFrame.from_dict(grid_search.cv_results_)
-
 gsCV_results.to_csv('../results/gsCV_results.csv')
-
-#visualize result
-fig,axs=plt.subplots(1,1)
-plt.style.use('ggplot')
-sns.scatterplot(x='param_max_depth',
-               y='mean_test_score',
-               hue='param_max_features',
-                size='param_min_samples_leaf',
-                style='param_n_estimators',
-                palette='tab10',
-               data=gsCV_results.dropna(),
-               ax=axs)
-plt.xlabel('Max depth (log)',fontsize=20)
-plt.ylabel('Test AUC',fontsize=20)
-plt.xscale('log')
-plt.legend(loc='lower right')
-plt.tight_layout()
-plt.savefig('../results/gs_results.png',transparent=False,dpi=200)
