@@ -4,6 +4,7 @@ import pandas as pd
 import seaborn as sns
 from sklearn.svm import SVC
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold
 from sklearn.linear_model import LogisticRegression
