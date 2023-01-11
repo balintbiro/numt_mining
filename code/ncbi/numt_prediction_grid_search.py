@@ -3,7 +3,6 @@ import os
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from sklearn.svm import SVC
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
@@ -37,7 +36,7 @@ param_grid = {
 }
 
 #setting grid search for hyperparameter optimisation
-grid_search = GridSearchCV(estimator = rfc, param_grid = param_grid,
+grid_search = GridSearchCV(estimator = rfc, param_grid = param_grid,n_jobs=-1,
                           verbose = 0,scoring='roc_auc')
 
 #grid search for hyperparameter optimisation
