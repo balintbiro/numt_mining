@@ -3,6 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import plotly.express as px
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
@@ -45,3 +46,43 @@ grid_search.fit(X_train, y_train)
 #transform the reults and save them
 gsCV_results=pd.DataFrame.from_dict(grid_search.cv_results_)
 gsCV_results.to_csv('../results/gsCV_results.csv')
+
+####################################################################################################
+#                                       visualisation                                              #
+#           for just the visualization, copy the code from here plus the dependencies              #
+####################################################################################################
+
+#read in results
+gscv_res=pd.read_csv('../results/gsCV_results.csv',index_col=0)
+
+#filter columns
+params=list(gscv_res.filter(like='param_'))
+params.append('mean_test_score')
+gscv_res=gscv_res[params]
+gscv_res.columns=['mx depth','mx features','mn leaf','mn split','n estimators','avg auc']
+
+#create plot
+fig = px.parallel_coordinates(gscv_res, color="avg auc",
+                              dimensions=gscv_res.columns,
+                              color_continuous_scale=px.colors.diverging.Tealrose,
+                              color_continuous_midpoint=.5)
+
+#update layout
+fig.update_layout(
+    height=350,
+        width=650,
+    font=dict(
+        family='Arial',
+        size=20,
+        color='#000000'
+      )
+  )
+
+#create figure
+fig.write_image(
+    '../results/grid_search.png',
+    validate=True,
+    width=650,
+    height=350,
+    scale=3
+  )
