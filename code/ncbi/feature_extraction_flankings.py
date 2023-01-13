@@ -51,11 +51,9 @@ if os.path.exists('../data/flanking_features/')==False:
 
 #define descriptor types
 descriptors=pd.Series([
-	'RCKmer type 1','RCKmer type 2','Mismatch','Z_curve_9bit','Z_curve_12bit','Z_curve_36bit','Z_curve_48bit','Z_curve_144bit','CKSNAP type 1','CKSNAP type 2','MMI','NMBroto','ASDC','Kmer type 2',
-	'ANF','ENAC','binary','PS2','PS3','PS4','NCP','EIIP','PseEIIP',
-		'DBE','LPDF','DPCP','DPCP type2','TPCP','TPCP type2','Moran','Geary','DAC','DCC','DACC',
+	'TPCP','TPCP type2','Moran','Geary','DAC','DCC','DACC',
 		'TAC','TCC','TACC','PseDNC','PseKNC','PCPseDNC','PCPseTNC','SCPseDNC','SCPseTNC','PSTNPss',
-		'PSTNPds','KNN'
+		'PSTNPds','KNN','CKSNAP type 1','ASDC'
 	])
 
 #function for getting descriptors
