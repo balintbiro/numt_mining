@@ -44,3 +44,32 @@ def write_seq(row,outfile):
 #create file for the sequences
 with open('../data/flanking_sequences.fasta','w')as outfile:
 	sequences.apply(write_seq,args=(outfile,),axis=1)
+
+#create folder for descriptor dataframes
+if os.path.exists('../data/flanking_features/')==False:
+	os.mkdir('../data/flanking_features/')
+
+#define descriptor types
+descriptors=pd.Series([
+	'RCKmer type 1','RCKmer type 2','Mismatch','Z_curve_9bit','Z_curve_12bit','Z_curve_36bit','Z_curve_48bit','Z_curve_144bit','CKSNAP type 1','CKSNAP type 2','MMI','NMBroto','ASDC','Kmer type 2',
+	'ANF','ENAC','binary','PS2','PS3','PS4','NCP','EIIP','PseEIIP',
+		'DBE','LPDF','DPCP','DPCP type2','TPCP','TPCP type2','Moran','Geary','DAC','DCC','DACC',
+		'TAC','TCC','TACC','PseDNC','PseKNC','PCPseDNC','PCPseTNC','SCPseDNC','SCPseTNC','PSTNPss',
+		'PSTNPds','KNN'
+	])
+
+#function for getting descriptors
+def get_desc(descriptor):
+	try:
+		#create DNA instance with iFeatureOmegaCLI for numts
+		dna=iFeatureOmegaCLI.iDNA('../data/flanking_sequences.fasta')
+		#get parameters
+		dna.import_parameters('../data/DNA_parameters_setting.json')
+		dna.get_descriptor(descriptor)
+		if dna.encodings is not None:
+			dna.to_csv(f"../data/flanking_features/{descriptor.replace(' ','')}.csv",index=False,header=True)
+	except:
+		print(f'Could not generate {descriptor} related features!')
+
+#generate descriptors
+descriptors.apply(get_desc)
