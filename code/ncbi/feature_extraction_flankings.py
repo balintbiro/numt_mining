@@ -2,6 +2,7 @@
 import os
 import numpy as np
 import pandas as pd
+from Bio import SeqIO
 import iFeatureOmegaCLI
 from subprocess import call
 
@@ -71,3 +72,16 @@ def get_desc(descriptor):
 
 #generate descriptors
 descriptors.apply(get_desc)
+
+#get fasta headers aka genomic ids
+records=list(SeqIO.parse('../data/flanking_sequences.fasta','fasta'))
+genomic_ids=pd.Series(records).apply(lambda record: record.description)
+
+#get features
+features=pd.concat(pd.Series(os.listdir('../data/flanking_features/')).apply(lambda filename: pd.read_csv(f'../data/flanking_features/{filename}')).tolist(),axis=1)
+
+#set fasta headers as indices
+features.index=genomic_ids
+
+#write features
+features.to_csv('../data/flanking_features.csv')
