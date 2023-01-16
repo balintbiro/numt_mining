@@ -52,9 +52,7 @@ if os.path.exists('../data/flanking_features/')==False:
 
 #define descriptor types
 descriptors=pd.Series([
-	'TPCP','TPCP type2','Moran','Geary','DAC','DCC','DACC',
-		'TAC','TCC','TACC','PseDNC','PseKNC','PCPseDNC','PCPseTNC','SCPseDNC','SCPseTNC','PSTNPss',
-		'PSTNPds','KNN','CKSNAP type 1','ASDC'
+	'Mismatch'
 	])
 
 #function for getting descriptors
@@ -77,8 +75,10 @@ descriptors.apply(get_desc)
 records=list(SeqIO.parse('../data/flanking_sequences.fasta','fasta'))
 genomic_ids=pd.Series(records).apply(lambda record: record.description)
 
+files=pd.Series(['NAC.csv','Mismatch.csv','Kmertype1.csv','Kmertype2.csv','NMBroto.csv','Z_curve_9bit.csv','RCKmertype1.csv','RCKmertype2.csv',])
+
 #get features
-features=pd.concat(pd.Series(os.listdir('../data/flanking_features/')).apply(lambda filename: pd.read_csv(f'../data/flanking_features/{filename}')).tolist(),axis=1)
+features=pd.concat(files.apply(lambda filename: pd.read_csv(f'../data/flanking_features/{filename}')).tolist(),axis=1)
 
 #set fasta headers as indices
 features.index=genomic_ids
