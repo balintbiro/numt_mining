@@ -13,6 +13,10 @@ from sklearn.metrics import accuracy_score,confusion_matrix,classification_repor
 #import features
 features=pd.read_csv('../data/flanking_features.csv',index_col=0)
 
+#create labels and add them to the dataframe
+labels=pd.Series(features.index).apply(lambda name: 0 if name[0]=='r' else 1)
+features['label']=labels.values
+
 #separate labels
 X,y=features.drop('label',axis=1),features['label']
 
