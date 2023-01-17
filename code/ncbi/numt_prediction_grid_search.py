@@ -9,11 +9,12 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split,GridSearchCV
+from sklearn.model_selection import train_test_split,RandomizedSearchCV
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report,roc_curve,auc,RocCurveDisplay
 
 #import features
 features=pd.read_csv('../data/iFeatureOmegaCLI_features.csv',index_col=0)
+features=features.sample(n=10000,replace=False)
 
 #separate labels
 X,y=features.drop(['label','order','order_label'],axis=1),features['label']
@@ -28,17 +29,17 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, random_state=0)
 rfc = RandomForestClassifier(random_state=0)
 
 #setting parameters
-param_grid = {
-    'max_depth': [2,3,4,5],#max depth of a tree
-    'max_features': np.linspace(2,len(X.columns),5,dtype=int),#The number of features to consider when looking for the best split:
-    'min_samples_leaf': np.linspace(2,10,5,dtype=int),#The minimum number of samples required to be at a leaf node
-    'min_samples_split': np.linspace(2,100,5,dtype=int),#The minimum number of samples required to split an internal node
-    'n_estimators': np.linspace(3,20,5,dtype=int)#number of trees
+param_dist = {
+    'max_depth': [1,2,3],#max depth of a tree
+    'max_features': [1,2,3,4,10,25,50],#The number of features to consider when looking for the best split:
+    'min_samples_leaf': np.linspace(1,10,5,dtype=int),#The minimum number of samples required to be at a leaf node
+    'min_samples_split': np.linspace(1,30,5,dtype=int),#The minimum number of samples required to split an internal node
+    'n_estimators': np.linspace(1,10,5,dtype=int)#number of trees
 }
 
 #setting grid search for hyperparameter optimisation
-grid_search = GridSearchCV(estimator = rfc, param_grid = param_grid,n_jobs=-1,
-                          verbose = 0,scoring='roc_auc')
+grid_search = RandomizedSearchCV(estimator = rfc, param_distributions = param_dist,n_jobs=-1,
+                          verbose = 0,cv=10,n_iter=100,scoring='roc_auc')
 
 #grid search for hyperparameter optimisation
 grid_search.fit(X_train, y_train)

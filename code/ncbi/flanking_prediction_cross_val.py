@@ -21,7 +21,7 @@ features['label']=labels.values
 X,y=features.drop('label',axis=1),features['label']
 
 cv = StratifiedKFold(n_splits=10)
-classifier=RandomForestClassifier(random_state=1,n_estimators=20,max_depth=5)
+classifier=RandomForestClassifier(random_state=0,n_estimators=7,max_depth=3,min_samples_split=15,min_samples_leaf=1,max_features=50)
 
 #true positives and aucss
 tprs,aucs = [],[]

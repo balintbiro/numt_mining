@@ -33,16 +33,16 @@ rfc=RandomForestClassifier(random_state=0)
 
 #setting parameters
 param_dist = {
-    'max_depth': [2,3,4,5],#max depth of a tree
-    'max_features': np.linspace(2,100,5,dtype=int),#The number of features to consider when looking for the best split:
-    'min_samples_leaf': np.linspace(2,10,5,dtype=int),#The minimum number of samples required to be at a leaf node
-    'min_samples_split': np.linspace(2,30,5,dtype=int),#The minimum number of samples required to split an internal node
-    'n_estimators': np.linspace(3,10,5,dtype=int)#number of trees
+    'max_depth': [1,2,3],#max depth of a tree
+    'max_features': [1,2,3,4,10,25,50],#The number of features to consider when looking for the best split:
+    'min_samples_leaf': np.linspace(1,10,5,dtype=int),#The minimum number of samples required to be at a leaf node
+    'min_samples_split': np.linspace(1,30,5,dtype=int),#The minimum number of samples required to split an internal node
+    'n_estimators': np.linspace(1,10,5,dtype=int)#number of trees
 }
 
 #setting grid search for hyperparameter optimisation
 randomCV = RandomizedSearchCV(estimator = rfc, param_distributions = param_dist,n_jobs=-1,
-                          verbose = 0,n_iter=100,scoring='roc_auc')
+                          verbose = 0,cv=10,n_iter=100,scoring='roc_auc')
 
 #grid search for hyperparameter optimisation
 randomCV.fit(X_train, y_train)
@@ -63,10 +63,18 @@ randomcv_res=pd.read_csv('../results/flanking_gsCV_results.csv',index_col=0)
 params=list(randomcv_res.filter(like='param_'))
 params.append('mean_test_score')
 randomcv_res=randomcv_res[params]
-randomcv_res.columns=['mx depth','mx features','mn leaf','mn split','n estimators','avg auc']
+param_dict=pd.Series({
+  'param_n_estimators':'n estimators',
+  'param_min_samples_split':'mn split',
+  'param_min_samples_leaf':'mn leaf',
+  'param_max_features':'mx features',
+  'param_max_depth':'mx depth',
+  'mean_test_score':'avg auc'
+})
+randomcv_res.columns=param_dict[params].values
 
 #create plot
-fig = px.parallel_coordinates(gscv_res, color="avg auc",
+fig = px.parallel_coordinates(randomcv_res, color="avg auc",
                               dimensions=randomcv_res.columns,
                               color_continuous_scale=px.colors.diverging.Tealrose,
                               color_continuous_midpoint=.5)

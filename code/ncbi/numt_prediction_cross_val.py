@@ -17,7 +17,7 @@ features=pd.read_csv('../data/iFeatureOmegaCLI_features.csv',index_col=0)
 X,y=features.drop(['label','order','order_label'],axis=1),features['label']
 
 cv = StratifiedKFold(n_splits=10)
-classifier=RandomForestClassifier(random_state=1,n_estimators=20,max_depth=5)
+classifier=RandomForestClassifier(random_state=1,n_estimators=7,min_samples_leaf=1,max_features=50,max_depth=3)
 
 #true positives and aucss
 tprs,aucs = [],[]
