@@ -25,7 +25,7 @@ scaler=StandardScaler()
 X_scaled=scaler.fit_transform(X)
 
 #create training and test sets
-X_train,X_test,y_train,y_test=train_test_split(X_scaled,y,random_state=0,shuffle=False)
+X_train,X_test,y_train,y_test=train_test_split(X_scaled,y,random_state=0)
 
 #initialize classifier
 rfc=RandomForestClassifier(random_state=0)
