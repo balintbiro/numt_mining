@@ -5,19 +5,28 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 #read in dataframe
 features=pd.read_csv('../data/flanking_features.csv',index_col=0)
 
-#create labels and add them to the dataframe
-labels=pd.Series(features.index).apply(lambda name: 0 if name[0]=='r' else 1)
-features['label']=labels.values
-
 #add label names
-label_dict=pd.Series(['NUMT','random'])
-label_dict.index=[1,0]
-features['label_name']=label_dict[features['label']].values
+def get_label(name):
+    if name[0]=='n':
+        if name[1]=='u':
+            return 'NUMT upstream'
+        else:
+            return 'NUMT downstream'
+    else:
+        if name[1]=='u':
+            return 'random upstream'
+        else:
+            return 'random downstream'
+    
+features['label_name']=pd.Series(features.index).apply(get_label).values
+
+#create labels and add them to the dataframe
+features['label']=LabelEncoder().fit_transform(features['label_name'].values)
 
 X=features.drop(['label','label_name'],axis=1)
 

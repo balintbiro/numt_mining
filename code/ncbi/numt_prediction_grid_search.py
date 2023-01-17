@@ -59,8 +59,16 @@ gscv_res=pd.read_csv('../results/gsCV_results.csv',index_col=0)
 #filter columns
 params=list(gscv_res.filter(like='param_'))
 params.append('mean_test_score')
-gscv_res=gscv_res[params]
-gscv_res.columns=['mx depth','mx features','mn leaf','mn split','n estimators','avg auc']
+gscv_res=rgscv_res[params]
+param_dict=pd.Series({
+  'param_n_estimators':'n estimators',
+  'param_min_samples_split':'mn split',
+  'param_min_samples_leaf':'mn leaf',
+  'param_max_features':'mx features',
+  'param_max_depth':'mx depth',
+  'mean_test_score':'avg auc'
+})
+gscv_res.columns=param_dict[params].values
 
 #create plot
 fig = px.parallel_coordinates(gscv_res, color="avg auc",
