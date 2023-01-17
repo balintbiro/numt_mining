@@ -7,7 +7,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import StratifiedKFold, train_test_split, GridSearchCV
+from sklearn.model_selection import StratifiedKFold, train_test_split, RandomizedSearchCV
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report,roc_curve,auc,RocCurveDisplay
 
 #read features
@@ -32,24 +32,24 @@ X_train,X_test,y_train,y_test=train_test_split(X_scaled,y,random_state=0)
 rfc=RandomForestClassifier(random_state=0)
 
 #setting parameters
-param_grid = {
+param_dist = {
     'max_depth': [2,3,4,5],#max depth of a tree
-    'max_features': np.linspace(2,len(X.columns),5,dtype=int),#The number of features to consider when looking for the best split:
+    'max_features': np.linspace(2,100,5,dtype=int),#The number of features to consider when looking for the best split:
     'min_samples_leaf': np.linspace(2,10,5,dtype=int),#The minimum number of samples required to be at a leaf node
-    'min_samples_split': np.linspace(2,100,5,dtype=int),#The minimum number of samples required to split an internal node
-    'n_estimators': np.linspace(3,20,5,dtype=int)#number of trees
+    'min_samples_split': np.linspace(2,30,5,dtype=int),#The minimum number of samples required to split an internal node
+    'n_estimators': np.linspace(3,10,5,dtype=int)#number of trees
 }
 
 #setting grid search for hyperparameter optimisation
-grid_search = GridSearchCV(estimator = rfc, param_grid = param_grid,n_jobs=-1,
-                          verbose = 0,scoring='roc_auc')
+randomCV = RandomizedSearchCV(estimator = rfc, param_distributions = param_dist,n_jobs=-1,
+                          verbose = 0,n_iter=100,scoring='roc_auc')
 
 #grid search for hyperparameter optimisation
-grid_search.fit(X_train, y_train)
+randomCV.fit(X_train, y_train)
 
 #transform the reults and save them
-gsCV_results=pd.DataFrame.from_dict(grid_search.cv_results_)
-gsCV_results.to_csv('../results/flanking_gsCV_results.csv')
+randomCV_results=pd.DataFrame.from_dict(randomCV.cv_results_)
+randomCV_results.to_csv('../results/flanking_gsCV_results.csv')
 
 ####################################################################################################
 #                                       visualisation                                              #
@@ -57,17 +57,17 @@ gsCV_results.to_csv('../results/flanking_gsCV_results.csv')
 ####################################################################################################
 
 #read in results
-gscv_res=pd.read_csv('../results/flanking_gsCV_results.csv',index_col=0)
+randomcv_res=pd.read_csv('../results/flanking_gsCV_results.csv',index_col=0)
 
 #filter columns
-params=list(gscv_res.filter(like='param_'))
+params=list(randomcv_res.filter(like='param_'))
 params.append('mean_test_score')
-gscv_res=gscv_res[params]
-gscv_res.columns=['mx depth','mx features','mn leaf','mn split','n estimators','avg auc']
+randomcv_res=randomcv_res[params]
+randomcv_res.columns=['mx depth','mx features','mn leaf','mn split','n estimators','avg auc']
 
 #create plot
 fig = px.parallel_coordinates(gscv_res, color="avg auc",
-                              dimensions=gscv_res.columns,
+                              dimensions=randomcv_res.columns,
                               color_continuous_scale=px.colors.diverging.Tealrose,
                               color_continuous_midpoint=.5)
 
