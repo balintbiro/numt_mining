@@ -81,10 +81,10 @@ downstream_repeats['dpiq_begin']=downstream_repeats['piq_begin']-downstream_repe
 #function for plotting
 def plot_repeats(repeat_class,bins,minval,maxval):
     global row_tracker; global column_tracker
-    subdf=repeats.loc[repeats['repeat_class']==repeat_class]
+    subdf=repeats.loc[repeats['repeat_class']==repeat_class.replace('**','')]
     subdf=subdf[subdf['piq_begin']<5040]
     upstream_repeats=subdf['piq_begin']
-    downstream=downstream_repeats.loc[downstream_repeats['repeat_class']==repeat_class]['dpiq_begin']
+    downstream=downstream_repeats.loc[downstream_repeats['repeat_class']==repeat_class.replace('**','')]['dpiq_begin']
     full_rep=pd.concat([upstream_repeats,downstream])
     full_rep=full_rep[(full_rep>minval)&(full_rep<maxval)]
     kwargs={'edgecolor':'black','lw':0.05}
@@ -107,9 +107,9 @@ def plot_repeats(repeat_class,bins,minval,maxval):
         row_tracker+=1
 
 #the strange repeats
-sig_repeats=pd.Series(['Simple_repeat','Low_complexity', 'SINE/MIR','LINE/L2',
-                       'LTR/ERVL', 'DNA/hAT-Charlie', 'LTR/ERV1','tRNA',
-                       'LINE/L1','LTR/ERVL-MaLR','SINE/Alu','SINE/B4',
+sig_repeats=pd.Series(['Simple_repeat*','Low_complexity*', 'SINE/MIR*','LINE/L2*',
+                       'LTR/ERVL*', 'DNA/hAT-Charlie*', 'LTR/ERV1*','tRNA*',
+                       'LINE/L1*','LTR/ERVL-MaLR*','SINE/Alu*','SINE/B4*',
                       'DNA/hAT-Tip100','LINE/CR1','LTR/ERVK','SINE/B2'])
 
 #visualize results and save the figure
@@ -122,3 +122,33 @@ sig_repeats.apply(plot_repeats,args=(100,4800,5200,))
 plt.tight_layout(pad=1, w_pad=0.0001, h_pad=.1)
 plt.text(-.55,-.55,'Density',fontsize=16,transform=ax[1,0].transAxes,rotation=90)
 plt.savefig('../results/rm_densities.png',bbox_inches='tight',dpi=400)
+
+#statistics
+def plot_repeats(repeat_class,bins,minval,maxval):
+    global row_tracker,column_tracker
+    repeat_class=repeat_class.replace('**','')
+    subdf=repeats.loc[repeats['repeat_class']==repeat_class]
+    subdf=subdf[subdf['piq_begin']<5040]
+    upstream_repeats=subdf['piq_begin']
+    downstream=downstream_repeats.loc[downstream_repeats['repeat_class']==repeat_class]['dpiq_begin']
+    full_rep=pd.concat([upstream_repeats,downstream])
+    full_rep=full_rep[(full_rep>minval)&(full_rep<maxval)].tolist()
+    return full_rep
+
+sig_repeats=pd.Series(['Simple_repeat','Low_complexity', 'SINE/MIR','LINE/L2',
+                       'LTR/ERVL', 'DNA/hAT-Charlie', 'LTR/ERV1','tRNA',
+                       'LINE/L1','LTR/ERVL-MaLR','SINE/Alu','SINE/B4',
+                      'DNA/hAT-Tip100','LINE/CR1','LTR/ERVK','SINE/B2'])
+
+#get repeat ranges
+repeat_ranges=sig_repeats.apply(plot_repeats,args=(100,4800,5200,))
+repeat_ranges.index=sig_repeats
+
+lengths=repeat_ranges.apply(lambda rm_range: len(rm_range))
+mins,maxs=repeat_ranges.apply(lambda rm_range: min(rm_range)),repeat_ranges.apply(lambda rm_range: max(rm_range))
+
+randoms=sig_repeats.apply(lambda repeat: np.random.choice(np.arange(mins[repeat],maxs[repeat]),size=lengths[repeat]))
+randoms.index=sig_repeats
+
+sig_repeats.apply(lambda repeat:kstest(np.histogram(randoms[repeat],bins=100)[0], np.histogram(repeat_ranges[repeat],bins=100)[0]))
+
