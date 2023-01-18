@@ -92,3 +92,53 @@ plt.savefig('../results/flanking_cvrocs.png',dpi=400)
 feature_importances=pd.Series(classifier.feature_importances_)
 feature_importances.index=X.columns
 feature_importances.to_csv('../results/flanking_feature_importances.csv')
+
+#visualize feature importances
+####################################################################################################
+#                                       visualisation                                              #
+#           for just the visualization, copy the code from here plus the dependencies              #
+####################################################################################################
+
+#import data
+feat_imp=pd.read_csv('../results/flanking_feature_importances.csv',index_col=0)
+feat_imp.columns=['importance']
+
+feature_groups=['NAC','Mismatch','Kmer Type1','Kmer Type2','NMBroto','Z curve','RCKmer Type1','RCKmer Type2']
+
+def get_feature(feature_length):
+    global tracker,indices
+    indices+=feature_length*[feature_groups[tracker]]
+    tracker+=1
+
+tracker,indices=0,[]
+feature_lengths.apply(get_feature)
+
+feat_imp['desc_group']=indices
+
+#sort every descriptor group
+feat_groups=feat_imp['desc_group'].unique()
+importances=pd.Series(feat_groups).apply(lambda feat_group: np.array(feat_imp.loc[feat_imp['desc_group']==feat_group]['importance']))
+importances.index=feat_groups
+importances.apply(lambda imp_lst: imp_lst.sort())
+
+#define colors
+colors=['blue','grey','red','pink','green','black','orange','brown',]
+
+#plotter function
+def plotter(imp_array):
+    global x,indexer
+    axs.barh(np.arange(x,(x+len(imp_array))),imp_array,height=1,color=colors[indexer])
+    axs.fill_between((0,0.12),x,(x+len(imp_array)),color=colors[indexer],alpha=.05)
+    axs.text(0.065,(x+len(imp_array)/2),importances.index[indexer],fontsize=15)
+    x+=len(imp_array)
+    indexer+=1
+
+fig,axs=plt.subplots(1,1,figsize=(6,10))
+axs.set_xlim(0,.12)
+x,indexer=0,0
+importances.apply(plotter)
+axs.set(yticklabels=[],yticks=[])
+axs.set_ylabel('Features',fontsize=20)
+axs.set_xlabel('Feature importance',fontsize=20)
+plt.tight_layout()
+plt.savefig('../results/flanking_feature_importances.png',dpi=400)
