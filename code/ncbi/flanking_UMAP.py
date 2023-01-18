@@ -66,3 +66,27 @@ def grid_search(n_neighbors,min_dist):
 grid_search(400,.9)
 
 features[['label_name','x','y']].to_csv('../data/flanking_umap.csv')
+
+####################################################################################################
+#                                       visualisation                                              #
+#           for just the visualization, copy the code from here plus the dependencies              #
+####################################################################################################
+
+features=pd.read_csv('../data/flanking_umap.csv',index_col=0)
+features['2label_name']=features['label_name'].apply(lambda name: name.rsplit()[0])
+
+fig,axs=plt.subplots(1,2,figsize=(12.5,6.),sharey=True)
+
+kwargs={'edgecolor':'face'}
+scplot1=sns.scatterplot(x='x',y='y',hue='label_name',data=features,s=10,ax=axs[0],palette='tab10',alpha=0.25,**kwargs)
+axs[0].set(xticklabels=[],yticklabels=[])
+axs[0].set_xlabel('UMAP1',fontsize=20)
+axs[0].set_ylabel('UMAP2',fontsize=20)
+scplot1.legend(title='Flanking sequence',prop={'size': 12})
+
+scplot2=sns.scatterplot(x='x',y='y',hue='2label_name',data=features,s=10,ax=axs[1],palette='tab10',alpha=0.25,**kwargs)
+axs[1].set_xlabel('UMAP1',fontsize=20)
+axs[1].set(xticklabels=[],yticklabels=[])
+scplot2.legend(title='Flanking sequence',prop={'size': 12})
+plt.tight_layout()
+plt.savefig('../results/flanking_400_nn_09_md.png',dpi=400)
