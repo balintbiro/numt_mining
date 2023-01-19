@@ -81,10 +81,10 @@ downstream_repeats['dpiq_begin']=downstream_repeats['piq_begin']-downstream_repe
 #function for plotting
 def plot_repeats(repeat_class,bins,minval,maxval):
     global row_tracker; global column_tracker
-    subdf=repeats.loc[repeats['repeat_class']==repeat_class.replace('**','')]
+    subdf=repeats.loc[repeats['repeat_class']==repeat_class.replace('*','')]
     subdf=subdf[subdf['piq_begin']<5040]
     upstream_repeats=subdf['piq_begin']
-    downstream=downstream_repeats.loc[downstream_repeats['repeat_class']==repeat_class.replace('**','')]['dpiq_begin']
+    downstream=downstream_repeats.loc[downstream_repeats['repeat_class']==repeat_class.replace('*','')]['dpiq_begin']
     full_rep=pd.concat([upstream_repeats,downstream])
     full_rep=full_rep[(full_rep>minval)&(full_rep<maxval)]
     kwargs={'edgecolor':'black','lw':0.05}
@@ -98,7 +98,7 @@ def plot_repeats(repeat_class,bins,minval,maxval):
     else:
         ax[row_tracker,column_tracker].set_title(repeat_class,fontsize=12.5)
     ax[row_tracker,column_tracker].set_xticks([minval,5000,maxval])
-    ax[row_tracker,column_tracker].set_xticklabels(['-'+str(5000-minval),'numt','+'+str(maxval-5000)],rotation=45,fontsize=12)
+    ax[row_tracker,column_tracker].set_xticklabels(['-'+str(5000-minval),'NUMT','+'+str(maxval-5000)],rotation=45,fontsize=12)
     ax[row_tracker,column_tracker].set_yticks([0,0.005,0.01,0.015,0.02])
     ax[row_tracker,column_tracker].set_yticklabels([0,'',0.01,'',0.02],fontsize=12)
     column_tracker+=1
