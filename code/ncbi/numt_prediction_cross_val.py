@@ -98,7 +98,20 @@ feature_importances.to_csv('../results/feature_importances.csv')
 #import data
 feat_imp=pd.read_csv('../results/feature_importances.csv',index_col=0)
 feat_imp.columns=['importance']
-feat_imp['desc_group']=(64*['Kmer Type1'])+(32*['RCKmer Type1'])+(32*['RCKmer Type2'])+(64*['Mismatch'])+(9*['Zcurve'])+(18*['NMBroto'])+(64*['Kmer Type2'])+(4*['NAC'])
+feature_groups=['NAC','Mismatch','Kmer Type1','Kmer Type2','NMBroto','Z curve','RCKmer Type1','RCKmer Type2']
+
+files=pd.Series(['NAC','Mismatch','Kmertype1','Kmertype2','NMBroto','Z_curve_9bit','RCKmertype1','RCKmertype2',])
+feature_lengths=files.apply(lambda filename: len(pd.read_csv(f'../data/features/numt_{filename}.csv',nrows=2).columns))
+
+def get_feature(feature_length):
+    global tracker,indices
+    indices+=feature_length*[feature_groups[tracker]]
+    tracker+=1
+
+tracker,indices=0,[]
+feature_lengths.apply(get_feature)
+
+feat_imp['desc_group']=indices
 
 #sort every descriptor group
 feat_groups=feat_imp['desc_group'].unique()
@@ -107,19 +120,19 @@ importances.index=feat_groups
 importances.apply(lambda imp_lst: imp_lst.sort())
 
 #define colors
-colors=['blue','grey','red','pink','green','black','orange','brown',]
+colors=['blue','grey','red','black','pink','green','orange','brown',]
 
 #plotter function
 def plotter(imp_array):
     global x,indexer
     axs.barh(np.arange(x,(x+len(imp_array))),imp_array,height=1,color=colors[indexer])
-    axs.fill_between((0,0.1),x,(x+len(imp_array)),color=colors[indexer],alpha=.05)
+    axs.fill_between((0,max(np.concatenate(importances.tolist()))),x,(x+len(imp_array)),color=colors[indexer],alpha=.05)
     axs.text(0.065,(x+len(imp_array)/2),importances.index[indexer],fontsize=15)
     x+=len(imp_array)
     indexer+=1
 
 fig,axs=plt.subplots(1,1,figsize=(6,10))
-axs.set_xlim(0,.1)
+axs.set_xlim(0,max(np.concatenate(importances.tolist())))
 x,indexer=0,0
 importances.apply(plotter)
 axs.set(yticklabels=[],yticks=[])

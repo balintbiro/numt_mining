@@ -105,6 +105,9 @@ feat_imp.columns=['importance']
 
 feature_groups=['NAC','Mismatch','Kmer Type1','Kmer Type2','NMBroto','Z curve','RCKmer Type1','RCKmer Type2']
 
+files=pd.Series(['NAC','Mismatch','Kmertype1','Kmertype2','NMBroto','Z_curve_9bit','RCKmertype1','RCKmertype2',])
+feature_lengths=files.apply(lambda filename: len(pd.read_csv(f'../data/flanking_features/{filename}.csv',nrows=2).columns))
+
 def get_feature(feature_length):
     global tracker,indices
     indices+=feature_length*[feature_groups[tracker]]
@@ -122,7 +125,7 @@ importances.index=feat_groups
 importances.apply(lambda imp_lst: imp_lst.sort())
 
 #define colors
-colors=['blue','grey','red','pink','green','black','orange','brown',]
+colors=['blue','grey','red','black','pink','green','orange','brown',]
 
 #plotter function
 def plotter(imp_array):
