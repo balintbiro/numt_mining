@@ -35,3 +35,6 @@ code/ncbi/tSNE_feature_search.py
 code/ncbi/trial.py
 data/bsnj_tree.txt
 data/numt_sequences.fasta
+*.eps
+*.svg
+*.nex

@@ -43,7 +43,7 @@ def grid_search(n_neighbors,min_dist):
             min_dist=min_dist,
             n_neighbors=n_neighbors
         )
-    embedding=reducer.fit_transform(X_scaled,y=features['order_label'])
+    embedding=reducer.fit_transform(X_scaled,y=features['order_label'])#for NUMT vs random embedding, y=features['label']
     features['x'],features['y']=embedding[:,0],embedding[:,1]
     fig,axs=plt.subplots(1,1,figsize=(8.5,6.5))
     plotter(axs)

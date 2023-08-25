@@ -30,253 +30,145 @@ distance_matrix <- dist.alignment(
   matrix="similarity"
 )
 
-#create the actual tree
-nj_tree <- nj(distance_matrix)
+#######new
+distace_matrix <- dist.ml(as.phyDat(alignment))
+treeNJ <- NJ(distance_matrix)
+fit <- pml(treeNJ,data=as.phyDat(alignment))
+fitJC <- optim.pml(fit,rearrangement = 'NNI')
+fitGTR <- optim.pml(fitJC,model='GTR',optInv = TRUE,optGamma = TRUE,
+                    rearrangement = 'NNI',control=pml.control(trace=0))
+bs <- bootstrap.pml(fitGTR, bs=100, optNni=TRUE,
+                    control = pml.control(trace = 0))
 
-#function for bootstrapping a neighbor joining tree with JC method
-fun <- function(x) nj(dist.ml(x,model='JC69'))
+tree<-ggtree(consensus(bs),layout='circular')
 
-#actual bootstrapping 100 times
-bs_tree <- bootstrap.phyDat(as.phyDat(alignment),bs=500,fun)
+write.tree(consensus(bs),file='../../results/gtr_tree.nex')
 
-#visualize the consensus tree
-tree <- ggtree(
-  consensus(bs_tree),#the consensus tree
-  layout='circular',#style,other options are daylight, equal_angle, fan, circular, roundrect, ellipse, slanted, unrooted
-  branch.length='none',#no branch length
-  size=0.4,#width of the branches
-  color='black',#color
-  alpha=1,#transparency
-  open.angle=90#where to have a gap
-)+geom_highlight(#higlight the node with box
-  node=156,#node number is for Carnivores
-  fill='#1f77b4ff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75,
-  type="rect"
-)+geom_highlight(#higlight the node with box
-  node=182,#node number is for Primates
-  fill='#aec7e8ff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=247,#node number is for Primates
-  fill='#aec7e8ff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=198,#node number is for Rodentia
-  fill='#2ca02cff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=248,#node number is for Rodentia
-  fill='#2ca02cff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=244,#node number is for Rodentia
-  fill='#2ca02cff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=252,#node number is for Rodentia
-  fill='#2ca02cff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=228,#node number is for Chiroptera
-  fill='#ff7f0eff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=235,#node number is for Chiroptera
-  fill='#ff7f0eff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=250,#node number is for Chiroptera
-  fill='#ff7f0eff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=208,#node number is for Artiodactyla
-  fill='#ffbb78ff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=216,#node number is for Artiodactyla
-  fill='#ffbb78ff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=232,#node number is for Artiodactyla
-  fill='#ffbb78ff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=226,#node number is for Didelphimorpha
-  fill='#e377c2ff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=243,#node number is for Perissodactyla
-  fill='#8c564bff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=240,#node number is for Lagomopha
-  fill='#c7c7c7ff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=227,#node number is for Monotremata
-  fill='#bcbd22ff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=246,#node number is for Proboscidea
-  fill='#f7b6d2ff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=238,#node number is for Eulipotyphla
-  fill='#d62728ff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)+geom_highlight(#higlight the node with box
-  node=251,#node number is for Pholidota
-  fill='#7f7f7fff',#color to fill with;rgb and hex are also accepted; alpha is also possible to be specified
-  alpha=.75
-)
+trial_tree<-read.tree('../../results/gtr_tree_trial.nex')
+
+ggtree(trial_tree,layout='circular',size=0.4,open.angle = 280)+geom_tiplab()+geom_text2(aes(subset=!isTip,label=node))+
+  geom_cladelabel(node=236,color='#1f77b4ff',barsize=7,label='')+#Carnivores
+  geom_cladelabel(node=253,color='#1f77b4ff',barsize=7,label='')+#Carnivores
+  geom_cladelabel(node=254,color='#1f77b4ff',barsize=7,label='')+#Carnivores
+  geom_cladelabel(node=256,color='#1f77b4ff',barsize=7,label='')+#Carnivores
+  geom_cladelabel(node=257,color='#1f77b4ff',barsize=7,label='')+#Carnivores
+  geom_cladelabel(node=163,color='#aec7e8ff',barsize=7,label='')+#Primates
+  geom_cladelabel(node=197,color='#aec7e8ff',barsize=7,label='')+#Primates
+  geom_cladelabel(node=198,color='#2ca02cff',barsize=7,label='')+#Rodentia
+  geom_cladelabel(node=194,color='#2ca02cff',barsize=7,label='')+#Rodentia
+  geom_cladelabel(node=204,color='#ffbb78ff',barsize=7,label='')+#Artiodactyla
+  geom_cladelabel(node=225,color='#ff7f0eff',barsize=7,label='')+#Chiroptera
+  geom_cladelabel(node=232,color='#ff7f0eff',barsize=7,label='')+#Chiroptera
+  geom_cladelabel(node=178,color='#2ca02cff',barsize=7,label='')#Rodentia
 
 
 
-
-#modify background
-theme(
-  plot.background = element_rect(
-    fill='transparent',
-    color=NA
-  ),
-  panel.background = element_rect(
-    fill='transparent',
-    color=NA
-  )
-)
-
-#add organism names-it is going to be messy since we have too much names
-tree+geom_tiplab(
-  hjust=-.1,#distance from the tip
-  size=4#size of the text
-)+geom_text2(
-  aes(subset=!isTip,label=node)
-)
-
-#add nodelabel as a stick
-tree+geom_cladelabel(
-  node=156,#node number
-  label='test label',#text for highlighting
-  color='green',#color to fill with
-  fontsize=8,#size of the text
-  angle=45,
-  barsize=7#thickness of bar
-)
-
-ggtree(
-  consensus(bs_tree),#the consensus tree
-  layout='circular',#style,other options are daylight, equal_angle, fan, circular, roundrect, ellipse, slanted, unrooted
-  branch.length='none',#no branch length
-  size=0.4,#width of the branches
-  color='black',#color
-  alpha=1,#transparency
-  open.angle=90#where to have a gap
-)+geom_cladelabel(#higlight the node with box
-  node=156,#node number is for Carnivores
-  color='#1f77b4ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+++geom_cladelabel(#higlight the node with box
+  node=217,#node number is for Rodentia=['castor_canadensis', 'cavia_porcellus', 'chinchilla_lanigera', 'cricetulus_griseus', 'fukomys_damarensis', 'grammomys_surdaster', 'heterocephalus_glaber', 'ictidomys_tridecemlineatus', 'jaculus_jaculus', 'marmota_flaviventris', 'mastomys_coucha', 'meriones_unguiculatus', 'mesocricetus_auratus', 'microtus_ochrogaster', 'mus_caroli', 'mus_musculus', 'mus_pahari', 'myodes_glareolus', 'nannospalax_galili', 'octodon_degus', 'peromyscus_leucopus', 'rattus_norvegicus', 'rattus_rattus', 'urocitellus_parryii']
+  color='#2ca02cff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
   barsize=7,
   label=''
 )+geom_cladelabel(#higlight the node with box
-  node=182,#node number is for Primates
+  node=235,#node number is for Rodentia=['castor_canadensis', 'cavia_porcellus', 'chinchilla_lanigera', 'cricetulus_griseus', 'fukomys_damarensis', 'grammomys_surdaster', 'heterocephalus_glaber', 'ictidomys_tridecemlineatus', 'jaculus_jaculus', 'marmota_flaviventris', 'mastomys_coucha', 'meriones_unguiculatus', 'mesocricetus_auratus', 'microtus_ochrogaster', 'mus_caroli', 'mus_musculus', 'mus_pahari', 'myodes_glareolus', 'nannospalax_galili', 'octodon_degus', 'peromyscus_leucopus', 'rattus_norvegicus', 'rattus_rattus', 'urocitellus_parryii']
+  color='#2ca02cff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=194,#node number is for Artiodactyla=['balaenoptera_musculus', 'bos_indicus', 'bos_mutus', 'bos_taurus', 'bubalus_bubalis', 'camelus_bactrianus', 'camelus_dromedarius', 'camelus_ferus', 'capra_hircus', 'cervus_canadensis', 'cervus_elaphus', 'delphinapterus_leucas', 'globicephala_melas', 'lagenorhynchus_obliquidens', 'lipotes_vexillifer', 'monodon_monoceros', 'odocoileus_virginianus', 'orcinus_orca', 'ovis_aries', 'phacochoerus_africanus', 'phocoena_sinus', 'physeter_catodon', 'sus_scrofa', 'tursiops_truncatus', 'vicugna_pacos']
+  color='#ffbb78ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=238,#node number is for Artiodactyla=['balaenoptera_musculus', 'bos_indicus', 'bos_mutus', 'bos_taurus', 'bubalus_bubalis', 'camelus_bactrianus', 'camelus_dromedarius', 'camelus_ferus', 'capra_hircus', 'cervus_canadensis', 'cervus_elaphus', 'delphinapterus_leucas', 'globicephala_melas', 'lagenorhynchus_obliquidens', 'lipotes_vexillifer', 'monodon_monoceros', 'odocoileus_virginianus', 'orcinus_orca', 'ovis_aries', 'phacochoerus_africanus', 'phocoena_sinus', 'physeter_catodon', 'sus_scrofa', 'tursiops_truncatus', 'vicugna_pacos']
+  color='#ffbb78ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=201,#node number is for Artiodactyla=['balaenoptera_musculus', 'bos_indicus', 'bos_mutus', 'bos_taurus', 'bubalus_bubalis', 'camelus_bactrianus', 'camelus_dromedarius', 'camelus_ferus', 'capra_hircus', 'cervus_canadensis', 'cervus_elaphus', 'delphinapterus_leucas', 'globicephala_melas', 'lagenorhynchus_obliquidens', 'lipotes_vexillifer', 'monodon_monoceros', 'odocoileus_virginianus', 'orcinus_orca', 'ovis_aries', 'phacochoerus_africanus', 'phocoena_sinus', 'physeter_catodon', 'sus_scrofa', 'tursiops_truncatus', 'vicugna_pacos']
+  color='#ffbb78ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=213,#node number is for Chiroptera=['artibeus_jamaicensis', 'desmodus_rotundus', 'hipposideros_armiger', 'myotis_brandtii', 'myotis_davidii', 'myotis_lucifugus', 'myotis_myotis', 'pteropus_alecto', 'pteropus_vampyrus', 'rhinolophus_ferrumequinum', 'rousettus_aegyptiacus']
+  color='#ff7f0eff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=223,#node number is for Chiroptera=['artibeus_jamaicensis', 'desmodus_rotundus', 'hipposideros_armiger', 'myotis_brandtii', 'myotis_davidii', 'myotis_lucifugus', 'myotis_myotis', 'pteropus_alecto', 'pteropus_vampyrus', 'rhinolophus_ferrumequinum', 'rousettus_aegyptiacus']
+  color='#ff7f0eff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=237,#node number is for Chiroptera=['artibeus_jamaicensis', 'desmodus_rotundus', 'hipposideros_armiger', 'myotis_brandtii', 'myotis_davidii', 'myotis_lucifugus', 'myotis_myotis', 'pteropus_alecto', 'pteropus_vampyrus', 'rhinolophus_ferrumequinum', 'rousettus_aegyptiacus']
+  color='#ff7f0eff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=220,#node number is for Artiodactyla=['balaenoptera_musculus', 'bos_indicus', 'bos_mutus', 'bos_taurus', 'bubalus_bubalis', 'camelus_bactrianus', 'camelus_dromedarius', 'camelus_ferus', 'capra_hircus', 'cervus_canadensis', 'cervus_elaphus', 'delphinapterus_leucas', 'globicephala_melas', 'lagenorhynchus_obliquidens', 'lipotes_vexillifer', 'monodon_monoceros', 'odocoileus_virginianus', 'orcinus_orca', 'ovis_aries', 'phacochoerus_africanus', 'phocoena_sinus', 'physeter_catodon', 'sus_scrofa', 'tursiops_truncatus', 'vicugna_pacos']
+  color='#ffbb78ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=234,#node number is for Primates=['aotus_nancymaae', 'callithrix_jacchus', 'carlito_syrichta', 'cercocebus_atys', 'chlorocebus_sabaeus', 'gorilla_gorilla', 'lemur_catta', 'macaca_fascicularis', 'macaca_mulatta', 'macaca_nemestrina', 'mandrillus_leucophaeus', 'microcebus_murinus', 'nomascus_leucogenys', 'pan_paniscus', 'pan_troglodytes', 'papio_anubis', 'pongo_abelii', 'propithecus_coquereli', 'rhinopithecus_bieti', 'rhinopithecus_roxellana', 'sapajus_apella', 'theropithecus_gelada', 'trachypithecus_francoisi']
   color='#aec7e8ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
   barsize=7,
   label=''
 )+geom_cladelabel(#higlight the node with box
-  node=247,#node number is for Primates
-  color='#aec7e8ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=198,#node number is for Rodentia
-  color='#2ca02cff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=248,#node number is for Rodentia
-  color='#2ca02cff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=244,#node number is for Rodentia
-  color='#2ca02cff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=252,#node number is for Rodentia
-  color='#2ca02cff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=228,#node number is for Chiroptera
-  color='#ff7f0eff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=235,#node number is for Chiroptera
-  color='#ff7f0eff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=250,#node number is for Chiroptera
-  color='#ff7f0eff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=208,#node number is for Artiodactyla
-  color='#ffbb78ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=216,#node number is for Artiodactyla
-  color='#ffbb78ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=232,#node number is for Artiodactyla
-  color='#ffbb78ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=226,#node number is for Didelphimorpha
-  color='#e377c2ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=243,#node number is for Perissodactyla
-  color='#8c564bff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=240,#node number is for Lagomopha
-  color='#c7c7c7ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=227,#node number is for Monotremata
-  color='#bcbd22ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
-  barsize=7,
-  label=''
-)+geom_cladelabel(#higlight the node with box
-  node=246,#node number is for Proboscidea
+  node=233,#node number is for Proboscidea=['elephas_maximus', 'loxodonta_africana']
   color='#f7b6d2ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
   barsize=7,
   label=''
 )+geom_cladelabel(#higlight the node with box
-  node=238,#node number is for Eulipotyphla
+  node=231,#node number is for Perissodactyla=['equus_asinus', 'equus_caballus']
+  color='#8c564bff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=228,#node number is for Lagomopha=['ochotona_curzoniae', 'ochotona_princeps', 'oryctolagus_cuniculus']
+  color='#c7c7c7ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=226,#node number is for Eulipotyphla=['condylura_cristata', 'erinaceus_europaeus', 'sorex_araneus', 'talpa_occidentalis']
   color='#d62728ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
   barsize=7,
   label=''
 )+geom_cladelabel(#higlight the node with box
-  node=251,#node number is for Pholidota
+  node=239,#node number is for Pholidota=['manis_javanica', 'manis_pentadactyla']
   color='#7f7f7fff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=211,#node number is for Didelphimorpha=['gracilinanus_agilis', 'monodelphis_domestica']
+  color='#e377c2ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=212,#node number is for Monotremata=['ornithorhynchus_anatinus', 'tachyglossus_aculeatus']
+  color='#bcbd22ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=240,#node number is for Primates=['aotus_nancymaae', 'callithrix_jacchus', 'carlito_syrichta', 'cercocebus_atys', 'chlorocebus_sabaeus', 'gorilla_gorilla', 'lemur_catta', 'macaca_fascicularis', 'macaca_mulatta', 'macaca_nemestrina', 'mandrillus_leucophaeus', 'microcebus_murinus', 'nomascus_leucogenys', 'pan_paniscus', 'pan_troglodytes', 'papio_anubis', 'pongo_abelii', 'propithecus_coquereli', 'rhinopithecus_bieti', 'rhinopithecus_roxellana', 'sapajus_apella', 'theropithecus_gelada', 'trachypithecus_francoisi']
+  color='#aec7e8ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=241,#node number is for Primates=['aotus_nancymaae', 'callithrix_jacchus', 'carlito_syrichta', 'cercocebus_atys', 'chlorocebus_sabaeus', 'gorilla_gorilla', 'lemur_catta', 'macaca_fascicularis', 'macaca_mulatta', 'macaca_nemestrina', 'mandrillus_leucophaeus', 'microcebus_murinus', 'nomascus_leucogenys', 'pan_paniscus', 'pan_troglodytes', 'papio_anubis', 'pongo_abelii', 'propithecus_coquereli', 'rhinopithecus_bieti', 'rhinopithecus_roxellana', 'sapajus_apella', 'theropithecus_gelada', 'trachypithecus_francoisi']
+  color='#aec7e8ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
+  barsize=7,
+  label=''
+)+geom_cladelabel(#higlight the node with box
+  node=250,#node number is for Primates=['aotus_nancymaae', 'callithrix_jacchus', 'carlito_syrichta', 'cercocebus_atys', 'chlorocebus_sabaeus', 'gorilla_gorilla', 'lemur_catta', 'macaca_fascicularis', 'macaca_mulatta', 'macaca_nemestrina', 'mandrillus_leucophaeus', 'microcebus_murinus', 'nomascus_leucogenys', 'pan_paniscus', 'pan_troglodytes', 'papio_anubis', 'pongo_abelii', 'propithecus_coquereli', 'rhinopithecus_bieti', 'rhinopithecus_roxellana', 'sapajus_apella', 'theropithecus_gelada', 'trachypithecus_francoisi']
+  color='#aec7e8ff',#color to color with;rgb and hex are also accepted; alpha is also possible to be specified
   barsize=7,
   label=''
 )
 
+
 #save nj tree
 ggsave(
-  '../../results/bs_nj_tree.png',
+  '../../results/bs_nj_tree.eps',
   plot=last_plot(),
   dpi=400,
   units='cm',

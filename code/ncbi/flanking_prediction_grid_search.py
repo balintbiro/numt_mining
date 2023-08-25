@@ -1,12 +1,12 @@
 #import dependencies
 import os
+import xgboost
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import plotly.express as px
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold, train_test_split, RandomizedSearchCV
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report,roc_curve,auc,RocCurveDisplay
 
@@ -29,20 +29,20 @@ X_scaled=scaler.fit_transform(X)
 X_train,X_test,y_train,y_test=train_test_split(X_scaled,y,random_state=0)
 
 #initialize classifier
-rfc=RandomForestClassifier(random_state=0)
+classifier=xgboost.XGBClassifier()
 
 #setting parameters
 param_dist = {
-    'max_depth': [1,2,3],#max depth of a tree
-    'max_features': [1,2,3,4,10,25,50],#The number of features to consider when looking for the best split:
-    'min_samples_leaf': np.linspace(1,10,5,dtype=int),#The minimum number of samples required to be at a leaf node
-    'min_samples_split': np.linspace(1,30,5,dtype=int),#The minimum number of samples required to split an internal node
-    'n_estimators': np.linspace(1,10,5,dtype=int)#number of trees
+    'learning_rate':[.05,.1,.15,.2,.25,.3],
+    'max_depth':[3,4,5,6,8,10,12,15],
+    'min_child_weight':[1,3,5,7],
+    'gamma':[0,.1,.2,.3,.4],
+    'colsample_bytree':[.3,.4,.5,.7]
 }
 
 #setting grid search for hyperparameter optimisation
-randomCV = RandomizedSearchCV(estimator = rfc, param_distributions = param_dist,n_jobs=-1,
-                          verbose = 0,cv=10,n_iter=100,scoring='roc_auc')
+randomCV = RandomizedSearchCV(estimator = classifier, param_distributions = param_dist,n_jobs=-1,
+                          verbose = 0,cv=10,n_iter=10,scoring='roc_auc')
 
 #grid search for hyperparameter optimisation
 randomCV.fit(X_train, y_train)
