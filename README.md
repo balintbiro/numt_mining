@@ -9,6 +9,8 @@ Our results show that the frequency of several repetitive elements is higher in 
 
 In this paper, we introduce a general mining pipeline for all mammalian genomes. The workflow is publicly available and is believed to serve as a validated baseline for future research in this field. We confirm the widespread opinion, on - as to our current knowledge - the largest dataset, that structural circumstances and events corresponding to repetitive elements are highly significant. An accurate model has also been trained to predict these sequences and their corresponding flanking regions
 
+![graphical_abstract](https://github.com/balintbiro/numt_mining/results/fig6.png)
+
 Setting up the environment with conda package manager
 ---
 ```bash
