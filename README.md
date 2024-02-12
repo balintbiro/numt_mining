@@ -1,5 +1,13 @@
-# numt mining pipeline
+# NUMT mining pipeline
 Pipeline for mining mitochondrial sequences in the nuclear genome.
+# Abstract
+There is an ongoing process in which mitochondrial sequences are being integrated into the nuclear genome. The importance of these sequences has already been revealed in cancer biology, forensic, phylogenetic studies and in the evolution of the eukaryotic genetic information. Human and numerous model organisms’ genomes were described from those sequences point of view. Furthermore, recent studies were published on the patterns of these nuclear localised mitochondrial sequences in different taxa.
+
+However, the results of the previously released studies are difficult to compare due to the lack of standardised methods and/or using few numbers of genomes. Therefore, in this paper our primary goal is to establish a uniform mining pipeline to explore these nuclear localised mitochondrial sequences.
+
+Our results show that the frequency of several repetitive elements is higher in the flanking regions of these sequences than expected. A machine learning model reveals that the flanking regions' repetitive elements and different structural characteristics are highly influential during the integration process.
+
+In this paper, we introduce a general mining pipeline for all mammalian genomes. The workflow is publicly available and is believed to serve as a validated baseline for future research in this field. We confirm the widespread opinion, on - as to our current knowledge - the largest dataset, that structural circumstances and events corresponding to repetitive elements are highly significant. An accurate model has also been trained to predict these sequences and their corresponding flanking regions
 
 Setting up the environment with conda package manager
 ---
